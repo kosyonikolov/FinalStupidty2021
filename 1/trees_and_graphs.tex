@@ -4,8 +4,10 @@
 \usepackage[margin=1cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[bulgarian]{babel}
+\usepackage[unicode]{hyperref}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{enumitem, hyperref}
 
 \usepackage{amsmath}
 \DeclareMathOperator{\cotg}{cotg}
@@ -135,6 +137,26 @@ $v_{i0}, v_{i1}, \dots, v_{iL}$, за която $\forall p \in \{ 0, 1, \dots, 
 $E_l = E_{l - 1} \cup \{ (w, u) \in E : w \in L_l, u \in A_l \}$. На всяка стъпка проверяваме дали 
 $V = L_0 \cup L_1 \cup \dots \cup L_l$ - ако това е вярно, тогава всички върхове са обходени и $D_l(V_l, E_l)$ е покриващо дърво.
 Ако BFS алгоритъмът спре по стъпка 3, но горното условие не е вярно, то $G$ не е свързан.
+\vspace{10mm}
+
+\textbf{Обхождане в дълбочина: } Нека $G = (V, E)$ е свързан граф, $r \in V$ - начален връх и обходен, 
+$p(t) : V \rightarrow V$ - функция на предшествениците, $p(r)$ - неопределено, $t \rightarrow r$ - текущ връх.
+\begin{enumerate}
+	\item \label{dfs:checkAdj} Проверяваме за връх $u \in V$, който е необходен и е съсед на $t$.
+	\begin{enumerate}
+		\item Ако няма такъв връх, проверяваме дали $t = r$.
+		\begin{enumerate}
+			\item Ако $t = r$, то всички върхове са обходени - приключваме
+			\item Ако не, $t \leftarrow p(t)$ и се връщаме на \ref{dfs:checkAdj}
+		\end{enumerate}
+		\item \label{dfs:addV} Ако има такъв връх, то $t \leftarrow v$, $v$ става обходен и се връщаме на \ref{dfs:checkAdj}
+	\end{enumerate}
+\end{enumerate} 
+
+\textbf{Построяване на покриващо дърво чрез обхождане в дълбочина: } Нека $G = (V, E)$ е свързан граф.
+Покриващо дърво на $G$ с корен $v$ можем да построим чрез алгоритъма DFS. Достъчно е да започнем
+с $D_0(V_0, E_0), V_0 = \{v\}, E_0 = \varnothing$, и на всяка стъпка \ref{dfs:addV} да построим
+$D_{i + 1}(V_{i + 1}, E_{i + 1}), V_{i + 1} = V_i \cup \{ v \}, E_{i + 1} = E_i \cup (t, v)$.
 
 \section{Ойлерови обхождания на мултиграф.}
 \section{Теореми за съществуване на Ойлеров цикъл (с доказателство) и Ойлеров път.}
