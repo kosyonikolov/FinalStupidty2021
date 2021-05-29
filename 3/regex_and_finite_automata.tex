@@ -1,0 +1,69 @@
+\documentclass[fleqn,12pt]{article}
+
+\usepackage[margin=15mm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[bulgarian]{babel}
+\usepackage[unicode]{hyperref}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumitem, hyperref}
+
+\usepackage{amsmath}
+\usepackage{tikz}
+
+\DeclareMathOperator{\cotg}{cotg}
+\DeclareMathOperator{\LCS}{LCS}
+\DeclareMathOperator{\longer}{longer}
+
+\setlength{\parskip}{1em}
+\usetikzlibrary{automata,positioning}
+
+\title{Крайни автомати. Регулярни езици. Thm на Клини.}
+\author{v0.1}
+\date{29 май 2021}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\pagebreak
+\begin{flushleft}
+
+\section{Детерминирани крайни автомати}
+
+\textit{\textbf{Деф}} - Краен детерминиран автомат (КДА) наричаме наредената петорка $M = (K, \Sigma, \delta, s, F)$, където:
+\begin{itemize}
+    \item $K$ - крайна азбука от състояния,
+    \item $\Sigma$ - основна азбука (крайна),
+    \item $\delta : K \times \Sigma \rightarrow K$ функция на преходите,
+    \item $s \in K$, $s$ - начално състояние,
+    \item $F \subseteq K$, $F$ - мн-во на крайните състояния.
+\end{itemize}
+
+\textit{\textbf{Деф}} - Конфигурация за M се нарича всяка двойка $(q, w)$, където $q \in K$ и $w \in \Sigma^*$
+
+\textit{\textbf{Деф}} - Казваме, че конфигурацията $(q, w)$ се преработва за 1 стъпка в конф. $(q', w') \iff \exists a \in \Sigma : \delta(q, a) = q'$ и $w = aw'$. Означаваме с $\vdash_M$, т.е. $(q, w) \vdash_M (q', w')$.
+
+\textit{\textbf{Деф}} - $\vdash_M^*$ наричаме рефлексивното и транзитивно затваряне на $\vdash_M$.
+
+\textit{\textbf{Деф}} - Казваме, че $M$ разпознава (приема) думата $w \iff (s, w) \vdash_M^* (f, \varepsilon)$, където $f \in F$.
+
+\textit{\textbf{Деф}} - $L(M) = \{w | w \in \Sigma^*$ и $w$ се разпознава от $M\}$ се нарича езика, който се разпознава от автомата $M$. Казваме, че езика $L$ се разпознава от автомата $M$ ако $L = L(M)$.
+
+КДА $M = (K, \Sigma, \delta, s, F)$ представяме чрез краен ориентиран мултиграф, където върховете са елементите на $K$, такива че върховете съотвестващи на $q, p \in K: \delta(q, x) = p, x \in \Sigma$, са свързани с ребро излизащо от $q$ и влизащо в $p$ с надпис $x$.
+
+\begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+    \node[state,initial,accepting] (s)   {$s$}; 
+    \node[state] (q) [right=of s] {$q$}; 
+    \path[->] 
+    (s) edge[bend left, above] node{a} (q)
+    (q) edge[bend left, below]  node{a} (s);
+\end{tikzpicture}
+
+\section{Регулярни операции}
+
+аяь
+
+\end{flushleft}
+\end{document}
