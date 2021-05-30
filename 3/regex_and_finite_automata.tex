@@ -63,7 +63,53 @@
 
 \section{Регулярни операции}
 
-аяь
+\textit{\textbf{Деф}} - $\Sigma^*$ наричаме множеството от всички думи в азбуката $\Sigma$.
+
+\textit{\textbf{Деф}} - Казваме, че $L$ е език в азб. $\Sigma$ ако $L \subseteq \Sigma^*$.
+
+\textit{\textbf{Деф}} - Конкатенация на езиците $L_1$, $L_2$ в азбуката $\Sigma$ отбелязваме като $L_1 \circ L_2$ и дефинираме като $L_1 \circ L_2 = \{w_1 \circ w_2 | w_1 \in L_1 $ и $ w_2 \in L_2\}$.
+
+\textit{Пример - $\{li, on\} \circ \{leo, pard\} = \{lileo, lipard, onleo, onpard\}$}.
+
+\textit{\textbf{Деф}} - Обединението на езиците $L_1$ и $L_2$ в азб. $\Sigma$ бележим като $L_1 \cup L_2$ и дефинираме като $L_1 \cup L_2 = \{w | w \in L_1 $ или $ w \in L_2\}$.
+
+\textit{Пример - $\{a, b\} \cup \{pumba, jay, b\} = \{a, b, pumbda, jay, b\}$}.
+
+\textit{\textbf{Деф}} - Степен в език $L$ в азбука $\Sigma$ дефинираме индуктивно като:
+\begin{enumerate}
+    \item $L^0 = \{\varepsilon\}$
+    \item $L^{i+1} = L^i \circ L, i \in \mathbb{N}$
+\end{enumerate}}
+
+\textit{\textbf{Деф}} - Звезда на Клини на език $L$ в азбука $\Sigma$ бележим като $L^*$ и дефинираме като $L^* = \bigcup\limits_{i=0}^{\infty} L^{i} = L^0 \cup L^1 \cup L^2 \dots = \{w | w = w_1 \circ \dots \circ w_k, w_0, \dots, w_k \in L $ и $ k \in \mathbb{N}\}$
+
+\textit{Пример - $\{a, b\}^* = \{\varepsilon, a, b, aa, bb, ab, ba, bb, aaa, aab, \dots\}$}.
+
+\textit{\textbf{Деф}} - Допълнение на език $L$ наричаме $L^C = \Sigma^* \textbackslash L$.
+
+\section{Недетерминирани крайни автомати}
+
+\textit{\textbf{Деф}} - Недетерминиран краен автомат (КНА) наричаме петицата $M = (K, \Sigma, \Delta, s, F)$, където:
+\begin{itemize}
+    \item $K$ - крайна азбука от състояния,
+    \item $\Sigma$ - крайна основна азбука,
+    \item $\Delta$ - релация на преходите, $\Delta \subseteq K \times (\Sigma \cup \{ \varepsilon \} ) \times K$,
+    \item $F$ - мн-во от заключителни състояния, $F \subseteq K$,
+    \item $s$ - начално състояние, $s \in K$.
+\end{itemize}
+
+\textit{\textbf{Заб} - Всеки КДА $M = (K, \Sigma, \delta, s, F)$ може да се разглежда като КНА $M = (K, \Sigma, G_\delta, s, F)$, където $G_\delta = \{(q, a, q') | \delta(q, a) = q' \}$.}
+
+\textit{\textbf{Деф}} - Конфигурация за КНА $M = (K, \Sigma, \Delta, s, F)$ наричаме всяка двойка $(q, w)$, такава че $q \in K$ и $w \in \Sigma^*$.
+
+\textit{\textbf{Деф}} - Нека $M = (K, \Sigma, \Delta, s, F)$ е КНА. Казваме, че конфигурацията $(q, w)$ се преработва за 1 стъпка в конф. $(q', w') \iff \exists u \in \Sigma \cup \{\varepsilon\}$, такова че $w = uw'$ и $(q, u, q') \in \Delta$. Означаваме като $(q, w) \vdash_M (q', w')$.
+
+\textit{\textbf{Деф}} - $\vdash_M^*$ наричаме рефлексивното и транзитивно затваряне на $\vdash_M$.
+
+\textit{\textbf{Деф}} - Казваме, че $w \in \Sigma^*$ се приема (разпознава) от КНА $M = (K, \Sigma, \Delta, s, F) \iff (s, w) \vdash_M^* (f, \varepsilon)$, където $f \in F$. 
+
+\textit{\textbf{Деф}} - $L(M) = \{w | w \in \Sigma^*: (s, w) \vdash_M^* (f, \varepsilon)$, където $f \in F\}$ се нарича езика, който се разпознава от автомата $M = (K, \Sigma, \Delta, s, F)$.
+
 
 \end{flushleft}
 \end{document}
