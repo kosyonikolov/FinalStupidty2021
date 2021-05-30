@@ -164,6 +164,144 @@ $(\implies)$ Нека $(s, w) \vdash_M^* (p, \varepsilon)$, т.е. $(s, va) \vda
 $(\impliedby)$ Нека $(E(s), va) \vdash_{M'}^* (P, \varepsilon)$, т.е. $(E(s), va) \vdash_{M'}^* (R_1, a) \vdash_{M'} (P, \varepsilon)$, $R_1 \in K'$, т.е. $(E(s), v) \vdash_{M'}^* (R_1, \varepsilon)$.\\
 От ИП за някое $r_1 \in R_1$ е изпълнено, че $(s, v) \vdash_M^* (r_1, \varepsilon)$ и от дефиницията $\implies$ $\exists r_2 \in \delta'(R_1, a): (r_1, a, r_2) \in \Delta$ и $\exists p \in F: p \in E(r_2)$ $\implies$ $(s, va) \vdash_M^* (r_1, a) \vdash_M (r_2, \varepsilon) \vdash_M^* (p, \varepsilon), p \in P$. \square
 
+\section{Thm на Клини}
+\subsection{Затвореност относно регулярните операции}
+
+\textit{\textbf{Лема 2}} - Мн-вото на езиците, които се разпознават от крайни автомати е затворено относно операциите обединение, сечение, допълнение, конкатенация и звезда на Клини.
+
+\subsection{Дефиниции за регулярни изрази и езици}
+
+\textit{\textbf{Деф}} - Регулярен израз във фиксирана азб. $\Sigma$ дефинираме индуктивно по следния начин:
+\begin{enumerate}
+    \item $\emptyset$ и всяка буква от $\Sigma$ е рег. израз.
+    \item Ако $\alpha$ и $\beta$ са рег. изрази то $(\alpha \circ \beta)$, $(\alpha \cup \beta)$ и $\alpha^*$ са регулярни изрази.
+\end{enumerate}
+
+\textit{\textbf{Деф}} - Регулярен език $\gimel$ определен от рег. израз $\alpha$ се дефинира индуктивно по следния начин:
+\begin{enumerate}
+    \item Ако $\alpha = \emptyset$, то $\gimel[\alpha] = \emptyset$.
+    \item Ако $\alpha = a \in \Sigma$, то $\gimel[\alpha] = \{a\}$.
+    \item Ако $\alpha = \alpha_1 \cup \alpha_2$, то $\gimel[\alpha] = \gimel[\alpha_1] \cup \gimel[\alpha_2]$.
+    \item Ако $\alpha = \alpha_1 \circ \alpha_2$, то $\gimel[\alpha] = \gimel[\alpha_1] \circ \gimel [\alpha_2]$.
+    \item Ако $\alpha = \alpha_1^*$, то $\gimel[\alpha] = (\gimel[\alpha_1])^*$.
+\end{enumerate}
+
+\textit{\textbf{Деф}} - Един език $L$ се нарича регулярен $\iff$ $\exists$ рег. израз $\alpha: L = \gimel[\alpha]$.
+
+\textit{\textbf{Пример} - $\alpha = (0 \cup 1)^* \circ 0$ $\implies$ $\gimel[\alpha] = \gimel[(0 \cup 1)^* \circ 0]$ $=$ $\gimel[(0 \cup 1)^*] \circ \gimel[0]$ $=$ $(\gimel[0 \cup 1])^* \circ \gimel[0]$ $=$ $(\gimel[0] \cup \gimel[1])^* \circ \{0\}$ $=$ $(\{0\} \cup \{1\})^* \circ \{0\}$ $=$ $\{0, 1\}^* \circ \{0\}$ }
+
+\subsection{Теоремата}
+
+\textit{\textbf{Thm на Клини}} - Един език $L$ е автоматен $\iff$ $L$ е регулярен.
+\textit{\textbf{Д-во:}}\\
+$(\implies)$ Нека $L$ е регулярен $\implies exists$ рег. езраз $\alpha: L = \gimel[\alpha]$. Ще докажем твърдението с индукция относно $\alpha$: \\
+\textbf{База} Разглеждаме следните случаи:
+\begin{enumerate}
+    \item Ако $\alpha = \emptyset \implies \gimel[\alpha] = \emptyset \implies$ можем да постр. автомат $M = (K, \Sigma, \Delta, s, \emptyset)$, където $\Delta = \{(s, a, s) | a \in \Sigma\}$ $\implies L(M) = \gimel[\alpha]$. \\
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+        \node[state,initial] (s) {$s$};
+        \path[->] 
+        (s) edge[loop right] node{$a, b, \dots$} (s)
+    \end{tikzpicture}
+    \item Ако $\alpha = a \in \Sigma$, $\Sigma$ - азбука $\implies$ $\gimel[\alpha] = \{a\} \implies$ можем да построим автомат $M = (\{s, f\}, \Sigma, \Delta, s, \{f\})$, където $\Delta = \{(s, a, f) | a \in \Sigma\} \implies L(M) = \gimel[\alpha]$.\\
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+        \node[state,initial] (s) {$s$};
+        \node[state,accepting] (f) [right=of s] {$f$};
+        \path[->] 
+        (s) edge[above] node{$a$} (f)
+    \end{tikzpicture}
+\end{enumerate}
+
+\textbf{ИП} Нека $\alpha_1$ и $\alpha_2$ са регулярни изрази, т.е. $\gimel[\alpha_1]$ и $\gimel[\alpha_2]$ са автоматни.
+
+\textbf{Стъпка} Разглеждаме следните случаи:
+\begin{enumerate}
+    \item Ако $\alpha = \alpha_1 \cup \alpha_2 \implies \gimel[\alpha] = \gimel[\alpha_1] \cup \gimel[\alpha_2]$ и знаем, че:
+    \begin{enumerate}
+        \item от \textit{\textbf{Лема 2}} обединението на автоматни езици е автоматен език
+        \item от ИП $\gimel[\alpha_1]$ и $\gimel[\alpha_2]$ са автоматни.
+    \end{enumerate}
+    Следователно $\gimel[\alpha]$ е автоматен. \\
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+        \node[state,initial] (s) {$s$};
+        \node[state] (s1) [above right=of s] {$s_1$};
+        \node[state,accepting] (f11) [right=of s1] {$f_{11}$};
+        \node[state,accepting] (f12) [right=of f11] {$f_{12}$};
+        \node[state] (s2) [below right=of s] {$s_2$};
+        \node[state,accepting] (f21) [right=of s2] {$f_{21}$};
+        \node[state,accepting] (f22) [right=of f21] {$f_{22}$};
+        \path[->] 
+        (s) edge[above] node{$\varepsilon$} (s1)
+        (s) edge[above] node{$\varepsilon$} (s2)
+        (s1) edge[bend left, above] node{$\dots$} (f11)
+        (s1) edge[bend right, below] node{$\dots$} (f12)
+        (s2) edge[bend right, below] node{$\dots$} (f21)
+        (s2) edge[bend left, above] node{$\dots$} (f22)
+    \end{tikzpicture}
+    \item Ако $\alpha = \alpha_1 \circ \alpha_2 \implies \gimel[\alpha] = \gimel[\alpha_1] \circ \gimel[\alpha_2]$ и знаем, че:
+    \begin{itemize}
+        \item от \textit{\textbf{Лема 2}} конкатенацията на автоматни езици е автоматен език
+        \item от ИП $\gimel[\alpha_1]$ и $\gimel[\alpha_2]$ са автоматни.
+    \end{itemize}
+    Следователно $\gimel[\alpha]$ е автоматен.\\
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+        \node[state,initial] (s) {$s$};
+        \node[state] (s1) [right=of s] {$s_1$};
+        \node[state] (f11) [above right=of s1] {$f_{11}$};
+        \node[state] (f12) [below right=of s1] {$f_{12}$};
+        \node[state] (s2) [below right=of f11] {$s_2$};
+        \node[state,accepting] (f21) [above right=of s2] {$f_{21}$};
+        \node[state,accepting] (f22) [below right=of s2] {$f_{22}$};
+        \path[->] 
+        (s) edge[above] node{$\varepsilon$} (s1)
+        (s1) edge[above] node{$\dots$} (f11)
+        (s1) edge[below] node{$\dots$} (f12)
+        (f11) edge[above] node{$\varepsilon$} (s2)
+        (f12) edge[below] node{$\varepsilon$} (s2)
+        (s2) edge[below] node{$\dots$} (f21)
+        (s2) edge[above] node{$\dots$} (f22)
+    \end{tikzpicture}
+    \item Ако $\alpha = \alpha_1^* \implies \gimel[\alpha] = (\gimel[\alpha_1])^*$ и знаем, че:
+    \begin{itemize}
+        \item от \textit{\textbf{Лема 2}} език получен чрез прилагането на операцията * на Клини в/у автоматен език е автоматен
+        \item от ИП $\gimel[\alpha_1]$ е автоматен.
+    \end{itemize}
+    Следователно $\gimel[\alpha]$ е автоматен.
+\end{enumerate}
+
+$(\implies)$ Нека $L$ е автоматен, т.е. $\exists$ КДА $M = (K, \Sigma, \delta, s, F)$, такъв че $K = \{q_0, \dots, q_{n-1}\}$, т.е. $|K| = n$, $s=q_0$ и $L = L(M)$. 
+
+\textit{\textbf{Деф}} - $R(i, j, k) = \{w | w \in \Sigma^*: (q_i, w) \vdash_M^* (q_j, \varepsilon)$ и междинните състояния имат индекси $< k$ за $ i, j = 0, \dots n-1, k = 0, \dots, n\}$
+
+\textit{\textbf{Пример} - Нека $w \in \Sigma^*, w = w_1w_2{\dots}w_s$ за $w_1, w_2, \dots, w_s \in \Sigma$. Тогава $w \in R(i, j, k)$ $\iff$ $\exists$ състояния $q_{l_1}, q_{l_{s-1}}$, където $l_1, \dots l_{s-1} < k$, такива че: \\ $(q_i, w) \vdash_M (q_{l_1}, w_2{\dots}w_s) \vdash_M^* (q_{l_{s-1}}, w_s) \vdash_M (q_j, \varepsilon)$. \\Важно е да се забележи, че $q_j$ не е задължително да бъде крайно състояние.}
+
+От дефиницията се забелязва, че:
+\begin{enumerate}
+    \item Всички поддуми разпознавани от $M$ са $R(i, j, n) = \{w \in \Sigma^* | (q_i,w) \vdash_M^* (q_j, \varepsilon)\}$, защото $|K| = n$.
+    \item $L(M) = \bigcup\limits_{q_j \in F} R(0, j, n)$.
+\end{enumerate}
+
+В такъв ред на мисли е достатъчно да докажем, че $R(i, j, k)$ е регулярен език. Ще го докажем чрез индукция по $k$, като $R(i, j, k) = \gimel[r_{i, j}^k]$, където $r_{i, j}^k$ е регулярен израз.
+
+\textbf{База} Нека $k = 0$, т.е. се питаме дали $R(i, j, 0)$ е регулярен език породен от $r_{i, j}^0$. Знаем, че $\forall w \in R(i, j, 0)$ е изпълнен един от случаите:
+\begin{enumerate}
+    \item Ако $i = j \implies$ $R(i, j, 0) = \{\varepsilon\} \cup \{a \in \Sigma | \delta(q_i, a) = q_i\}$ $\implies$ $R(i, j, 0)$ е краен език $\implies$ поражда се от рег. израз.
+    \item Ако $i \neq j \implies$ $R(i, j, 0) = \{a \in \Sigma | \delta(q_i, a) = q_j\}$ $\implies$ $R(i, j, 0)$ е краен език $\implies$ поражда се от рег. израз.
+\end{enumerate}
+
+\textbf{ИП} Нека допуснем, че $R(i, j, k)$ е регулярен, т.е. $R(i, j, k) = \gimel[r_{i, j}^k]$.
+
+\textbf{Стъпка} Ще докажем, че $R(i, j, k+1)$ е регулярен. Забелязваме, че $\forall w \in R(i, j, k+1)$ е изпълнен един от следните случаи:
+\begin{enumerate}
+    \item Състоянието $q_k$ не е сред междинните състояния, участващи в разпознаването на $w \in \Sigma^*$, т.е. ако $w = w_1w_2{\dots}w_s$, за $w_1, w_2, \dots, w_s \in \Sigma$, то: \\
+    $(q_i, w) \vdash_M (q_{l_1}, w_2{\dots}w_s) \vdash_M^* (q_{l_{s-1}}, w_s) \vdash_M (q_j, \varepsilon)$, където ${l_1}, \dots, {l_{s-1}} < k$ $\implies w \in R(i, j, k)$, който по ИП е регулярен език.
+    \item Състоянието $q_k$ е сред междинните състояния, участвайки $m$ на брой пъти в разпознаването на $w \in \Sigma^*$, за $m \in \mathbb{N}, m \geq 1$. Тогава може да представим $w$ като $w = w_1w_2{\dots}w_{m+1}$, където $w_1, w_2, \dots, w_{m+1} \in \Sigma^*$ и имаме, че: \\
+    $(q_i, w) \vdash_M^* (q_k, w_2{\dots}w_{m+1}) \vdash_M^* (q_k, w_{m+1}) \vdash_M^* (q_j, \varepsilon)$. \\
+    Забелязваме, че $w_1 \in R(i, k, k), w_2, \dots, w_m \in R(k, k, k), w_{m+1} \in R(k, j, k)$, т.е. $w \in R(i, k, k) \circ R(k, k, k)^* \circ R(k, j, k)$.
+\end{enumerate}
+
+От разгледаните случаи $\implies$ $\forall w \in R(i, j, k+1)$ е изпълнено, че $w \in R(i, j, k) \cup R(i, k, k) \circ R(k, k, k)^* \circ R(k, j, k)$ $\implies$ $R(i, j, k+1) = R(i, j k) \cup R(i, k, k) \circ R(k, k, k)^* \circ R(k, j, k) =$$\gimel[r_{i, j}^k] \cup \gimel[r_{i, k}^k] \circ (\gimel[r_{k, k}^k])^* \circ \gimel[r_{k, j}^k]$ $\implies$ $r_{i, j}^{k+1} = r_{i, j}^k \cup r_{i, k}^{k} \circ (r_{k, k}^{k})^* \circ r_{k, j}^{k}$, т.е. $r_{i, j}^{k+1}$ е ругулярен израз описваш $R(i, j, k+1)$ $\implies$ доказахме, че $R(i, j, k)$ е рег. език. \\
+$\implies L(M) = \bigcup\limits_{q_j \in F} R(0, j, n) = \gimel[r_{0, j}^n]$, т.е. $L(M)$ е регулярен език. \square
 
 \end{flushleft}
 \end{document}
