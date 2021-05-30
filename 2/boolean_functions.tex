@@ -135,6 +135,17 @@ $\sigma_i \in J_2$ и $x_i \neq x_j$ при $i \neq j$ наричаме елем
 \textbf{Лема: } $x_{i_1}^{\sigma_1} x_{i_2}^{\sigma_2} \dots x_{i_n}^{\sigma_n} = 1 \Leftrightarrow x_{i_k} = \sigma_k$
 
 \subsection{Теорема за разбиване на БФ}
+Нека $f(x_1, x_2, \dots, x_n) \in \mathcal{F}_2$ и нека са избрани $1 \leq 1 \leq n$ променливи.
+Без ограничение на общоността, допускаме че това са първите $i$ променливи. Тогава
+
+\[ f(x_1, x_2, \dots, x_n) = \bigvee_{\forall \sigma_1, \sigma_2, \dots, \sigma_i} x_1^{\sigma_1} x_2^{\sigma_2} \dots x_i^{\sigma_i} f(\sigma_1, \sigma_2, \dots, \sigma_n, x_{i+1}, \dots, x_n) \]
+
+\textbf{Доказателство: } Нека фиксираме произволен вектор $(a_1, a_2, \dots, a_n) \in J_2^n$.
+Разглеждаме дясната страна на твърдението. Знаем, че 
+$x_1^{\sigma_1} x_2^{\sigma_2} \dots x_i^{\sigma_i} = 1 \Leftrightarrow x_i = \sigma_i \Leftrightarrow a_i = \sigma_i$.
+Следвателно за всички останали комбинации $a_1^{\sigma_1} a_2^{\sigma_2} \dots a_i^{\sigma_i} = 0$. Тогава дясната страна става равна на 
+$f(a_1, a_2, \dots, a_i, a_{i+1}, a_n)$, което е точно лявата страна на твърдението. Твъдението е вярно за произволен вектор, следователно
+функциите са еквивалентни за всички възможни вектори.
 
 \subsection{Теорема на Бул}
 
