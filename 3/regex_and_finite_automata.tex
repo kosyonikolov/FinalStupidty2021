@@ -303,5 +303,27 @@ $(\implies)$ Нека $L$ е автоматен, т.е. $\exists$ КДА $M = (K
 От разгледаните случаи $\implies$ $\forall w \in R(i, j, k+1)$ е изпълнено, че $w \in R(i, j, k) \cup R(i, k, k) \circ R(k, k, k)^* \circ R(k, j, k)$ $\implies$ $R(i, j, k+1) = R(i, j k) \cup R(i, k, k) \circ R(k, k, k)^* \circ R(k, j, k) =$$\gimel[r_{i, j}^k] \cup \gimel[r_{i, k}^k] \circ (\gimel[r_{k, k}^k])^* \circ \gimel[r_{k, j}^k]$ $\implies$ $r_{i, j}^{k+1} = r_{i, j}^k \cup r_{i, k}^{k} \circ (r_{k, k}^{k})^* \circ r_{k, j}^{k}$, т.е. $r_{i, j}^{k+1}$ е ругулярен израз описваш $R(i, j, k+1)$ $\implies$ доказахме, че $R(i, j, k)$ е рег. език. \\
 $\implies L(M) = \bigcup\limits_{q_j \in F} R(0, j, n) = \gimel[r_{0, j}^n]$, т.е. $L(M)$ е регулярен език. \square
 
+\section{Лема за покачването}
+
+\textit{\textbf{Лема за покачването (надуването)}} - Нека $L$ е регулярен език. Тогава $\exists n \geq 1, n \in \mathbb{N}$, такова че $\forall w \in L$ и $|w| \geq n$ $\exists$ думи $x, y, z$ такива, че $w = xyz$, $|xy| \leq n$, $y \neq \varepsilon$ и $\forall t \in \mathbb{N}$ е изпълнено, че $xy^tz \in L$.
+
+\textit{\textbf{Д-во:}}\\
+Нека $L$ е рег. език и $\exists$ КДА $M = (K, \Sigma, \delta, q_0, F)$, такъв че $L = L(M)$. Нека $w \in L$ и $|w| = l \geq n$, където $|K| = n$. Тогава $(q_0, w) \vdash_M^* (q_l, \varepsilon), q_l \in F$ [1]. \\
+Съгласно принципа на Дирихле $\exists$ поне 2 състояния, които са еквивалентни в обработката [1]. Нека $i < j, i,j \in \mathbb{N}$ са такива, че те са \textbf{най-малките}, за които $q_i \equiv q_j$. Тогава ако $w = xw' = xyw'' = xyz$ и $(q_0, w) \vdash_M^* (q_i, w') \vdash_M^* (q_j, w'') \vdash_M^* (q_l, \varepsilon)$, то:
+\begin{enumerate}
+    \item най-голямата ст-ст на $i$ е $i=n$ (най-късното първо срещане на цикъл), т.е. $q_n = q_j, n < j$ $\implies$ $|xy| \leq n$,
+    \item $y \neq \varepsilon$, понеже $i < j$,
+\end{enumerate}
+
+Питаме се дали $xy^tz \in L(M)$? Ще го докажем чрез инд. относно $t$: \\
+
+\textbf{База} Ако t = 0, то $(q_0, xz) \vdash_M^* (q_i \equiv q_j, z) \vdash_M^* (q_l, \varepsilon), q_l \in F$.
+
+\textbf{ИП} Допускаме, че $xy^tz \in L(M)$.
+
+\textbf{Стъпка} Ще го докажем за $t+1 \implies$ \\
+
+$(q_0, xy^{t+1}z) \vdash_M^* (q_i, y^{t+1}z) \vdash_M^* (q_i, y^tz) \vdash_M^* (qi, z) \vdash_M^* (q_l, \varepsilon), q_l \in F$ $\implies$ $xy^{t+1}z \in L(M)$. $\square$
+
 \end{flushleft}
 \end{document}
