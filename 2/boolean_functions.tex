@@ -35,7 +35,16 @@
 $\mathcal{F}_2^n$, а множеството на всички булеви функции $\mathcal{F}_2 = \cup_{n \in \mathbb{N}} \mathcal{F}^2_n$.
 
 \subsection{Формула над множество БФ}
-
+Нека $X = \{ x_0, x_1, \dots \}$ - изброимо множество от променливи за
+всяка булева функция от $\mathcal{F}_2$, $F = \{ f_i \} \subseteq \mathcal{F}_2, I \subseteq \mathbb{N}$
+и $H = \{ f, x, (, ), \text{запетая}  \} \cup I $ - азбука.
+Формула над множеството $F$, дефинираме като всяка дума $w \in H*$, удовлетворяваща:
+\begin{itemize}
+    \item $f_i \in F \Rightarrow f_i(x_1,x_2,\dots,x_n)$ е формула над $F$
+    \item Нека $f_i \in F$ и $\varphi_1, \varphi_2, \dots, \varphi_n$ са формули над $F$ или променливи от $X$.
+    Тогава $f_i(\varphi_1, \varphi_2, \dots, \varphi_n) \in H*$ е формула над $F$.
+    \item Няма други формули освен горедефинираните.
+\end{itemize}
 
 \section{БФ с 1 и 2 променливи}
 
