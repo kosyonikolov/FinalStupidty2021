@@ -79,7 +79,7 @@ $\mathcal{F}_2^n$, а множеството на всички булеви фу
 Имената им са както следва:
 \begin{itemize}
     \item $x \vee y$ - дизюнкиця
-    \item $x \wedge y$ - конюнкция
+    \item $x \wedge y$ - конюнкция. За кратко записваме $xy = x \wedge y$
     \item $x \oplus y$ - изключващо или
     \item $x \rightarrow y$ и $y \rightarrow x$ - импликации
     \item $x \downarrow y$ - стрелка на Пиърс
@@ -87,6 +87,18 @@ $\mathcal{F}_2^n$, а множеството на всички булеви фу
 \end{itemize}
 
 \section{Свойства на булеви функции}
+
+Нека $x,y,z \in J_2$. В сила са следните свойства:
+\begin{enumerate}
+    \item Комутативност: $x \vee y = y \vee x, x \wedge y = y \wedge x, x \oplus y = y \oplus x$
+    \item Асоциативност: $(x \vee y) \vee z = x \vee (y \vee z), (x \wedge y) \wedge z = x \wedge (y \wedge z), (x \oplus y) \oplus z = x \oplus (y \oplus z)$
+    \item Дистрибутивност: $(x \wedge y) \vee z = (x \vee z) \wedge (y \vee z)$, $(x \vee y) \wedge z = xz \vee yz$, $(x \oplus y) \wedge z = xz \oplus yz$
+    \item Идемпотентност: $x \wedge x = x$, $x \wedge x = x$, $x \oplus x = \widetilde{0}$
+    \item Свойства на отрицанието: $x\overline{x} = \widetilde{0}$, $x \vee \overline{x} = \widetilde{1}$, $x \oplus \overline{x} = \overline{1}$, $\overline{\overline{{x}}} = x$
+    \item Свойства на константите: $x\widetilde{0} = 0$, $x\widetilde{1} = x$, $x\vee \widetilde{0} = x$, $x \vee \widetilde{1} = 1$, $x \oplus \widetilde{0} = x$, $x \oplus \widetilde{1} = \overline{x}$
+    \item Закони на де Морган: $\overline{x \vee y} = \overline{x} \wedge \overline{y}$, $\overline{x \wedge y} = \overline{x} \vee \overline{y}$.  
+\end{enumerate}
+
 
 \section{Дефиниция на пълно множество БФ}
 
