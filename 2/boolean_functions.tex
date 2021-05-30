@@ -8,6 +8,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{enumitem, hyperref}
+\usepackage{upgreek}
 
 \usepackage{amsmath}
 \DeclareMathOperator{\cotg}{cotg}
@@ -40,12 +41,12 @@ $\mathcal{F}_2^n$, а множеството на всички булеви фу
 всяка булева функция от $\mathcal{F}_2$, $F = \{ f_i \} \subseteq \mathcal{F}_2, I \subseteq \mathbb{N}$
 и $H = \{ f, x, (, ), \text{запетая}  \} \cup I $ - азбука.
 Формула над множеството $F$, дефинираме като всяка дума $w \in H*$, удовлетворяваща:
-\begin{itemize}
-    \item $f_i \in F \Rightarrow f_i(x_1,x_2,\dots,x_n)$ е формула над $F$
-    \item Нека $f_i \in F$ и $\varphi_1, \varphi_2, \dots, \varphi_n$ са формули над $F$ или променливи от $X$.
-    Тогава $f_i(\varphi_1, \varphi_2, \dots, \varphi_n) \in H*$ е формула над $F$.
+\begin{enumerate}
+    \item $f_i \in F \Rightarrow f_i(x_1,x_2,\dots,x_n)$ е формула над $F$.
+    \item \label{formulas:superposition} Нека $f_i \in F$ и $\varphi_1, \varphi_2, \dots, \varphi_n$ са формули над $F$ или променливи от $X$.
+    Тогава $f_i(\varphi_1, \varphi_2, \dots, \varphi_n) \in H*$ е формула над $F$. Формулите $\varphi_1, \varphi_2, \dots, \varphi_n$ наричаме подформули на $\varphi$.
     \item Няма други формули освен горедефинираните.
-\end{itemize}
+\end{enumerate}
 
 \section{БФ с 1 и 2 променливи}
 
@@ -101,8 +102,37 @@ $\mathcal{F}_2^n$, а множеството на всички булеви фу
 
 
 \section{Дефиниция на пълно множество БФ}
+\subsection{Затваряне на множество булеви функции}
+Нека $F \subseteq \mathcal{F}_2$ и $\upphi_F$ е множеството от формули над $F$.
+На всяка формула $\varphi \in \upphi_F$ съпоставяме функция $f \in F$ и записваме $\varphi : f$, като 
+следваме дефиницията на $\varphi$ по следния начин:
+\begin{itemize}
+    \item Ако $\varphi$ е съпоствена на $f_i : F$, то $\varphi : f = f_i$.
+    \item Ако е $\varphi$ съставена по \ref{formulas:superposition}, тогава на всякa подформула $\varphi_i$ съпоставяме $g_i \in F$, 
+    която е или проектираща функция, или се получава след рекурсивно прилагане на тези правила. На $\varphi$ съпоставяме 
+    суперпозицията $h(x_1, \dots, x_k) = f(g_1(x_1, \dots, x_k), \dots, g_1(x_n, \dots, x_k))$.
+\end{itemize}
+
+Затваряне на $F$ наричаме множеството $[F] = \{ f \in \mathcal{F}_2 | \exists \varphi \in \upphi_F (\varphi : f) \}$
+
+\subsection{Пълно множество булеви функции}
+Множество булеви функции $F$ наричаме пълно $\Leftrightarrow [F] = \mathcal{F}_2$.
 
 \section{Теорема за разбиване на БФ по част от променливите и теорема на Бул}
+
+\subsection{Помощни дефиниции}
+\[ x^\sigma = \begin{cases}
+    x, & \sigma = 1 \\
+    \overline{x}, & \sigma = 0 \\
+\end{cases}\]
+\textbf{Лема: } $x^\sigma = 1 \Leftrightarrow x = \sigma$
+
+\textbf{Дефиниция: } Формули от вида $x_{i_1}^{\sigma_1} x_{i_2}^{\sigma_2} \dots x_{i_n}^{\sigma_n}$, където
+$\sigma_i \in J_2$ и $x_i \neq x_j$ при $i \neq j$ наричаме елементарни конюнкции.
+ 
+\textbf{Дефиниция: } Наричаме горната формула пълна елементарна конюнкция, ако и променливите $x_{i_1}, \dots, x_{i_n}$ са фиксирани.
+
+\textbf{Лема: } $x_{i_1}^{\sigma_1} x_{i_2}^{\sigma_2} \dots x_{i_n}^{\sigma_n} = 1 \Leftrightarrow x_{i_k} = \sigma_k$
 
 \subsection{Теорема за разбиване на БФ}
 
