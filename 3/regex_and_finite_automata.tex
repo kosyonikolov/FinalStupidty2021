@@ -341,5 +341,69 @@ $(q_0, xy^{t+1}z) \vdash_M^* (q_i, y^{t+1}z) \vdash_M^* (q_i, y^tz) \vdash_M^* (
     \item $L = \{a^p | p$ е просто$\}$
 \end{enumerate}
 
+\section{Минимизация на състоянията}
+\subsection{Дадености}
+
+\textit{\textbf{Деф}} - Едно състояние $q$ на автомата $M = (K, \Sigma, \delta, s, F)$ се нарича достижимо ако $\exists w, w' \in \Sigma^*: (s, w) \vdash_M^* (q, w')$.
+
+\textit{\textbf{Деф}} - Нека $L$ е произволен език в азбуката $\Sigma$. Релацията $\approx_L$ се определя както следва: $x$ е еквивалентно на $y$ относно $\approx_L$ (отбелязваме $x \approx_L y$) $\iff$ $\forall z \in \Sigma^*$ е изпълнено, че $xz \in L \iff yz \in L$.
+
+\textit{\textbf{Твърдение}} - Релацията $\approx_L$е релация на еквивалентност. Клас на еквивалентност на $w \in L$ относно $\approx_L$ бележим $[w]_L$.\textit{(доказателството не е задължително, но е очевидно и го оставяме за упражнение на читателя :))}
+
+\textit{\textbf{Деф}} - Нека $M = (K, \Sigma, \delta, s, F)$ е КДА. Казваме, че $x$ и $y$ са еквивалентни относно $M$ (отбелязваме $x \sim_M y$) $\iff$ $\exists q \in K$, такова че $(s, x) \vdash_M^* (q, \varepsilon)$ и  $(s, y) \vdash_M^* (q, \varepsilon)$ \textit{(т.е. $M$ ги разпознава в еднакво крайно състояние)}.
+
+\textit{\textbf{Твърдение}} - Релацията $\sim_M$ е релация на еквивалентност. Клас на еквивалентност на $q \in K$ относно $\sim_M$ бележим като $E_q = \{w | (s, w) \vdash_M^* (q, \varepsilon)\}$. \textit{(доказателството не е задължително, но е очевидно и го оставяме за упражнение на читателя :))}
+
+\textit{\textbf{Твърдение}} - Нека $M = (K, \Sigma, \delta, s, F)$ е КДА. Тогава $\forall x, y \in \Sigma^*$ е изпълнено, че ако $x \sim_M y$, то $x \approx_{L(M)} y$.
+
+\subsection{Теорема на Майхил-Нероуд}
+
+\textit{\textbf{Thm на Майхил-Нероуд}} - Нека $L$ е регулярен език. Тогава $\exists$ КДА $M$, такъв че $L = L(M)$ и брой състояния равен на броя на класовете на еквивалентност на релацията $\approx_L$.
+
+\textit{\textbf{Д-во:}}\\
+Шом $L$ e регулярен език $\implies$ $\approx_L$ има краен брой класове на еквивалентност. \\
+Нека $M = (K, \Sigma, \delta, s, F)$, където $K = \{[x]_L | x \in \Sigma^*\}$, $s = [\varepsilon]_L$, $F = \{[f]_L | f \in L\}$ , $\delta([x]_L, a) = [xa]_L, a \in \Sigma$.
+
+\textit{\textbf{Лема 3}} - $([x]_L, y) \vdash_M^* ([xy]_L, \varepsilon)$ за произволни $x, y \in \Sigma^*$ и $xy \in L$.
+
+\textit{\textbf{Д-во на Лема 3:}}\\
+С индукция относно $|y|$:
+
+\textbf{База} $|y| = 0 \implies y = \varepsilon \implies ([x]_L, \varepsilon) \vdash_M^* ([x\varepsilon]_L, \varepsilon)$, което е очевидно.
+
+\textbf{ИП} Допускаме, че лемата е изпълнена за $|y| = n$.
+
+\textbf{Стъпка} Ще я докажем за $|y'| = n + 1$, като нека $y' = ya, a \in \Sigma, y' \in \Sigma$. От ИП знаем, че $|y'| = n+1$ и $([x]_L, y) \vdash_M^* ([xy]_L, \varepsilon)$. Тогава $([x]_L, y') = ([x]_L, ya) \vdash_M^* ([xy]_L, a) \vdash_M ([xya]_L, \varepsilon) = ([xy']_L, \varepsilon)$. С това доказахме Лема 3.
+
+От \textit{\textbf{Лема 3}} забелязваме, че:
+\begin{itemize}
+    \item $w \in L(M) \iff ([\varepsilon]_L, w) \vdash_M^* ([w]_L, \varepsilon)$
+    \item $[w]_L \in F \iff w \in L$
+\end{itemize}}
+
+С това доказахме теоремата на Майхил-Нероуд. \square
+
+\textit{\textbf{Следствие 1}} - Един език L е регулярен $\iff$ $\approx_L$ има краен брой класове на еквивалентност $\iff$ $\approx_L$ има краен индекс.
+
+\textit{\textbf{Следствие 2}} - Thm на Майхил-Нероуд ни дава минималния автомат.
+
+\subsection{Алгоритъм за конструиране на минимален автомат, еквивалентен на даден КДА}
+
+\textit{\textbf{Деф}} - Дефинираме релацията $A_m \subseteq K \times \Sigma^*$, като $(q, w) \in A_m$ $\iff$ $(q, w) \vdash_M^* (f, \varepsilon), f \in F$, за КДА $M = (K, \Sigma, \delta, s, F), q \in K, w \in L(M)$.
+
+\textit{\textbf{Деф}} - Казваме, че две състояния $p, q \in K$ са еквивалентни $(p \equiv q) \iff$ $\forall z \in \Sigma^*: (p, z) \in A_m \iff (q, z) \in A_m$.
+
+\textit{\textbf{Алгоритъм}} - Класовете на еквивалентност на релацията $\equiv$ са тези множества от състояния, дефиниращи състоянията на минималния автомат $M'$, такъв че $L(M) = L(M')$. За да намерим тези класове на еквивалентност ще пресметнем последотавелно класовете на еквивалентност $\equiv_0, \equiv_1, \dots$, където $p \equiv_n q$, т.т.к. $(p, z) \in A_m \iff (q, z) \in A_m$ за $z \in \Sigma^*, |z| \leq n$.
+
+Намираме $M'$ последователно, като извличаме класовете на еквивалентост на $\equiv_i$ чрез разбиване от тези на $\equiv_{i-1}, i \in \mathbb{N}, i \geq 1$:
+\begin{enumerate}
+    \item За $\equiv_0$ класовете на еквивалентност са $F$ и $K \backslash F$.
+    \item \textit{\textbf{Лема 4}} -  $\forall q, p \in K: q \equiv_{n+1} p \iff q \equiv_n p$ и $\forall a \in \Sigma$, $\delta(q, a) \equiv \delta(p, a)$. \\
+    Прилагайки \textit{\textbf{Лема 4}} можем да извлечем класовете на еквивалентност на $\equiv_i$ от тези на $\equiv_{i-1}, \forall i \in \mathbb{N}, i \geq 1$.
+    \item Прилагаме стъпка 2 докато не получим, че класовете на еквивалентост на $\equiv_i$ са колкото тези на $\equiv_{i-1}$, за някое $i \in \mathbb{N}, i \geq 1$.
+\end{enumerate}
+
+\textit{\textbf{Забележка}} - Броят на състоянията на $M'$ може да е най-много $|K|$ (т.е. $M$ е минимален), т.е. алгоритъмът ще приключи.
+
 \end{flushleft}
 \end{document}
