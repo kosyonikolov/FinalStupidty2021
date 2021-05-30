@@ -13,6 +13,7 @@
 \DeclareMathOperator{\cotg}{cotg}
 \DeclareMathOperator{\LCS}{LCS}
 \DeclareMathOperator{\longer}{longer}
+\renewcommand{\arraystretch}{1.3}         % because math expressions
 
 \title{Булеви функции. Пълнота}
 \author{v0.1}
@@ -47,6 +48,43 @@ $\mathcal{F}_2^n$, а множеството на всички булеви фу
 \end{itemize}
 
 \section{БФ с 1 и 2 променливи}
+
+\subsection{Булеви функции с 1 променлива}
+Съществуват 4 булеви функции на една променлива:
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c| } 
+    \hline
+    $x$ & $\widetilde{0}$ & $x$ & $\overline{x}$ & $\widetilde{1}$ \\ 
+    \hline
+    0 & 0 & 0 & 1 & 1 \\ 
+    1 & 0 & 1 & 0 & 1 \\ 
+    \hline
+\end{tabular}
+\end{center}
+
+\subsection{Булеви функции с 2 променлива}
+Съществуват 16 булеви функции на две променливи, от които именуваните са в тази таблица:
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c|c|c|c|c| } 
+    \hline
+    $x$ & $y$ & $x \vee y$ & $x \wedge y$ & $x \oplus y$ & $x \rightarrow y$ & $y \rightarrow x$ & $x \downarrow y$ & $x | y$ \\ 
+    \hline
+    0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 \\ 
+    0 & 1 & 1 & 0 & 1 & 1 & 0 & 0 & 1 \\ 
+    1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\ 
+    1 & 1 & 1 & 1 & 0 & 1 & 1 & 0 & 0 \\ 
+    \hline
+\end{tabular}
+\end{center}
+Имената им са както следва:
+\begin{itemize}
+    \item $x \vee y$ - дизюнкиця
+    \item $x \wedge y$ - конюнкция
+    \item $x \oplus y$ - изключващо или
+    \item $x \rightarrow y$ и $y \rightarrow x$ - импликации
+    \item $x \downarrow y$ - стрелка на Пиърс
+    \item $x|y$ - черта на Шефер
+\end{itemize}
 
 \section{Свойства на булеви функции}
 
