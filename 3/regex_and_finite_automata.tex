@@ -325,5 +325,21 @@ $\implies L(M) = \bigcup\limits_{q_j \in F} R(0, j, n) = \gimel[r_{0, j}^n]$, т
 
 $(q_0, xy^{t+1}z) \vdash_M^* (q_i, y^{t+1}z) \vdash_M^* (q_i, y^tz) \vdash_M^* (qi, z) \vdash_M^* (q_l, \varepsilon), q_l \in F$ $\implies$ $xy^{t+1}z \in L(M)$. $\square$
 
+\section{Примери за регулярни и нерегулярни езици}
+
+Нека $\Sigma$ е азбука. Примери за регулярни езици:
+\begin{enumerate}
+    \item Ако $\alpha = \emptyset$, то $\gimel[\alpha] = \emptyset$, $\gimel[\alpha^*] = \emptyset = \{\varepsilon\}$.
+    \item Ако $\alpha = a \in \Sigma$, то $\gimel[\alpha] = a, \gimel[\alpha^*] = (\gimel[\alpha])^* = \{a\}^* = \{a, aa, \dots\}$.
+    \item Ако $\alpha = a \cup b, a, b \in \Sigma$, то $\gimel[\alpha] = \gimel[a] \cup \gimel[b] = \{a, b\}$, $\gimel[\alpha^*] = (\gimel[a] \cup \gimel[b])^* = \{a, b\}^* = \{a, b, aa, ab, bb, \dots\}$, т.е. всички думи съставени от $a$ и $b$.
+    \item Ако $\alpha = a \circ b, a, b \in \Sigma$, то $\gimel[\alpha] = \gimel[a] \circ \gimel[b] = \{a, b\}$, $\gimel[\alpha^*] = (\gimel[a] \circ \gimel[b])^* = \{ab\}^* = \{ab, abab, \dots\}$.
+\end{enumerate}
+
+Примери за нерегулярни езици:
+\begin{enumerate}
+    \item $L = \{a^nb^n | n \in \mathbb{N}\}$
+    \item $L = \{a^p | p$ е просто$\}$
+\end{enumerate}
+
 \end{flushleft}
 \end{document}
