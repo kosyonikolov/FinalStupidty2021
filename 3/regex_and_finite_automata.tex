@@ -20,7 +20,7 @@
 
 \title{Крайни автомати. Регулярни езици. Thm на Клини.}
 \author{v0.1}
-\date{29 май 2021}
+\date{30 май 2021}
 
 \begin{document}
 
@@ -30,7 +30,8 @@
 \pagebreak
 \begin{flushleft}
 
-\section{Детерминирани крайни автомати}
+\section{Дефиниции на автомати и регулярни езици}
+\subsection{Детерминирани крайни автомати}
 
 \textit{\textbf{Деф}} - Краен детерминиран автомат (КДА) наричаме наредената петорка $M = (K, \Sigma, \delta, s, F)$, където:
 \begin{itemize}
@@ -61,7 +62,7 @@
     (q) edge[bend left, below]  node{a} (s);
 \end{tikzpicture}
 
-\section{Регулярни операции}
+\subsection{Регулярни операции}
 
 \textit{\textbf{Деф}} - $\Sigma^*$ наричаме множеството от всички думи в азбуката $\Sigma$.
 
@@ -87,7 +88,7 @@
 
 \textit{\textbf{Деф}} - Допълнение на език $L$ наричаме $L^C = \Sigma^* \textbackslash L$.
 
-\section{Недетерминирани крайни автомати}
+\subsection{Недетерминирани крайни автомати}
 
 \textit{\textbf{Деф}} - Недетерминиран краен автомат (КНА) наричаме петицата $M = (K, \Sigma, \Delta, s, F)$, където:
 \begin{itemize}
@@ -109,6 +110,59 @@
 \textit{\textbf{Деф}} - Казваме, че $w \in \Sigma^*$ се приема (разпознава) от КНА $M = (K, \Sigma, \Delta, s, F) \iff (s, w) \vdash_M^* (f, \varepsilon)$, където $f \in F$. 
 
 \textit{\textbf{Деф}} - $L(M) = \{w | w \in \Sigma^*: (s, w) \vdash_M^* (f, \varepsilon)$, където $f \in F\}$ се нарича езика, който се разпознава от автомата $M = (K, \Sigma, \Delta, s, F)$.
+
+\section{Представяне на всеки КНА с КДА}
+
+\textit{\textbf{Thm}} - Нека $M = (K, \Sigma, \Delta, s, F)$ е КНА. Тогава $\exists$ КДА $M'$, такъв че $L(M) = L(M')$.
+
+\textit{\textbf{Д-во:}} \\
+Нека $M' = (K', \Sigma, \delta', s', F')$ е КДА. Ще построим $M'$, така че $L(M) = L(M')$.
+
+\textit{\textbf{Деф}} - Определяме релацията $E(q) = \{p | (q, \varepsilon) \vdash_M^* (p, \varepsilon)\}$, т.е. $E(q)$ е затваряне на $\{q\}$ относно релацията $\{(p_1, p_2) | (p_1, \varepsilon, p_2) \in \Delta\}$.
+
+\textit{\textbf{Пример} - $E(q_0) = \{q_0, q_1, q_2, q_3\}$, $E(q_1) = \{q_1, q_2, q_3\}$, $E(q_2) = \{q_2\}$, $E(q_3) = \{q_3\}$, $E(q_4) = \{q_4, q_3\}$.}
+
+\begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+    \node[state,initial] (q0) {$q_0$};
+    \node[state] (q1) [above right=of q0] {$q_1$};
+    \node[state] (q2) [below right=of q0] {$q_2$};
+    \node[state] (q3) [right=of q1] {$q_3$};
+    \node[state, accepting] (q4) [right=of q2] {$q_4$};
+    \path[->] 
+    (q0) edge[above] node{$\varepsilon$} (q1)
+    (q1) edge[below] node{$\varepsilon$} (q3)
+    (q1) edge[left] node{$\varepsilon$} (q2)
+    (q4) edge[right] node{$\varepsilon$} (q3)
+\end{tikzpicture}
+
+Нека $K' = \rho(K)$, $s' = E(s)$, $F' = \{Q | Q \in K' $ и $ Q \cap K \neq \emptyset \}$, $\delta'(Q, a) = \bigcup \{E(p) | \exists q \in Q: (q, a, p) \in \Delta\}$, където $Q \in K'$ и $a \in \Sigma$.
+
+\textit{\textbf{Лема 1}} - $(s, w) \vdash_M^* (p, \varepsilon) \iff (E(s), w) \vdash_{M'}^* (P, \varepsilon)$, където $p \in P$ и $P \in K'$.
+
+Допускаме, че сме доказали \textit{\textbf{Лема 1}} и тогава: \\
+
+$w \in L(M')$ $\iff$ $(E(s), w) \vdash_{M'}^* (P, \varepsilon), P \in F'$ $\iff$ $(s, w) \vdash_M^* (f, \varepsilon), f \in P$, т.е. $w \in L(M)$.
+
+Следователно доказахме, че $L(M) = L(M')$.
+
+\textit{\textbf{Д-во  на Лема 1:}} \\
+
+Ще го докажем чрез индукция относно $|w|$:
+
+\textbf{База} - Нека $|w| = 0$, т.е. $w = \varepsilon$. Тогава: \\
+$(s, \varepsilon) \vdash_M^* (p, \varepsilon) \iff p \in E(s)$ \\
+$(E(s), \varepsilon) \vdash_{M'}^* (P, \varepsilon), P \in K' \iff P = E(s)$ \\
+Очевидно е изпълнено за $|w| = 0$ \\
+
+\textbf{ИП} - Допускаме, че \textit{\textbf{Лема 1}} е изпълнена за $|w| = n$. \\
+
+\textbf{Стъпка} - Ще го докажем за $|w| = n + 1$. Нека $w = va, a \in \Sigma$, т.е. $|v| = n$. \\
+
+$(\implies)$ Нека $(s, w) \vdash_M^* (p, \varepsilon)$, т.е. $(s, va) \vdash_M^* (r_1, a) \vdash_M (r_2, \varepsilon) \vdash_M^* (p, \varepsilon)$ $\implies$ $(s, v) \vdash_M^* (r_1, \varepsilon)$. Съгласно ИП $\exists R_1: r_1 \in R_1: (E(s), v) \vdash_{M'}^* (R_1, \varepsilon)$. \\
+Разглеждаме $P = \delta'(R_1, a) = \bigcup \{E(r_2') | \exists r_1' \in R_1: (r_1', a, r_2') \in \Delta\}$, но знаем, че $r_1 \in R_1$ и $(r_1, a, r_2) \in \Delta$ $\implies$ $E(r_2) \in \delta'(R_1, a)$, като от $p \in E(r_2)$ $\implies$ $(E(s), va) \vdash_{M'}^* (R_1, a) \vdash_{M'} (P, \varepsilon)$. \\
+
+$(\impliedby)$ Нека $(E(s), va) \vdash_{M'}^* (P, \varepsilon)$, т.е. $(E(s), va) \vdash_{M'}^* (R_1, a) \vdash_{M'} (P, \varepsilon)$, $R_1 \in K'$, т.е. $(E(s), v) \vdash_{M'}^* (R_1, \varepsilon)$.\\
+От ИП за някое $r_1 \in R_1$ е изпълнено, че $(s, v) \vdash_M^* (r_1, \varepsilon)$ и от дефиницията $\implies$ $\exists r_2 \in \delta'(R_1, a): (r_1, a, r_2) \in \Delta$ и $\exists p \in F: p \in E(r_2)$ $\implies$ $(s, va) \vdash_M^* (r_1, a) \vdash_M (r_2, \varepsilon) \vdash_M^* (p, \varepsilon), p \in P$. \square
 
 
 \end{flushleft}
