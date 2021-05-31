@@ -76,11 +76,11 @@
 
 \textit{Пример - $\{a, b\} \cup \{pumba, jay, b\} = \{a, b, pumbda, jay, b\}$}.
 
-\textit{\textbf{Деф}} - Степен в език $L$ в азбука $\Sigma$ дефинираме индуктивно като:
+\textit{\textbf{Деф}} - Степен на език $L$ в азбука $\Sigma$ дефинираме индуктивно като:
 \begin{enumerate}
     \item $L^0 = \{\varepsilon\}$
     \item $L^{i+1} = L^i \circ L, i \in \mathbb{N}$
-\end{enumerate}}
+\end{enumerate}
 
 \textit{\textbf{Деф}} - Звезда на Клини на език $L$ в азбука $\Sigma$ бележим като $L^*$ и дефинираме като $L^* = \bigcup\limits_{i=0}^{\infty} L^{i} = L^0 \cup L^1 \cup L^2 \dots = \{w | w = w_1 \circ \dots \circ w_k, w_0, \dots, w_k \in L $ и $ k \in \mathbb{N}\}$
 
@@ -135,7 +135,7 @@
     (q4) edge[right] node{$\varepsilon$} (q3)
 \end{tikzpicture}
 
-Нека $K' = \rho(K)$, $s' = E(s)$, $F' = \{Q | Q \in K' $ и $ Q \cap K \neq \emptyset \}$, $\delta'(Q, a) = \bigcup \{E(p) | \exists q \in Q: (q, a, p) \in \Delta\}$, където $Q \in K'$ и $a \in \Sigma$.
+Нека $K' = \rho(K)$, $s' = E(s)$, $F' = \{Q | Q \in K' $ и $ Q \cap F \neq \emptyset \}$, $\delta'(Q, a) = \bigcup \{E(p) | \exists q \in Q: (q, a, p) \in \Delta\}$, където $Q \in K'$ и $a \in \Sigma$.
 
 \textit{\textbf{Лема 1}} - $(s, w) \vdash_M^* (p, \varepsilon) \iff (E(s), w) \vdash_{M'}^* (P, \varepsilon)$, където $p \in P$ и $P \in K'$.
 
@@ -300,7 +300,7 @@ $(\implies)$ Нека $L$ е автоматен, т.е. $\exists$ КДА $M = (K
     Забелязваме, че $w_1 \in R(i, k, k), w_2, \dots, w_m \in R(k, k, k), w_{m+1} \in R(k, j, k)$, т.е. $w \in R(i, k, k) \circ R(k, k, k)^* \circ R(k, j, k)$.
 \end{enumerate}
 
-От разгледаните случаи $\implies$ $\forall w \in R(i, j, k+1)$ е изпълнено, че $w \in R(i, j, k) \cup R(i, k, k) \circ R(k, k, k)^* \circ R(k, j, k)$ $\implies$ $R(i, j, k+1) = R(i, j k) \cup R(i, k, k) \circ R(k, k, k)^* \circ R(k, j, k) =$$\gimel[r_{i, j}^k] \cup \gimel[r_{i, k}^k] \circ (\gimel[r_{k, k}^k])^* \circ \gimel[r_{k, j}^k]$ $\implies$ $r_{i, j}^{k+1} = r_{i, j}^k \cup r_{i, k}^{k} \circ (r_{k, k}^{k})^* \circ r_{k, j}^{k}$, т.е. $r_{i, j}^{k+1}$ е ругулярен израз описваш $R(i, j, k+1)$ $\implies$ доказахме, че $R(i, j, k)$ е рег. език. \\
+От разгледаните случаи $\implies$ $\forall w \in R(i, j, k+1)$ е изпълнено, че $w \in R(i, j, k) \cup R(i, k, k) \circ R(k, k, k)^* \circ R(k, j, k)$ $\implies$ $R(i, j, k+1) = R(i, j k) \cup R(i, k, k) \circ R(k, k, k)^* \circ R(k, j, k) =$$\gimel[r_{i, j}^k] \cup \gimel[r_{i, k}^k] \circ (\gimel[r_{k, k}^k])^* \circ \gimel[r_{k, j}^k]$ $\implies$ $r_{i, j}^{k+1} = r_{i, j}^k \cup r_{i, k}^{k} \circ (r_{k, k}^{k})^* \circ r_{k, j}^{k}$, т.е. $r_{i, j}^{k+1}$ е регулярен израз описващ $R(i, j, k+1)$ $\implies$ доказахме, че $R(i, j, k)$ е рег. език. \\
 $\implies L(M) = \bigcup\limits_{q_j \in F} R(0, j, n) = \gimel[r_{0, j}^n]$, т.е. $L(M)$ е регулярен език. \square
 
 \section{Лема за покачването}
@@ -309,15 +309,15 @@ $\implies L(M) = \bigcup\limits_{q_j \in F} R(0, j, n) = \gimel[r_{0, j}^n]$, т
 
 \textit{\textbf{Д-во:}}\\
 Нека $L$ е рег. език и $\exists$ КДА $M = (K, \Sigma, \delta, q_0, F)$, такъв че $L = L(M)$. Нека $w \in L$ и $|w| = l \geq n$, където $|K| = n$. Тогава $(q_0, w) \vdash_M^* (q_l, \varepsilon), q_l \in F$ [1]. \\
-Съгласно принципа на Дирихле $\exists$ поне 2 състояния, които са еквивалентни в обработката [1]. Нека $i < j, i,j \in \mathbb{N}$ са такива, че те са \textbf{най-малките}, за които $q_i \equiv q_j$. Тогава ако $w = xw' = xyw'' = xyz$ и $(q_0, w) \vdash_M^* (q_i, w') \vdash_M^* (q_j, w'') \vdash_M^* (q_l, \varepsilon)$, то:
+Съгласно принципа на Дирихле $\exists$ поне 2 състояния, които са еквивалентни в обработката [1]. Нека $i < j, i,j \in \mathbb{N}$ са такива, че те са \textbf{най-малките}, за които $q_i = q_j$. Тогава ако $w = xw' = xyw'' = xyz$ и $(q_0, w) \vdash_M^* (q_i, w') \vdash_M^* (q_j, w'') \vdash_M^* (q_l, \varepsilon)$, то:
 \begin{enumerate}
-    \item най-голямата ст-ст на $i$ е $i=n$ (най-късното първо срещане на цикъл), т.е. $q_n = q_j, n < j$ $\implies$ $|xy| \leq n$,
+    \item най-голямата възможна стойност на $j$ е $j=n+1$ (най-късното възможно първо срещане на цикъл), т.е. тогава $q_i = q_{n+1}$ $\implies$ $|xy| \leq n$,
     \item $y \neq \varepsilon$, понеже $i < j$,
 \end{enumerate}
 
 Питаме се дали $xy^tz \in L(M)$? Ще го докажем чрез инд. относно $t$: \\
 
-\textbf{База} Ако t = 0, то $(q_0, xz) \vdash_M^* (q_i \equiv q_j, z) \vdash_M^* (q_l, \varepsilon), q_l \in F$.
+\textbf{База} Ако t = 0, то $(q_0, xz) \vdash_M^* (q_i = q_j, z) \vdash_M^* (q_l, \varepsilon), q_l \in F$.
 
 \textbf{ИП} Допускаме, че $xy^tz \in L(M)$.
 
@@ -361,7 +361,7 @@ $(q_0, xy^{t+1}z) \vdash_M^* (q_i, y^{t+1}z) \vdash_M^* (q_i, y^tz) \vdash_M^* (
 \textit{\textbf{Thm на Майхил-Нероуд}} - Нека $L$ е регулярен език. Тогава $\exists$ КДА $M$, такъв че $L = L(M)$ и брой състояния равен на броя на класовете на еквивалентност на релацията $\approx_L$.
 
 \textit{\textbf{Д-во:}}\\
-Шом $L$ e регулярен език $\implies$ $\approx_L$ има краен брой класове на еквивалентност. \\
+Щом $L$ e регулярен език $\implies$ $\approx_L$ има краен брой класове на еквивалентност. \\
 Нека $M = (K, \Sigma, \delta, s, F)$, където $K = \{[x]_L | x \in \Sigma^*\}$, $s = [\varepsilon]_L$, $F = \{[f]_L | f \in L\}$ , $\delta([x]_L, a) = [xa]_L, a \in \Sigma$.
 
 \textit{\textbf{Лема 3}} - $([x]_L, y) \vdash_M^* ([xy]_L, \varepsilon)$ за произволни $x, y \in \Sigma^*$ и $xy \in L$.
@@ -393,12 +393,12 @@ $(q_0, xy^{t+1}z) \vdash_M^* (q_i, y^{t+1}z) \vdash_M^* (q_i, y^tz) \vdash_M^* (
 
 \textit{\textbf{Деф}} - Казваме, че две състояния $p, q \in K$ са еквивалентни $(p \equiv q) \iff$ $\forall z \in \Sigma^*: (p, z) \in A_m \iff (q, z) \in A_m$.
 
-\textit{\textbf{Алгоритъм}} - Класовете на еквивалентност на релацията $\equiv$ са тези множества от състояния, дефиниращи състоянията на минималния автомат $M'$, такъв че $L(M) = L(M')$. За да намерим тези класове на еквивалентност ще пресметнем последотавелно класовете на еквивалентност $\equiv_0, \equiv_1, \dots$, където $p \equiv_n q$, т.т.к. $(p, z) \in A_m \iff (q, z) \in A_m$ за $z \in \Sigma^*, |z| \leq n$.
+\textit{\textbf{Алгоритъм}} - Нека $M = (K, \Sigma, \delta, s, F)$ е КДА. Класовете на еквивалентност на релацията $\equiv$ са тези множества от състояния, дефиниращи състоянията на минималния автомат $M'$, такъв че $L(M) = L(M')$. За да намерим тези класове на еквивалентност ще пресметнем последотавелно класовете на еквивалентност $\equiv_0, \equiv_1, \dots$, където $p \equiv_n q$, т.т.к. $(p, z) \in A_m \iff (q, z) \in A_m$ за $z \in \Sigma^*, |z| \leq n$.
 
 Намираме $M'$ последователно, като извличаме класовете на еквивалентост на $\equiv_i$ чрез разбиване от тези на $\equiv_{i-1}, i \in \mathbb{N}, i \geq 1$:
 \begin{enumerate}
     \item За $\equiv_0$ класовете на еквивалентност са $F$ и $K \backslash F$.
-    \item \textit{\textbf{Лема 4}} -  $\forall q, p \in K: q \equiv_{n+1} p \iff q \equiv_n p$ и $\forall a \in \Sigma$, $\delta(q, a) \equiv \delta(p, a)$. \\
+    \item \textit{\textbf{Лема 4}} -  $\forall q, p \in K: q \equiv_{n+1} p \iff q \equiv_n p$ и $\forall a \in \Sigma$, $\delta(q, a) \equiv_n \delta(p, a)$, $\forall n \in \mathbb{N}, n \geq 1$. \\
     Прилагайки \textit{\textbf{Лема 4}} можем да извлечем класовете на еквивалентност на $\equiv_i$ от тези на $\equiv_{i-1}, \forall i \in \mathbb{N}, i \geq 1$.
     \item Прилагаме стъпка 2 докато не получим, че класовете на еквивалентост на $\equiv_i$ са колкото тези на $\equiv_{i-1}$, за някое $i \in \mathbb{N}, i \geq 1$.
 \end{enumerate}
