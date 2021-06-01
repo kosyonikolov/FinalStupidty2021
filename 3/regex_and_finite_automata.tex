@@ -1,0 +1,409 @@
+\documentclass[fleqn,12pt]{article}
+
+\usepackage[margin=15mm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[bulgarian]{babel}
+\usepackage[unicode]{hyperref}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumitem, hyperref}
+
+\usepackage{amsmath}
+\usepackage{tikz}
+
+\DeclareMathOperator{\cotg}{cotg}
+\DeclareMathOperator{\LCS}{LCS}
+\DeclareMathOperator{\longer}{longer}
+
+\setlength{\parskip}{1em}
+\usetikzlibrary{automata,positioning}
+
+\title{Крайни автомати. Регулярни езици. Thm на Клини.}
+\author{v0.1}
+\date{30 май 2021}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\pagebreak
+\begin{flushleft}
+
+\section{Дефиниции на автомати и регулярни езици}
+\subsection{Детерминирани крайни автомати}
+
+\textit{\textbf{Деф}} - Краен детерминиран автомат (КДА) наричаме наредената петорка $M = (K, \Sigma, \delta, s, F)$, където:
+\begin{itemize}
+    \item $K$ - крайна азбука от състояния,
+    \item $\Sigma$ - основна азбука (крайна),
+    \item $\delta : K \times \Sigma \rightarrow K$ функция на преходите,
+    \item $s \in K$, $s$ - начално състояние,
+    \item $F \subseteq K$, $F$ - мн-во на крайните състояния.
+\end{itemize}
+
+\textit{\textbf{Деф}} - Конфигурация за M се нарича всяка двойка $(q, w)$, където $q \in K$ и $w \in \Sigma^*$
+
+\textit{\textbf{Деф}} - Казваме, че конфигурацията $(q, w)$ се преработва за 1 стъпка в конф. $(q', w') \iff \exists a \in \Sigma : \delta(q, a) = q'$ и $w = aw'$. Означаваме с $\vdash_M$, т.е. $(q, w) \vdash_M (q', w')$.
+
+\textit{\textbf{Деф}} - $\vdash_M^*$ наричаме рефлексивното и транзитивно затваряне на $\vdash_M$.
+
+\textit{\textbf{Деф}} - Казваме, че $M$ разпознава (приема) думата $w \iff (s, w) \vdash_M^* (f, \varepsilon)$, където $f \in F$.
+
+\textit{\textbf{Деф}} - $L(M) = \{w | w \in \Sigma^*$ и $w$ се разпознава от $M\}$ се нарича езика, който се разпознава от автомата $M$. Казваме, че езика $L$ се разпознава от автомата $M$ ако $L = L(M)$.
+
+КДА $M = (K, \Sigma, \delta, s, F)$ представяме чрез краен ориентиран мултиграф, където върховете са елементите на $K$, такива че върховете съотвестващи на $q, p \in K: \delta(q, x) = p, x \in \Sigma$, са свързани с ребро излизащо от $q$ и влизащо в $p$ с надпис $x$.
+
+\begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+    \node[state,initial,accepting] (s)   {$s$}; 
+    \node[state] (q) [right=of s] {$q$}; 
+    \path[->] 
+    (s) edge[bend left, above] node{a} (q)
+    (q) edge[bend left, below]  node{a} (s);
+\end{tikzpicture}
+
+\subsection{Регулярни операции}
+
+\textit{\textbf{Деф}} - $\Sigma^*$ наричаме множеството от всички думи в азбуката $\Sigma$.
+
+\textit{\textbf{Деф}} - Казваме, че $L$ е език в азб. $\Sigma$ ако $L \subseteq \Sigma^*$.
+
+\textit{\textbf{Деф}} - Конкатенация на езиците $L_1$, $L_2$ в азбуката $\Sigma$ отбелязваме като $L_1 \circ L_2$ и дефинираме като $L_1 \circ L_2 = \{w_1 \circ w_2 | w_1 \in L_1 $ и $ w_2 \in L_2\}$.
+
+\textit{Пример - $\{li, on\} \circ \{leo, pard\} = \{lileo, lipard, onleo, onpard\}$}.
+
+\textit{\textbf{Деф}} - Обединението на езиците $L_1$ и $L_2$ в азб. $\Sigma$ бележим като $L_1 \cup L_2$ и дефинираме като $L_1 \cup L_2 = \{w | w \in L_1 $ или $ w \in L_2\}$.
+
+\textit{Пример - $\{a, b\} \cup \{pumba, jay, b\} = \{a, b, pumbda, jay, b\}$}.
+
+\textit{\textbf{Деф}} - Степен на език $L$ в азбука $\Sigma$ дефинираме индуктивно като:
+\begin{enumerate}
+    \item $L^0 = \{\varepsilon\}$
+    \item $L^{i+1} = L^i \circ L, i \in \mathbb{N}$
+\end{enumerate}
+
+\textit{\textbf{Деф}} - Звезда на Клини на език $L$ в азбука $\Sigma$ бележим като $L^*$ и дефинираме като $L^* = \bigcup\limits_{i=0}^{\infty} L^{i} = L^0 \cup L^1 \cup L^2 \dots = \{w | w = w_1 \circ \dots \circ w_k, w_0, \dots, w_k \in L $ и $ k \in \mathbb{N}\}$
+
+\textit{Пример - $\{a, b\}^* = \{\varepsilon, a, b, aa, bb, ab, ba, bb, aaa, aab, \dots\}$}.
+
+\textit{\textbf{Деф}} - Допълнение на език $L$ наричаме $L^C = \Sigma^* \textbackslash L$.
+
+\subsection{Недетерминирани крайни автомати}
+
+\textit{\textbf{Деф}} - Недетерминиран краен автомат (КНА) наричаме петицата $M = (K, \Sigma, \Delta, s, F)$, където:
+\begin{itemize}
+    \item $K$ - крайна азбука от състояния,
+    \item $\Sigma$ - крайна основна азбука,
+    \item $\Delta$ - релация на преходите, $\Delta \subseteq K \times (\Sigma \cup \{ \varepsilon \} ) \times K$,
+    \item $F$ - мн-во от заключителни състояния, $F \subseteq K$,
+    \item $s$ - начално състояние, $s \in K$.
+\end{itemize}
+
+\textit{\textbf{Заб} - Всеки КДА $M = (K, \Sigma, \delta, s, F)$ може да се разглежда като КНА $M = (K, \Sigma, G_\delta, s, F)$, където $G_\delta = \{(q, a, q') | \delta(q, a) = q' \}$.}
+
+\textit{\textbf{Деф}} - Конфигурация за КНА $M = (K, \Sigma, \Delta, s, F)$ наричаме всяка двойка $(q, w)$, такава че $q \in K$ и $w \in \Sigma^*$.
+
+\textit{\textbf{Деф}} - Нека $M = (K, \Sigma, \Delta, s, F)$ е КНА. Казваме, че конфигурацията $(q, w)$ се преработва за 1 стъпка в конф. $(q', w') \iff \exists u \in \Sigma \cup \{\varepsilon\}$, такова че $w = uw'$ и $(q, u, q') \in \Delta$. Означаваме като $(q, w) \vdash_M (q', w')$.
+
+\textit{\textbf{Деф}} - $\vdash_M^*$ наричаме рефлексивното и транзитивно затваряне на $\vdash_M$.
+
+\textit{\textbf{Деф}} - Казваме, че $w \in \Sigma^*$ се приема (разпознава) от КНА $M = (K, \Sigma, \Delta, s, F) \iff (s, w) \vdash_M^* (f, \varepsilon)$, където $f \in F$. 
+
+\textit{\textbf{Деф}} - $L(M) = \{w | w \in \Sigma^*: (s, w) \vdash_M^* (f, \varepsilon)$, където $f \in F\}$ се нарича езика, който се разпознава от автомата $M = (K, \Sigma, \Delta, s, F)$.
+
+\section{Представяне на всеки КНА с КДА}
+
+\textit{\textbf{Thm}} - Нека $M = (K, \Sigma, \Delta, s, F)$ е КНА. Тогава $\exists$ КДА $M'$, такъв че $L(M) = L(M')$.
+
+\textit{\textbf{Д-во:}} \\
+Нека $M' = (K', \Sigma, \delta', s', F')$ е КДА. Ще построим $M'$, така че $L(M) = L(M')$.
+
+\textit{\textbf{Деф}} - Определяме релацията $E(q) = \{p | (q, \varepsilon) \vdash_M^* (p, \varepsilon)\}$, т.е. $E(q)$ е затваряне на $\{q\}$ относно релацията $\{(p_1, p_2) | (p_1, \varepsilon, p_2) \in \Delta\}$.
+
+\textit{\textbf{Пример} - $E(q_0) = \{q_0, q_1, q_2, q_3\}$, $E(q_1) = \{q_1, q_2, q_3\}$, $E(q_2) = \{q_2\}$, $E(q_3) = \{q_3\}$, $E(q_4) = \{q_4, q_3\}$.}
+
+\begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+    \node[state,initial] (q0) {$q_0$};
+    \node[state] (q1) [above right=of q0] {$q_1$};
+    \node[state] (q2) [below right=of q0] {$q_2$};
+    \node[state] (q3) [right=of q1] {$q_3$};
+    \node[state, accepting] (q4) [right=of q2] {$q_4$};
+    \path[->] 
+    (q0) edge[above] node{$\varepsilon$} (q1)
+    (q1) edge[below] node{$\varepsilon$} (q3)
+    (q1) edge[left] node{$\varepsilon$} (q2)
+    (q4) edge[right] node{$\varepsilon$} (q3)
+\end{tikzpicture}
+
+Нека $K' = \rho(K)$, $s' = E(s)$, $F' = \{Q | Q \in K' $ и $ Q \cap F \neq \emptyset \}$, $\delta'(Q, a) = \bigcup \{E(p) | \exists q \in Q: (q, a, p) \in \Delta\}$, където $Q \in K'$ и $a \in \Sigma$.
+
+\textit{\textbf{Лема 1}} - $(s, w) \vdash_M^* (p, \varepsilon) \iff (E(s), w) \vdash_{M'}^* (P, \varepsilon)$, където $p \in P$ и $P \in K'$.
+
+Допускаме, че сме доказали \textit{\textbf{Лема 1}} и тогава: \\
+
+$w \in L(M')$ $\iff$ $(E(s), w) \vdash_{M'}^* (P, \varepsilon), P \in F'$ $\iff$ $(s, w) \vdash_M^* (f, \varepsilon), f \in P$, т.е. $w \in L(M)$.
+
+Следователно доказахме, че $L(M) = L(M')$.
+
+\textit{\textbf{Д-во  на Лема 1:}} \\
+
+Ще го докажем чрез индукция относно $|w|$:
+
+\textbf{База} - Нека $|w| = 0$, т.е. $w = \varepsilon$. Тогава: \\
+$(s, \varepsilon) \vdash_M^* (p, \varepsilon) \iff p \in E(s)$ \\
+$(E(s), \varepsilon) \vdash_{M'}^* (P, \varepsilon), P \in K' \iff P = E(s)$ \\
+Очевидно е изпълнено за $|w| = 0$ \\
+
+\textbf{ИП} - Допускаме, че \textit{\textbf{Лема 1}} е изпълнена за $|w| = n$. \\
+
+\textbf{Стъпка} - Ще го докажем за $|w| = n + 1$. Нека $w = va, a \in \Sigma$, т.е. $|v| = n$. \\
+
+$(\implies)$ Нека $(s, w) \vdash_M^* (p, \varepsilon)$, т.е. $(s, va) \vdash_M^* (r_1, a) \vdash_M (r_2, \varepsilon) \vdash_M^* (p, \varepsilon)$ $\implies$ $(s, v) \vdash_M^* (r_1, \varepsilon)$. Съгласно ИП $\exists R_1: r_1 \in R_1: (E(s), v) \vdash_{M'}^* (R_1, \varepsilon)$. \\
+Разглеждаме $P = \delta'(R_1, a) = \bigcup \{E(r_2') | \exists r_1' \in R_1: (r_1', a, r_2') \in \Delta\}$, но знаем, че $r_1 \in R_1$ и $(r_1, a, r_2) \in \Delta$ $\implies$ $E(r_2) \in \delta'(R_1, a)$, като от $p \in E(r_2)$ $\implies$ $(E(s), va) \vdash_{M'}^* (R_1, a) \vdash_{M'} (P, \varepsilon)$. \\
+
+$(\impliedby)$ Нека $(E(s), va) \vdash_{M'}^* (P, \varepsilon)$, т.е. $(E(s), va) \vdash_{M'}^* (R_1, a) \vdash_{M'} (P, \varepsilon)$, $R_1 \in K'$, т.е. $(E(s), v) \vdash_{M'}^* (R_1, \varepsilon)$.\\
+От ИП за някое $r_1 \in R_1$ е изпълнено, че $(s, v) \vdash_M^* (r_1, \varepsilon)$ и от дефиницията $\implies$ $\exists r_2 \in \delta'(R_1, a): (r_1, a, r_2) \in \Delta$ и $\exists p \in F: p \in E(r_2)$ $\implies$ $(s, va) \vdash_M^* (r_1, a) \vdash_M (r_2, \varepsilon) \vdash_M^* (p, \varepsilon), p \in P$. \square
+
+\section{Thm на Клини}
+\subsection{Затвореност относно регулярните операции}
+
+\textit{\textbf{Лема 2}} - Мн-вото на езиците, които се разпознават от крайни автомати е затворено относно операциите обединение, сечение, допълнение, конкатенация и звезда на Клини.
+
+\subsection{Дефиниции за регулярни изрази и езици}
+
+\textit{\textbf{Деф}} - Регулярен израз във фиксирана азб. $\Sigma$ дефинираме индуктивно по следния начин:
+\begin{enumerate}
+    \item $\emptyset$ и всяка буква от $\Sigma$ е рег. израз.
+    \item Ако $\alpha$ и $\beta$ са рег. изрази то $(\alpha \circ \beta)$, $(\alpha \cup \beta)$ и $\alpha^*$ са регулярни изрази.
+\end{enumerate}
+
+\textit{\textbf{Деф}} - Регулярен език $\gimel$ определен от рег. израз $\alpha$ се дефинира индуктивно по следния начин:
+\begin{enumerate}
+    \item Ако $\alpha = \emptyset$, то $\gimel[\alpha] = \emptyset$.
+    \item Ако $\alpha = a \in \Sigma$, то $\gimel[\alpha] = \{a\}$.
+    \item Ако $\alpha = \alpha_1 \cup \alpha_2$, то $\gimel[\alpha] = \gimel[\alpha_1] \cup \gimel[\alpha_2]$.
+    \item Ако $\alpha = \alpha_1 \circ \alpha_2$, то $\gimel[\alpha] = \gimel[\alpha_1] \circ \gimel [\alpha_2]$.
+    \item Ако $\alpha = \alpha_1^*$, то $\gimel[\alpha] = (\gimel[\alpha_1])^*$.
+\end{enumerate}
+
+\textit{\textbf{Деф}} - Един език $L$ се нарича регулярен $\iff$ $\exists$ рег. израз $\alpha: L = \gimel[\alpha]$.
+
+\textit{\textbf{Пример} - $\alpha = (0 \cup 1)^* \circ 0$ $\implies$ $\gimel[\alpha] = \gimel[(0 \cup 1)^* \circ 0]$ $=$ $\gimel[(0 \cup 1)^*] \circ \gimel[0]$ $=$ $(\gimel[0 \cup 1])^* \circ \gimel[0]$ $=$ $(\gimel[0] \cup \gimel[1])^* \circ \{0\}$ $=$ $(\{0\} \cup \{1\})^* \circ \{0\}$ $=$ $\{0, 1\}^* \circ \{0\}$ }
+
+\subsection{Теоремата}
+
+\textit{\textbf{Thm на Клини}} - Един език $L$ е автоматен $\iff$ $L$ е регулярен.
+\textit{\textbf{Д-во:}}\\
+$(\implies)$ Нека $L$ е регулярен $\implies exists$ рег. езраз $\alpha: L = \gimel[\alpha]$. Ще докажем твърдението с индукция относно $\alpha$: \\
+\textbf{База} Разглеждаме следните случаи:
+\begin{enumerate}
+    \item Ако $\alpha = \emptyset \implies \gimel[\alpha] = \emptyset \implies$ можем да постр. автомат $M = (K, \Sigma, \Delta, s, \emptyset)$, където $\Delta = \{(s, a, s) | a \in \Sigma\}$ $\implies L(M) = \gimel[\alpha]$. \\
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+        \node[state,initial] (s) {$s$};
+        \path[->] 
+        (s) edge[loop right] node{$a, b, \dots$} (s)
+    \end{tikzpicture}
+    \item Ако $\alpha = a \in \Sigma$, $\Sigma$ - азбука $\implies$ $\gimel[\alpha] = \{a\} \implies$ можем да построим автомат $M = (\{s, f\}, \Sigma, \Delta, s, \{f\})$, където $\Delta = \{(s, a, f) | a \in \Sigma\} \implies L(M) = \gimel[\alpha]$.\\
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+        \node[state,initial] (s) {$s$};
+        \node[state,accepting] (f) [right=of s] {$f$};
+        \path[->] 
+        (s) edge[above] node{$a$} (f)
+    \end{tikzpicture}
+\end{enumerate}
+
+\textbf{ИП} Нека $\alpha_1$ и $\alpha_2$ са регулярни изрази, т.е. $\gimel[\alpha_1]$ и $\gimel[\alpha_2]$ са автоматни.
+
+\textbf{Стъпка} Разглеждаме следните случаи:
+\begin{enumerate}
+    \item Ако $\alpha = \alpha_1 \cup \alpha_2 \implies \gimel[\alpha] = \gimel[\alpha_1] \cup \gimel[\alpha_2]$ и знаем, че:
+    \begin{enumerate}
+        \item от \textit{\textbf{Лема 2}} обединението на автоматни езици е автоматен език
+        \item от ИП $\gimel[\alpha_1]$ и $\gimel[\alpha_2]$ са автоматни.
+    \end{enumerate}
+    Следователно $\gimel[\alpha]$ е автоматен. \\
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+        \node[state,initial] (s) {$s$};
+        \node[state] (s1) [above right=of s] {$s_1$};
+        \node[state,accepting] (f11) [right=of s1] {$f_{11}$};
+        \node[state,accepting] (f12) [right=of f11] {$f_{12}$};
+        \node[state] (s2) [below right=of s] {$s_2$};
+        \node[state,accepting] (f21) [right=of s2] {$f_{21}$};
+        \node[state,accepting] (f22) [right=of f21] {$f_{22}$};
+        \path[->] 
+        (s) edge[above] node{$\varepsilon$} (s1)
+        (s) edge[above] node{$\varepsilon$} (s2)
+        (s1) edge[bend left, above] node{$\dots$} (f11)
+        (s1) edge[bend right, below] node{$\dots$} (f12)
+        (s2) edge[bend right, below] node{$\dots$} (f21)
+        (s2) edge[bend left, above] node{$\dots$} (f22)
+    \end{tikzpicture}
+    \item Ако $\alpha = \alpha_1 \circ \alpha_2 \implies \gimel[\alpha] = \gimel[\alpha_1] \circ \gimel[\alpha_2]$ и знаем, че:
+    \begin{itemize}
+        \item от \textit{\textbf{Лема 2}} конкатенацията на автоматни езици е автоматен език
+        \item от ИП $\gimel[\alpha_1]$ и $\gimel[\alpha_2]$ са автоматни.
+    \end{itemize}
+    Следователно $\gimel[\alpha]$ е автоматен.\\
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+        \node[state,initial] (s) {$s$};
+        \node[state] (s1) [right=of s] {$s_1$};
+        \node[state] (f11) [above right=of s1] {$f_{11}$};
+        \node[state] (f12) [below right=of s1] {$f_{12}$};
+        \node[state] (s2) [below right=of f11] {$s_2$};
+        \node[state,accepting] (f21) [above right=of s2] {$f_{21}$};
+        \node[state,accepting] (f22) [below right=of s2] {$f_{22}$};
+        \path[->] 
+        (s) edge[above] node{$\varepsilon$} (s1)
+        (s1) edge[above] node{$\dots$} (f11)
+        (s1) edge[below] node{$\dots$} (f12)
+        (f11) edge[above] node{$\varepsilon$} (s2)
+        (f12) edge[below] node{$\varepsilon$} (s2)
+        (s2) edge[below] node{$\dots$} (f21)
+        (s2) edge[above] node{$\dots$} (f22)
+    \end{tikzpicture}
+    \item Ако $\alpha = \alpha_1^* \implies \gimel[\alpha] = (\gimel[\alpha_1])^*$ и знаем, че:
+    \begin{itemize}
+        \item от \textit{\textbf{Лема 2}} език получен чрез прилагането на операцията * на Клини в/у автоматен език е автоматен
+        \item от ИП $\gimel[\alpha_1]$ е автоматен.
+    \end{itemize}
+    Следователно $\gimel[\alpha]$ е автоматен.
+\end{enumerate}
+
+$(\implies)$ Нека $L$ е автоматен, т.е. $\exists$ КДА $M = (K, \Sigma, \delta, s, F)$, такъв че $K = \{q_0, \dots, q_{n-1}\}$, т.е. $|K| = n$, $s=q_0$ и $L = L(M)$. 
+
+\textit{\textbf{Деф}} - $R(i, j, k) = \{w | w \in \Sigma^*: (q_i, w) \vdash_M^* (q_j, \varepsilon)$ и междинните състояния имат индекси $< k$ за $ i, j = 0, \dots n-1, k = 0, \dots, n\}$
+
+\textit{\textbf{Пример} - Нека $w \in \Sigma^*, w = w_1w_2{\dots}w_s$ за $w_1, w_2, \dots, w_s \in \Sigma$. Тогава $w \in R(i, j, k)$ $\iff$ $\exists$ състояния $q_{l_1}, q_{l_{s-1}}$, където $l_1, \dots l_{s-1} < k$, такива че: \\ $(q_i, w) \vdash_M (q_{l_1}, w_2{\dots}w_s) \vdash_M^* (q_{l_{s-1}}, w_s) \vdash_M (q_j, \varepsilon)$. \\Важно е да се забележи, че $q_j$ не е задължително да бъде крайно състояние.}
+
+От дефиницията се забелязва, че:
+\begin{enumerate}
+    \item Всички поддуми разпознавани от $M$ са $R(i, j, n) = \{w \in \Sigma^* | (q_i,w) \vdash_M^* (q_j, \varepsilon)\}$, защото $|K| = n$.
+    \item $L(M) = \bigcup\limits_{q_j \in F} R(0, j, n)$.
+\end{enumerate}
+
+В такъв ред на мисли е достатъчно да докажем, че $R(i, j, k)$ е регулярен език. Ще го докажем чрез индукция по $k$, като $R(i, j, k) = \gimel[r_{i, j}^k]$, където $r_{i, j}^k$ е регулярен израз.
+
+\textbf{База} Нека $k = 0$, т.е. се питаме дали $R(i, j, 0)$ е регулярен език породен от $r_{i, j}^0$. Знаем, че $\forall w \in R(i, j, 0)$ е изпълнен един от случаите:
+\begin{enumerate}
+    \item Ако $i = j \implies$ $R(i, j, 0) = \{\varepsilon\} \cup \{a \in \Sigma | \delta(q_i, a) = q_i\}$ $\implies$ $R(i, j, 0)$ е краен език $\implies$ поражда се от рег. израз.
+    \item Ако $i \neq j \implies$ $R(i, j, 0) = \{a \in \Sigma | \delta(q_i, a) = q_j\}$ $\implies$ $R(i, j, 0)$ е краен език $\implies$ поражда се от рег. израз.
+\end{enumerate}
+
+\textbf{ИП} Нека допуснем, че $R(i, j, k)$ е регулярен, т.е. $R(i, j, k) = \gimel[r_{i, j}^k]$.
+
+\textbf{Стъпка} Ще докажем, че $R(i, j, k+1)$ е регулярен. Забелязваме, че $\forall w \in R(i, j, k+1)$ е изпълнен един от следните случаи:
+\begin{enumerate}
+    \item Състоянието $q_k$ не е сред междинните състояния, участващи в разпознаването на $w \in \Sigma^*$, т.е. ако $w = w_1w_2{\dots}w_s$, за $w_1, w_2, \dots, w_s \in \Sigma$, то: \\
+    $(q_i, w) \vdash_M (q_{l_1}, w_2{\dots}w_s) \vdash_M^* (q_{l_{s-1}}, w_s) \vdash_M (q_j, \varepsilon)$, където ${l_1}, \dots, {l_{s-1}} < k$ $\implies w \in R(i, j, k)$, който по ИП е регулярен език.
+    \item Състоянието $q_k$ е сред междинните състояния, участвайки $m$ на брой пъти в разпознаването на $w \in \Sigma^*$, за $m \in \mathbb{N}, m \geq 1$. Тогава може да представим $w$ като $w = w_1w_2{\dots}w_{m+1}$, където $w_1, w_2, \dots, w_{m+1} \in \Sigma^*$ и имаме, че: \\
+    $(q_i, w) \vdash_M^* (q_k, w_2{\dots}w_{m+1}) \vdash_M^* (q_k, w_{m+1}) \vdash_M^* (q_j, \varepsilon)$. \\
+    Забелязваме, че $w_1 \in R(i, k, k), w_2, \dots, w_m \in R(k, k, k), w_{m+1} \in R(k, j, k)$, т.е. $w \in R(i, k, k) \circ R(k, k, k)^* \circ R(k, j, k)$.
+\end{enumerate}
+
+От разгледаните случаи $\implies$ $\forall w \in R(i, j, k+1)$ е изпълнено, че $w \in R(i, j, k) \cup R(i, k, k) \circ R(k, k, k)^* \circ R(k, j, k)$ $\implies$ $R(i, j, k+1) = R(i, j k) \cup R(i, k, k) \circ R(k, k, k)^* \circ R(k, j, k) =$$\gimel[r_{i, j}^k] \cup \gimel[r_{i, k}^k] \circ (\gimel[r_{k, k}^k])^* \circ \gimel[r_{k, j}^k]$ $\implies$ $r_{i, j}^{k+1} = r_{i, j}^k \cup r_{i, k}^{k} \circ (r_{k, k}^{k})^* \circ r_{k, j}^{k}$, т.е. $r_{i, j}^{k+1}$ е регулярен израз описващ $R(i, j, k+1)$ $\implies$ доказахме, че $R(i, j, k)$ е рег. език. \\
+$\implies L(M) = \bigcup\limits_{q_j \in F} R(0, j, n) = \gimel[r_{0, j}^n]$, т.е. $L(M)$ е регулярен език. \square
+
+\section{Лема за покачването}
+
+\textit{\textbf{Лема за покачването (надуването)}} - Нека $L$ е регулярен език. Тогава $\exists n \geq 1, n \in \mathbb{N}$, такова че $\forall w \in L$ и $|w| \geq n$ $\exists$ думи $x, y, z$ такива, че $w = xyz$, $|xy| \leq n$, $y \neq \varepsilon$ и $\forall t \in \mathbb{N}$ е изпълнено, че $xy^tz \in L$.
+
+\textit{\textbf{Д-во:}}\\
+Нека $L$ е рег. език и $\exists$ КДА $M = (K, \Sigma, \delta, q_0, F)$, такъв че $L = L(M)$. Нека $w \in L$ и $|w| = l \geq n$, където $|K| = n$. Тогава $(q_0, w) \vdash_M^* (q_l, \varepsilon), q_l \in F$ [1]. \\
+Съгласно принципа на Дирихле $\exists$ поне 2 състояния, които са еквивалентни в обработката [1]. Нека $i < j, i,j \in \mathbb{N}$ са такива, че те са \textbf{най-малките}, за които $q_i = q_j$. Тогава ако $w = xw' = xyw'' = xyz$ и $(q_0, w) \vdash_M^* (q_i, w') \vdash_M^* (q_j, w'') \vdash_M^* (q_l, \varepsilon)$, то:
+\begin{enumerate}
+    \item най-голямата възможна стойност на $j$ е $j=n$ (най-късното възможно първо срещане на цикъл), т.е. тогава $q_i = q_n$ $\implies$ щом обработката $(q_0, w) \vdash_M^* (q_n, w)$ включва преминаване през n+1 състояния, то $|xy| \leq n$,
+    \item $y \neq \varepsilon$, понеже $i < j$,
+\end{enumerate}
+
+Питаме се дали $xy^tz \in L(M)$? Ще го докажем чрез инд. относно $t$: \\
+
+\textbf{База} Ако t = 0, то $(q_0, xz) \vdash_M^* (q_i = q_j, z) \vdash_M^* (q_l, \varepsilon), q_l \in F$.
+
+\textbf{ИП} Допускаме, че $xy^tz \in L(M)$.
+
+\textbf{Стъпка} Ще го докажем за $t+1 \implies$ \\
+
+$(q_0, xy^{t+1}z) \vdash_M^* (q_i, y^{t+1}z) \vdash_M^* (q_i, y^tz) \vdash_M^* (qi, z) \vdash_M^* (q_l, \varepsilon), q_l \in F$ $\implies$ $xy^{t+1}z \in L(M)$. $\square$
+
+\section{Примери за регулярни и нерегулярни езици}
+
+Нека $\Sigma$ е азбука. Примери за регулярни езици:
+\begin{enumerate}
+    \item Ако $\alpha = \emptyset$, то $\gimel[\alpha] = \emptyset$, $\gimel[\alpha^*] = \emptyset = \{\varepsilon\}$.
+    \item Ако $\alpha = a \in \Sigma$, то $\gimel[\alpha] = a, \gimel[\alpha^*] = (\gimel[\alpha])^* = \{a\}^* = \{a, aa, \dots\}$.
+    \item Ако $\alpha = a \cup b, a, b \in \Sigma$, то $\gimel[\alpha] = \gimel[a] \cup \gimel[b] = \{a, b\}$, $\gimel[\alpha^*] = (\gimel[a] \cup \gimel[b])^* = \{a, b\}^* = \{a, b, aa, ab, bb, \dots\}$, т.е. всички думи съставени от $a$ и $b$.
+    \item Ако $\alpha = a \circ b, a, b \in \Sigma$, то $\gimel[\alpha] = \gimel[a] \circ \gimel[b] = \{a, b\}$, $\gimel[\alpha^*] = (\gimel[a] \circ \gimel[b])^* = \{ab\}^* = \{ab, abab, \dots\}$.
+\end{enumerate}
+
+Примери за нерегулярни езици:
+\begin{enumerate}
+    \item $L = \{a^nb^n | n \in \mathbb{N}\}$
+    \item $L = \{a^p | p$ е просто$\}$
+\end{enumerate}
+
+\section{Минимизация на състоянията}
+\subsection{Дадености}
+
+\textit{\textbf{Деф}} - Едно състояние $q$ на автомата $M = (K, \Sigma, \delta, s, F)$ се нарича достижимо ако $\exists w, w' \in \Sigma^*: (s, w) \vdash_M^* (q, w')$.
+
+\textit{\textbf{Деф}} - Нека $L$ е произволен език в азбуката $\Sigma$. Релацията $\approx_L$ се определя както следва: $x$ е еквивалентно на $y$ относно $\approx_L$ (отбелязваме $x \approx_L y$) $\iff$ $\forall z \in \Sigma^*$ е изпълнено, че $xz \in L \iff yz \in L$.
+
+\textit{\textbf{Твърдение}} - Релацията $\approx_L$е релация на еквивалентност. Клас на еквивалентност на $w \in L$ относно $\approx_L$ бележим $[w]_L$.\textit{(доказателството не е задължително, но е очевидно и го оставяме за упражнение на читателя :))}
+
+\textit{\textbf{Деф}} - Нека $M = (K, \Sigma, \delta, s, F)$ е КДА. Казваме, че $x$ и $y$ са еквивалентни относно $M$ (отбелязваме $x \sim_M y$) $\iff$ $\exists q \in K$, такова че $(s, x) \vdash_M^* (q, \varepsilon)$ и  $(s, y) \vdash_M^* (q, \varepsilon)$ \textit{(т.е. $M$ ги разпознава в еднакво крайно състояние)}.
+
+\textit{\textbf{Твърдение}} - Релацията $\sim_M$ е релация на еквивалентност. Клас на еквивалентност на $q \in K$ относно $\sim_M$ бележим като $E_q = \{w | (s, w) \vdash_M^* (q, \varepsilon)\}$. \textit{(доказателството не е задължително, но е очевидно и го оставяме за упражнение на читателя :))}
+
+\textit{\textbf{Твърдение}} - Нека $M = (K, \Sigma, \delta, s, F)$ е КДА. Тогава $\forall x, y \in \Sigma^*$ е изпълнено, че ако $x \sim_M y$, то $x \approx_{L(M)} y$.
+
+\subsection{Теорема на Майхил-Нероуд}
+
+\textit{\textbf{Thm на Майхил-Нероуд}} - Нека $L$ е регулярен език. Тогава $\exists$ КДА $M$, такъв че $L = L(M)$ и брой състояния равен на броя на класовете на еквивалентност на релацията $\approx_L$.
+
+\textit{\textbf{Д-во:}}\\
+Щом $L$ e регулярен език $\implies$ $\approx_L$ има краен брой класове на еквивалентност. \\
+Нека $M = (K, \Sigma, \delta, s, F)$, където $K = \{[x]_L | x \in \Sigma^*\}$, $s = [\varepsilon]_L$, $F = \{[f]_L | f \in L\}$ , $\delta([x]_L, a) = [xa]_L, a \in \Sigma$.
+
+\textit{\textbf{Лема 3}} - $([x]_L, y) \vdash_M^* ([xy]_L, \varepsilon)$ за произволни $x, y \in \Sigma^*$ и $xy \in L$.
+
+\textit{\textbf{Д-во на Лема 3:}}\\
+С индукция относно $|y|$:
+
+\textbf{База} $|y| = 0 \implies y = \varepsilon \implies ([x]_L, \varepsilon) \vdash_M^* ([x\varepsilon]_L, \varepsilon)$, което е очевидно.
+
+\textbf{ИП} Допускаме, че лемата е изпълнена за $|y| = n$.
+
+\textbf{Стъпка} Ще я докажем за $|y'| = n + 1$, като нека $y' = ya, a \in \Sigma, y' \in \Sigma$. От ИП знаем, че $|y'| = n+1$ и $([x]_L, y) \vdash_M^* ([xy]_L, \varepsilon)$. Тогава $([x]_L, y') = ([x]_L, ya) \vdash_M^* ([xy]_L, a) \vdash_M ([xya]_L, \varepsilon) = ([xy']_L, \varepsilon)$. С това доказахме Лема 3.
+
+От \textit{\textbf{Лема 3}} забелязваме, че:
+\begin{itemize}
+    \item $w \in L(M) \iff ([\varepsilon]_L, w) \vdash_M^* ([w]_L, \varepsilon)$
+    \item $[w]_L \in F \iff w \in L$
+\end{itemize}}
+
+С това доказахме теоремата на Майхил-Нероуд. \square
+
+\textit{\textbf{Следствие 1}} - Един език L е регулярен $\iff$ $\approx_L$ има краен брой класове на еквивалентност $\iff$ $\approx_L$ има краен индекс.
+
+\textit{\textbf{Следствие 2}} - Thm на Майхил-Нероуд ни дава минималния автомат.
+
+\subsection{Алгоритъм за конструиране на минимален автомат, еквивалентен на даден КДА}
+
+\textit{\textbf{Деф}} - Дефинираме релацията $A_m \subseteq K \times \Sigma^*$, като $(q, w) \in A_m$ $\iff$ $(q, w) \vdash_M^* (f, \varepsilon), f \in F$, за КДА $M = (K, \Sigma, \delta, s, F), q \in K, w \in L(M)$.
+
+\textit{\textbf{Деф}} - Казваме, че две състояния $p, q \in K$ са еквивалентни $(p \equiv q) \iff$ $\forall z \in \Sigma^*: (p, z) \in A_m \iff (q, z) \in A_m$.
+
+\textit{\textbf{Алгоритъм}} - Нека $M = (K, \Sigma, \delta, s, F)$ е КДА. Класовете на еквивалентност на релацията $\equiv$ са тези множества от състояния, дефиниращи състоянията на минималния автомат $M'$, такъв че $L(M) = L(M')$. За да намерим тези класове на еквивалентност ще пресметнем последотавелно класовете на еквивалентност $\equiv_0, \equiv_1, \dots$, където $p \equiv_n q$, т.т.к. $(p, z) \in A_m \iff (q, z) \in A_m$ за $z \in \Sigma^*, |z| \leq n$.
+
+Намираме $M'$ последователно, като извличаме класовете на еквивалентост на $\equiv_i$ чрез разбиване от тези на $\equiv_{i-1}, i \in \mathbb{N}, i \geq 1$:
+\begin{enumerate}
+    \item За $\equiv_0$ класовете на еквивалентност са $F$ и $K \backslash F$.
+    \item \textit{\textbf{Лема 4}} -  $\forall q, p \in K: q \equiv_{n+1} p \iff q \equiv_n p$ и $\forall a \in \Sigma$, $\delta(q, a) \equiv_n \delta(p, a)$, $\forall n \in \mathbb{N}, n \geq 1$. \\
+    Прилагайки \textit{\textbf{Лема 4}} можем да извлечем класовете на еквивалентност на $\equiv_i$ от тези на $\equiv_{i-1}, \forall i \in \mathbb{N}, i \geq 1$.
+    \item Прилагаме стъпка 2 докато не получим, че класовете на еквивалентост на $\equiv_i$ са колкото тези на $\equiv_{i-1}$, за някое $i \in \mathbb{N}, i \geq 1$.
+\end{enumerate}
+
+\textit{\textbf{Забележка}} - Броят на състоянията на $M'$ може да е най-много $|K|$ (т.е. $M$ е минимален), т.е. алгоритъмът ще приключи.
+
+\end{flushleft}
+\end{document}
