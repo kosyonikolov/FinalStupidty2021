@@ -311,7 +311,7 @@ $\implies L(M) = \bigcup\limits_{q_j \in F} R(0, j, n) = \gimel[r_{0, j}^n]$, т
 Нека $L$ е рег. език и $\exists$ КДА $M = (K, \Sigma, \delta, q_0, F)$, такъв че $L = L(M)$. Нека $w \in L$ и $|w| = l \geq n$, където $|K| = n$. Тогава $(q_0, w) \vdash_M^* (q_l, \varepsilon), q_l \in F$ [1]. \\
 Съгласно принципа на Дирихле $\exists$ поне 2 състояния, които са еквивалентни в обработката [1]. Нека $i < j, i,j \in \mathbb{N}$ са такива, че те са \textbf{най-малките}, за които $q_i = q_j$. Тогава ако $w = xw' = xyw'' = xyz$ и $(q_0, w) \vdash_M^* (q_i, w') \vdash_M^* (q_j, w'') \vdash_M^* (q_l, \varepsilon)$, то:
 \begin{enumerate}
-    \item най-голямата възможна стойност на $j$ е $j=n+1$ (най-късното възможно първо срещане на цикъл), т.е. тогава $q_i = q_{n+1}$ $\implies$ $|xy| \leq n$,
+    \item най-голямата възможна стойност на $j$ е $j=n$ (най-късното възможно първо срещане на цикъл), т.е. тогава $q_i = q_n$ $\implies$ щом обработката $(q_0, w) \vdash_M^* (q_n, w)$ включва преминаване през n+1 състояния, то $|xy| \leq n$,
     \item $y \neq \varepsilon$, понеже $i < j$,
 \end{enumerate}
 
