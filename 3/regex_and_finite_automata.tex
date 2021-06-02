@@ -18,8 +18,8 @@
 \setlength{\parskip}{1em}
 \usetikzlibrary{automata,positioning}
 
-\title{Крайни автомати. Регулярни езици. Thm на Клини.}
-\author{v0.1}
+\title{Крайни автомати. Регулярни езици. Теорема на Клини.}
+\author{v1.0}
 \date{30 май 2021}
 
 \begin{document}
@@ -86,7 +86,7 @@
 
 \textit{Пример - $\{a, b\}^* = \{\varepsilon, a, b, aa, bb, ab, ba, bb, aaa, aab, \dots\}$}.
 
-\textit{\textbf{Деф}} - Допълнение на език $L$ наричаме $L^C = \Sigma^* \textbackslash L$.
+\textit{\textbf{Деф}} - Допълнение на език $L$ наричаме $L^C = \Sigma^* \setminus L$.
 
 \subsection{Недетерминирани крайни автомати}
 
@@ -113,7 +113,7 @@
 
 \section{Представяне на всеки КНА с КДА}
 
-\textit{\textbf{Thm}} - Нека $M = (K, \Sigma, \Delta, s, F)$ е КНА. Тогава $\exists$ КДА $M'$, такъв че $L(M) = L(M')$.
+\textit{\textbf{Теорема}} - Нека $M = (K, \Sigma, \Delta, s, F)$ е КНА. Тогава $\exists$ КДА $M'$, такъв че $L(M) = L(M')$.
 
 \textit{\textbf{Д-во:}} \\
 Нека $M' = (K', \Sigma, \delta', s', F')$ е КДА. Ще построим $M'$, така че $L(M) = L(M')$.
@@ -132,7 +132,7 @@
     (q0) edge[above] node{$\varepsilon$} (q1)
     (q1) edge[below] node{$\varepsilon$} (q3)
     (q1) edge[left] node{$\varepsilon$} (q2)
-    (q4) edge[right] node{$\varepsilon$} (q3)
+    (q4) edge[right] node{$\varepsilon$} (q3);
 \end{tikzpicture}
 
 Нека $K' = \rho(K)$, $s' = E(s)$, $F' = \{Q | Q \in K' $ и $ Q \cap F \neq \emptyset \}$, $\delta'(Q, a) = \bigcup \{E(p) | \exists q \in Q: (q, a, p) \in \Delta\}$, където $Q \in K'$ и $a \in \Sigma$.
@@ -162,9 +162,9 @@ $(\implies)$ Нека $(s, w) \vdash_M^* (p, \varepsilon)$, т.е. $(s, va) \vda
 Разглеждаме $P = \delta'(R_1, a) = \bigcup \{E(r_2') | \exists r_1' \in R_1: (r_1', a, r_2') \in \Delta\}$, но знаем, че $r_1 \in R_1$ и $(r_1, a, r_2) \in \Delta$ $\implies$ $E(r_2) \in \delta'(R_1, a)$, като от $p \in E(r_2)$ $\implies$ $(E(s), va) \vdash_{M'}^* (R_1, a) \vdash_{M'} (P, \varepsilon)$. \\
 
 $(\impliedby)$ Нека $(E(s), va) \vdash_{M'}^* (P, \varepsilon)$, т.е. $(E(s), va) \vdash_{M'}^* (R_1, a) \vdash_{M'} (P, \varepsilon)$, $R_1 \in K'$, т.е. $(E(s), v) \vdash_{M'}^* (R_1, \varepsilon)$.\\
-От ИП за някое $r_1 \in R_1$ е изпълнено, че $(s, v) \vdash_M^* (r_1, \varepsilon)$ и от дефиницията $\implies$ $\exists r_2 \in \delta'(R_1, a): (r_1, a, r_2) \in \Delta$ и $\exists p \in F: p \in E(r_2)$ $\implies$ $(s, va) \vdash_M^* (r_1, a) \vdash_M (r_2, \varepsilon) \vdash_M^* (p, \varepsilon), p \in P$. \square
+От ИП за някое $r_1 \in R_1$ е изпълнено, че $(s, v) \vdash_M^* (r_1, \varepsilon)$ и от дефиницията $\implies$ $\exists r_2 \in \delta'(R_1, a): (r_1, a, r_2) \in \Delta$ и $\exists p \in F: p \in E(r_2)$ $\implies$ $(s, va) \vdash_M^* (r_1, a) \vdash_M (r_2, \varepsilon) \vdash_M^* (p, \varepsilon), p \in P \square$. 
 
-\section{Thm на Клини}
+\section{Теорема на Клини}
 \subsection{Затвореност относно регулярните операции}
 
 \textit{\textbf{Лема 2}} - Мн-вото на езиците, които се разпознават от крайни автомати е затворено относно операциите обединение, сечение, допълнение, конкатенация и звезда на Клини.
@@ -192,7 +192,7 @@ $(\impliedby)$ Нека $(E(s), va) \vdash_{M'}^* (P, \varepsilon)$, т.е. $(E(
 
 \subsection{Теоремата}
 
-\textit{\textbf{Thm на Клини}} - Един език $L$ е автоматен $\iff$ $L$ е регулярен.
+\textit{\textbf{Теорема на Клини}} - Един език $L$ е автоматен $\iff$ $L$ е регулярен.
 \textit{\textbf{Д-во:}}\\
 $(\implies)$ Нека $L$ е регулярен $\implies exists$ рег. езраз $\alpha: L = \gimel[\alpha]$. Ще докажем твърдението с индукция относно $\alpha$: \\
 \textbf{База} Разглеждаме следните случаи:
@@ -201,14 +201,14 @@ $(\implies)$ Нека $L$ е регулярен $\implies exists$ рег. езр
     \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
         \node[state,initial] (s) {$s$};
         \path[->] 
-        (s) edge[loop right] node{$a, b, \dots$} (s)
+        (s) edge[loop right] node{$a, b, \dots$} (s);
     \end{tikzpicture}
     \item Ако $\alpha = a \in \Sigma$, $\Sigma$ - азбука $\implies$ $\gimel[\alpha] = \{a\} \implies$ можем да построим автомат $M = (\{s, f\}, \Sigma, \Delta, s, \{f\})$, където $\Delta = \{(s, a, f) | a \in \Sigma\} \implies L(M) = \gimel[\alpha]$.\\
     \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
         \node[state,initial] (s) {$s$};
         \node[state,accepting] (f) [right=of s] {$f$};
         \path[->] 
-        (s) edge[above] node{$a$} (f)
+        (s) edge[above] node{$a$} (f);
     \end{tikzpicture}
 \end{enumerate}
 
@@ -236,7 +236,7 @@ $(\implies)$ Нека $L$ е регулярен $\implies exists$ рег. езр
         (s1) edge[bend left, above] node{$\dots$} (f11)
         (s1) edge[bend right, below] node{$\dots$} (f12)
         (s2) edge[bend right, below] node{$\dots$} (f21)
-        (s2) edge[bend left, above] node{$\dots$} (f22)
+        (s2) edge[bend left, above] node{$\dots$} (f22);
     \end{tikzpicture}
     \item Ако $\alpha = \alpha_1 \circ \alpha_2 \implies \gimel[\alpha] = \gimel[\alpha_1] \circ \gimel[\alpha_2]$ и знаем, че:
     \begin{itemize}
@@ -259,7 +259,7 @@ $(\implies)$ Нека $L$ е регулярен $\implies exists$ рег. езр
         (f11) edge[above] node{$\varepsilon$} (s2)
         (f12) edge[below] node{$\varepsilon$} (s2)
         (s2) edge[below] node{$\dots$} (f21)
-        (s2) edge[above] node{$\dots$} (f22)
+        (s2) edge[above] node{$\dots$} (f22);
     \end{tikzpicture}
     \item Ако $\alpha = \alpha_1^* \implies \gimel[\alpha] = (\gimel[\alpha_1])^*$ и знаем, че:
     \begin{itemize}
@@ -301,7 +301,7 @@ $(\implies)$ Нека $L$ е автоматен, т.е. $\exists$ КДА $M = (K
 \end{enumerate}
 
 От разгледаните случаи $\implies$ $\forall w \in R(i, j, k+1)$ е изпълнено, че $w \in R(i, j, k) \cup R(i, k, k) \circ R(k, k, k)^* \circ R(k, j, k)$ $\implies$ $R(i, j, k+1) = R(i, j k) \cup R(i, k, k) \circ R(k, k, k)^* \circ R(k, j, k) =$$\gimel[r_{i, j}^k] \cup \gimel[r_{i, k}^k] \circ (\gimel[r_{k, k}^k])^* \circ \gimel[r_{k, j}^k]$ $\implies$ $r_{i, j}^{k+1} = r_{i, j}^k \cup r_{i, k}^{k} \circ (r_{k, k}^{k})^* \circ r_{k, j}^{k}$, т.е. $r_{i, j}^{k+1}$ е регулярен израз описващ $R(i, j, k+1)$ $\implies$ доказахме, че $R(i, j, k)$ е рег. език. \\
-$\implies L(M) = \bigcup\limits_{q_j \in F} R(0, j, n) = \gimel[r_{0, j}^n]$, т.е. $L(M)$ е регулярен език. \square
+$\implies L(M) = \bigcup\limits_{q_j \in F} R(0, j, n) = \gimel[r_{0, j}^n]$, т.е. $L(M)$ е регулярен език. $\square$
 
 \section{Лема за покачването}
 
@@ -358,7 +358,7 @@ $(q_0, xy^{t+1}z) \vdash_M^* (q_i, y^{t+1}z) \vdash_M^* (q_i, y^tz) \vdash_M^* (
 
 \subsection{Теорема на Майхил-Нероуд}
 
-\textit{\textbf{Thm на Майхил-Нероуд}} - Нека $L$ е регулярен език. Тогава $\exists$ КДА $M$, такъв че $L = L(M)$ и брой състояния равен на броя на класовете на еквивалентност на релацията $\approx_L$.
+\textit{\textbf{Теорема на Майхил-Нероуд}} - Нека $L$ е регулярен език. Тогава $\exists$ КДА $M$, такъв че $L = L(M)$ и брой състояния равен на броя на класовете на еквивалентност на релацията $\approx_L$.
 
 \textit{\textbf{Д-во:}}\\
 Щом $L$ e регулярен език $\implies$ $\approx_L$ има краен брой класове на еквивалентност. \\
@@ -379,13 +379,13 @@ $(q_0, xy^{t+1}z) \vdash_M^* (q_i, y^{t+1}z) \vdash_M^* (q_i, y^tz) \vdash_M^* (
 \begin{itemize}
     \item $w \in L(M) \iff ([\varepsilon]_L, w) \vdash_M^* ([w]_L, \varepsilon)$
     \item $[w]_L \in F \iff w \in L$
-\end{itemize}}
+\end{itemize}
 
-С това доказахме теоремата на Майхил-Нероуд. \square
+С това доказахме теоремата на Майхил-Нероуд. $\square$
 
 \textit{\textbf{Следствие 1}} - Един език L е регулярен $\iff$ $\approx_L$ има краен брой класове на еквивалентност $\iff$ $\approx_L$ има краен индекс.
 
-\textit{\textbf{Следствие 2}} - Thm на Майхил-Нероуд ни дава минималния автомат.
+\textit{\textbf{Следствие 2}} - Теорема на Майхил-Нероуд ни дава минималния автомат.
 
 \subsection{Алгоритъм за конструиране на минимален автомат, еквивалентен на даден КДА}
 
