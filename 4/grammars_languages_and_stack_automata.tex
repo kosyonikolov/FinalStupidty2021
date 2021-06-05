@@ -261,9 +261,9 @@ $((q, u, a), (p, \varepsilon))$ - pop.
 
 \textit{\textbf{Деф}} - Два стекови автомата $M_1$ и $M_2$ са еквивалентни $\iff L(M_1) = L(M_2)$.
 
-\textit{Пример: Нека $M = (K, \Sigma, \Gamma, \Delta, s, F)$, където $K = \{s, q, f\}$, $\Gamma = \{a, b, c\}$, $\Sigma = \{a, b\}$, $F = \{f\}$, $\Delta = \{$$((s, \varepsilon, \varepsilon), (q, c))$, $((q, a, c), (q, ac))$, $((q, a, a), (q, aa))$, $((q, a, b), (q, \varepsilon))$, $((q, b, c), (q, bc))$, $((q, b, b), (q, bb))$, $((q, b, a), (q, \varepsilon))$, $((q, \varepsilon, c), (f, \varepsilon))$$\}$. \\
+\textit{Пример: Нека $M = (K, \Sigma, \Gamma, \Delta, s, F)$, където $K = \{s, q, f\}$, $\Gamma = \{a, b, c\}$, $\Sigma = \{a, b\}$, $F = \{f\}$, $\Delta = \{$$((s, \varepsilon, \varepsilon), (q, c))$, $((q, a, c), (q, ac))$, $((q, a, a), (q, aa))$, $((q, a, b), (q, \varepsilon))$, $((q, b, c), (q, bc))$, $((q, b, b), (q, bb))$, $((q, b, a), (q, \varepsilon))$, $((q, \varepsilon, c), (f, \varepsilon))$$\}$.} \\
 
-Нека се опитаме да разпознаем $w = baaaabbb \implies$}
+Нека се опитаме да разпознаем $w = baaaabbb \implies$
 
 \begin{tabular}{ |c|l|l|c| } 
  \hline
@@ -283,6 +283,61 @@ $((q, u, a), (p, \varepsilon))$ - pop.
 \end{tabular}
 
 \subsection{Връзка между стековите автомати и КСГ}
+
+\textit{\textbf{Thm}} - Един език $L$ е КСЕ $\iff$ $L$ се разпознава от стеков автомат.
+
+\textit{\textbf{Половин доказателство:}} \\
+
+Ще докажем, че щом $L$ е КСЕ, то $L$ се разпознава от някой стеков автомат. За целта нека $G = (V, \Sigma, R, S)$ е КСГ, такава че $L = L(G)$. Ще построим автомат $M = (K, \Sigma, \Gamma, \Delta, s, F)$, където $K = \{s, q\}$, $\Gamma = V$, $F = \{q\}$ и $\Delta = \{((s, \varepsilon, \varepsilon), (q, S))\} \cup \{((q, \varepsilon, A), (q, \gamma)) | A \to_G \gamma \in R\} \cup \{((q, a, a), (q, \varepsilon)) | a \in \Sigma\}$.
+
+\textit{Пример - Нека $G = (V, \Sigma, R, S)$, $V = \{S\} \cup \Sigma$, $\Sigma = \{a, b, c\}$, $R = \{S \to_G c, S \to_G aSa, S \to_G bSb\}$.} \\
+\textit{Очевидно $L(G) = \{wcw^R | w \in \{a, b\}^*\}$}. \\
+\textit{Построяваме автомат $M = (K, \Sigma, \Gamma, \Delta, s, \{q\})$, където $K = \{s, q\}$, $\Gamma = V$, $\Delta = \{$$((s, \varepsilon, \varepsilon), (q, S))$, $((q, \varepsilon, S), (q, aSa))$, $((q, \varepsilon, S), (q, bSb))$, $((q, \varepsilon, S), (q, c))$, $((q, a, a), (q, \varepsilon))$, $((q, b, b), (q, \varepsilon))$, $((q, c, c), (q, \varepsilon))$$\}$.}
+\textit{Ще разпознаем думата $bacab$.}
+
+\begin{tabular}{ |c|l|l|c| } 
+\hline
+съст. & непрочет. част & стек & правило \\ 
+s & bacab & $\varepsilon$ & - \\
+q & bacab & S & 1 \\
+q & bacab & bSb & 3 \\
+q & acab & Sb & 6 \\
+q & acab & aSab & 2 \\
+q & cab & Sab & 5 \\
+q & cab & cab & 4 \\
+q & ab & ab & 7 \\
+q & b & b & 5 \\
+q & $\varepsilon$ & $\varepsilon$ & 6 \\
+\hline
+\end{tabular}
+
+\textit{\textbf{Лема 1}} - Нека $w \in \Sigma^*$ и $\alpha \in ((V \backslash \Sigma) \circ V^*) \cup \{\varepsilon\}$. 
+
+Приемаме, че \textit{\textbf{Лема 1}} е доказана и тогава: \\
+$w \in L(G) \iff S \xRightarrow[]{L}_G^* w\alpha \iff (s, w, \varepsilon) \vdash_M (q, w, S) \vdash_M^* (q, \varepsilon, \alpha)$.
+
+Очевидно щом $S \xRightarrow[]{L}_G^* w$, то след краен брой преходи $\alpha = \varepsilon \implies$ \\
+$w \in L(G) \iff S \xRightarrow[]{L}_G^* w \iff (s, w, \varepsilon) \vdash_M (q, w, S) \vdash_M^* (q, \varepsilon, \varepsilon)$ \\
+$\implies$ доказахме, че $L(G) = L(M)$.
+
+\textit{\textbf{Доказателство на Лема 1:}} \\
+
+Ще докажем чрез индукция относно дължината на извода, че $(q, w, S) \vdash_M^* (q, \varepsilon, \alpha)$
+
+\textbf{База} - Ако $n = 0$, то $w=\varepsilon$, $\alpha = S$ и очевидно, че $(q, \varepsilon, S) \vdash_M^* (q, \varepsilon, S)$.
+
+\textbf{ИП} - Допускаме, че лемата е вярна за някое $n \geq 0$.
+
+\textbf{Стъпка} - Ще я докажем за някое $n + 1$. Тогава: \\
+
+$S = u_0 \xRightarrow[]{L}_G u1 \xRightarrow[]{L}_G \dots \xRightarrow[]{L}_G u_n \xRightarrow[]{L}_G u_{n+1} = w\alpha$. \\
+От ИП имаме, че $u_n = xA\beta$, където $x \in \Sigma^*, A \in V \backslash \Sigma, \beta \in V^*$ и $A \to_G \gamma \in R$, защото извършваните преходи са с \textbf{най-ляв приоритет}. \\
+Тогава $w\alpha = x\gamma\beta$ и от ИП $(q, x, S) \vdash_M^* (q, \varepsilon, A\beta)$. \\
+Разглеждаме последователно за $w = xy$, където $x, y \in \Sigma^*$, $y\alpha = \gamma\beta$, т.е. $y$ е начало на $\gamma$: \\
+
+$(q, xy, S) \overset{[1]}{\vdash_M^*} (q, y, A\beta) \overset{[2]}{\vdash_M} (q, y, \gamma\beta) \overset{[3]}{\vdash_M^*} (q, \varepsilon, \alpha) \implies$ доказахме твърдението.
+
+\textbf{Обосновка} - [1] - от ИП, [2] - правило от тип 2, [3] - правило от тип 3. \square
 
 \end{flushleft}
 \end{document}
