@@ -230,6 +230,59 @@ $\implies D_1 \prec D_2 \prec D_4$, като $D_3$ не предхожда и н
 
 \textit{\textbf{Твърдение}} - Нека $G$ е произволна КСГ. Тогава $\exists$ КСГ в нормална форма на Чомски $G'$, такава че $L(G') = L(G) \backslash (\Sigma \cup \{\varepsilon\})$.
 
+\section{Стекови автомати}
+
+\subsection{Дадености}
+
+\textit{\textbf{Деф}} - Стеков автомат (СА) се нарича шесторката $M = (K, \Sigma, \Gamma, \Delta, s, F)$, където:
+\begin{itemize}
+    \item $K$ - азбука на състоянията
+    \item $\Sigma$ - основна (входна) азбука
+    \item $\Gamma$ - стекова азбука
+    \item $\Delta \subseteq (K \times (\Sigma \cup \{\varepsilon\}) \times \Gamma^*) \times (K \times \Gamma^*)$ - релация на преходите
+    \item $s$ - начално състояние, $s \in K$
+    \item $F$ - множество на заключителните състояния, $F \subseteq K$
+\end{itemize}
+
+\textit{\textbf{Деф}} - Конфигурация се нарича всеки елемент на $K \times \Sigma^* \times \Gamma^*$, т.е. конфигурация е някое $(q, w, \alpha)$, където $q \in K$, $w \in \Sigma^*$, $\alpha \in \Gamma^*$.
+
+\textit{\textbf{Деф}} - Казваме, че конфигурацията $(q, w, \alpha)$ се преработва за една стъпка в конфигурацията $(p, w', \zeta)$ $\iff$ $\exists u \in \Sigma \cup \{\varepsilon\}: w=uw'$ и $\exists$ преход $((q, u, \beta), (p, \gamma))$, такъв че $\alpha = \beta\phi$ и $\gamma = \zeta\phi$, за $\phi \in \Gamma^*$. Означаваме го $(q, w, \alpha) \vdash_M (p, w', \zeta)$. $\vdash_M^*$ е рефлексивното и транзитивно затваряне на $\vdash_M$.
+
+\textit{Примери:\\
+$((q, u, \varepsilon), (p, a))$ - push, \\
+$((q, u, a), (p, \varepsilon))$ - pop.
+}
+
+\textit{\textbf{Деф}} - Казваме, че $w \in \Sigma^*$ се приема (разпознава) от СА $M = (K, \Sigma, \Gamma, \Delta, s, F)$ $\iff$ $(s, w, \varepsilon) \vdash_M^* (f, \varepsilon, \varepsilon)$, за $w \in \Sigma^*, f \in F$.
+
+\textit{\textbf{Деф}} - Нека $M = (K, \Sigma, \Gamma, \Delta, s, F)$ е СА. Тогава $L(M) = \{w | w \in \Sigma^*$ и $ (s, w, \varepsilon) \vdash_M^* (f, \varepsilon, \varepsilon), f \in F\}$ е езикът разпознаван от $M$.
+
+\textit{\textbf{Деф}} - Един СА $M = (K, \Sigma, \Gamma, \Delta, s, F)$ се нарича прост ако за всяко $((q, u, \beta), (p, \zeta)) \in \Delta$ е изпълнено, че $\beta \in \Gamma$ и $|\zeta| \leq 2$.
+
+\textit{\textbf{Деф}} - Два стекови автомата $M_1$ и $M_2$ са еквивалентни $\iff L(M_1) = L(M_2)$.
+
+\textit{Пример: Нека $M = (K, \Sigma, \Gamma, \Delta, s, F)$, където $K = \{s, q, f\}$, $\Gamma = \{a, b, c\}$, $\Sigma = \{a, b\}$, $F = \{f\}$, $\Delta = \{$$((s, \varepsilon, \varepsilon), (q, c))$, $((q, a, c), (q, ac))$, $((q, a, a), (q, aa))$, $((q, a, b), (q, \varepsilon))$, $((q, b, c), (q, bc))$, $((q, b, b), (q, bb))$, $((q, b, a), (q, \varepsilon))$, $((q, \varepsilon, c), (f, \varepsilon))$$\}$. \\
+
+Нека се опитаме да разпознаем $w = baaaabbb \implies$}
+
+\begin{tabular}{ |c|l|l|c| } 
+ \hline
+ съст. & непрочет. част & стек & правило \\ 
+ s & baaaabbb & $\varepsilon$ & - \\
+ q & baaaabbb & c & 1 \\
+ q & aaaabbb & bc & 5 \\
+ q & aaabbb & c & 4 \\
+ q & aabbb & ac & 2 \\
+ q & abbb & aac & 3 \\
+ q & bbb & aaac & 3 \\
+ q & bb & aac & 7 \\
+ q & b & ac & 7 \\
+ q & $\varepsilon$ & c & 7 \\
+ f & $\varepsilon$ & $\varepsilon$ & 8 \\
+ \hline
+\end{tabular}
+
+\subsection{Връзка между стековите автомати и КСГ}
 
 \end{flushleft}
 \end{document}
