@@ -22,7 +22,7 @@
 
 \title{Контекстно-свободни граматики и езици. Стекови автомати.}
 \author{v1.0}
-\date{30 май 2021}
+\date{5 юни 2021}
 
 \begin{document}
 
@@ -57,6 +57,7 @@
     \item Нека $G = (V, \Sigma, R, S)$, $V = \{S\} \cup \Sigma$, $\Sigma = \{a, b\}$, $R = \{S \to_G aSb, S \to_G \varepsilon\}$ $\implies$ $s \Rightarrow_G aSb \Rightarrow_G a^2Sb^2 \Rightarrow_G a^2b^2$ $\implies$ $L(G) = \{a^nb^n | n \in \mathbb{N}\}$, т.е. не е регулярен.
     \item Нека $G = (V, \Sigma, R, s)$, $R = \{s \to_G ap, s \to_G bs, p \to_G aq, p \to_G bp, q \to_G as, q \to_G aq, q \to_G \varepsilon\}$, $\Sigma = \{a, b\}$, $V \backslash \Sigma = \{s, p, q\}$, като $L(G) = L(M)$, където M е автоматът от картинката.
 \end{enumerate}
+\begin{center}
 \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
     \node[state,initial] (s) {$s$}; 
     \node[state,accepting] (q) [below right=of s] {$q$}; 
@@ -69,6 +70,7 @@
     (p) edge[loop above] node{$b$} (p)
     (q) edge[loop left] node{$a$} (q);
 \end{tikzpicture}
+\end{center}
 }
 
 \subsection{Граматични дървета}
@@ -94,15 +96,14 @@
 
 \textit{Пример:\\
 Нека $G = (V, \Sigma, R, S)$, $\Sigma = \{(, )\}$, $V = {S} \cup \Sigma$, $R = \{S \to_G SS, S \to_G (S), S \to_G \varepsilon\}$. \\
-$S \Rightarrow_G SS \Rightarrow_G (S)S \Rightarrow_G ((S))S \Rightarrow_G (())S \Rightarrow_G (())(S) \Rightarrow_G (())()$ \\
-$S \Rightarrow_G SS \Rightarrow_G S(S) \Rightarrow_G S() \Rightarrow_G (S)() \Rightarrow_G ((S))() \Rightarrow_G (())()$.
+$D_1$ : $S \Rightarrow_G SS \Rightarrow_G (S)S \Rightarrow_G ((S))S \Rightarrow_G (())S \Rightarrow_G (())(S) \Rightarrow_G (())()$ \\
+$D_2$ : $S \Rightarrow_G SS \Rightarrow_G S(S) \Rightarrow_G S() \Rightarrow_G (S)() \Rightarrow_G ((S))() \Rightarrow_G (())()$.
 }
-
 
 \begin{center}
 \begin{tikzpicture}
     \Tree
-    [.$S$     
+    [.$S$
         [.$S$ 
             [.$($ ] 
             [.$S$ 
@@ -121,9 +122,65 @@ $S \Rightarrow_G SS \Rightarrow_G S(S) \Rightarrow_G S() \Rightarrow_G (S)() \Ri
 \end{tikzpicture}
 \end{center}
 
-\textit{Явно е, че чрез граматични дървета се представят конкретни пораждания на КСГ $G$.}
+\textit{Явно е, че чрез граматични дървета се представят конкретни пораждания на думи чрез КСГ $G$. Също така шом за една дума могат да съществуват повече от 1 пораждания чрез $G$, то могат да съществуват повече от 1 граматични дървета за нея. В случая примера е смотан и не показва това, но например в английския език може да имаме следното нещо.}
 
-\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ и $D$ и $D'$ такива, че:
+\begin{center}
+\begin{tikzpicture}
+    \Tree
+    [.<sentence> 
+        [.<noun-phrase>
+            [.<det>
+                [.the ]
+            [.<noun> 
+                [.girl ] ] ] ]
+        [.<verb-phrase>
+            [.<verb>
+                [.touched ] ]
+            [.<noun-phrase>
+                [.<det>
+                    [.the ] ]
+                [.<noun>
+                    [.cat ] ] ]
+            [.<prep-phrase>
+                [.<prep>
+                    [.with ] ]
+                [.<noun-phrase>
+                    [.<det>
+                        [.a ] ]
+                    [.<noun> 
+                        [.feather ] ] ] ] ] ]
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}
+    \Tree
+    [.<sentence> 
+        [.<noun-phrase>
+            [.<det>
+                [.the ]
+            [.<noun> 
+                [.girl ] ] ] ]
+        [.<verb-phrase>
+            [.<verb> 
+                [.touched ] ]
+            [.<noun-phrase> 
+                [.<det>
+                    [.the ] ]
+                [.<noun>
+                    [.cat ] ]
+                [.<prep-phrase>
+                    [.<prep>
+                        [.with ] ]
+                    [.<noun-phrase>
+                        [.<det>
+                            [.a ] ]
+                        [.<noun>
+                            [.feather ] ] ] ] ] ] ]
+\end{tikzpicture}
+\end{center}
+
+\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ и дърветата $D$ и $D'$ са такива, че:
 \begin{itemize}
     \item $D$: $x_1 \Rightarrow_G x_2 \Rightarrow_G \dots \Rightarrow_G x_n$
     \item $D'$: $x'_1 \Rightarrow_G x'_2 \Rightarrow_G \dots \Rightarrow_G x'_n$
@@ -166,6 +223,13 @@ $\implies D_1 \prec D_2 \prec D_4$, като $D_3$ не предхожда и н
     \item $A \xRightarrow[]{R}_G^* w$,
 \end{enumerate}
 където $A \in V \backslash \Sigma, w \in \Sigma^*$.
+
+\subsection{Нормална форма на Чомски}
+
+\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Казваме, че $G$ е в нормална форма на Чомски $\iff$ $R \subseteq (V \backslash \Sigma) \times V^2$, т.е. всяко правило е от вида $A \to_G B_1B_2$, където $A \in V \backslash \Sigma$, а $B_1, B_2 \in V$.
+
+\textit{\textbf{Твърдение}} - Нека $G$ е произволна КСГ. Тогава $\exists$ КСГ в нормална форма на Чомски $G'$, такава че $L(G') = L(G) \backslash (\Sigma \cup \{\varepsilon\})$.
+
 
 \end{flushleft}
 \end{document}
