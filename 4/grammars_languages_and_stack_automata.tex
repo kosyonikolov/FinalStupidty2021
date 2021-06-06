@@ -246,7 +246,8 @@ $\implies D_1 \prec D_2 \prec D_4$, като $D_3$ не предхожда и н
 
 \textit{\textbf{Деф}} - Конфигурация се нарича всеки елемент на $K \times \Sigma^* \times \Gamma^*$, т.е. конфигурация е някое $(q, w, \alpha)$, където $q \in K$, $w \in \Sigma^*$, $\alpha \in \Gamma^*$.
 
-\textit{\textbf{Деф}} - Казваме, че конфигурацията $(q, w, \alpha)$ се преработва за една стъпка в конфигурацията $(p, w', \zeta)$ $\iff$ $\exists u \in \Sigma \cup \{\varepsilon\}: w=uw'$ и $\exists$ преход $((q, u, \beta), (p, \gamma))$, такъв че $\alpha = \beta\phi$ и $\gamma = \zeta\phi$, за $\phi \in \Gamma^*$. Означаваме го $(q, w, \alpha) \vdash_M (p, w', \zeta)$. $\vdash_M^*$ е рефлексивното и транзитивно затваряне на $\vdash_M$.
+\textit{\textbf{Деф}} - Казваме, че конфигурацията $(q, w, \alpha)$ се преработва за една стъпка в конфигурацията $(p, w', \zeta)$ $\iff$ $\exists u \in \Sigma \cup \{\varepsilon\}: w=uw'$ и $\exists$ преход $((q, u, \beta), (p, \gamma))$, 
+такъв че $\alpha = \beta\phi$ и $\zeta = \gamma\phi$, за $\phi \in \Gamma^*$. Означаваме го $(q, w, \alpha) \vdash_M (p, w', \zeta)$. $\vdash_M^*$ е рефлексивното и транзитивно затваряне на $\vdash_M$.
 
 \textit{Примери:\\
 $((q, u, \varepsilon), (p, a))$ - push, \\
