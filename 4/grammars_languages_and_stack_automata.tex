@@ -395,6 +395,19 @@ $\exists$ път в $T$ с височина поне $|V \setminus \Sigma| + 1$,
 разпознаващо $w$ - бихме могли просто да пропуснем първото разширяване на $A$ $\implies$ противоречие, т.е. $vy \neq \varepsilon$.
 
 \begin{center}
+    \begin{tikzpicture}[grow=right]
+        \Tree
+        [.$S$
+            [.$\dots$ \edge[roof]; {$u$} ]
+            [.$\dots$
+                [.$A$ \edge[roof]; {$x$} ] ]
+            [.$\dots$ \edge[roof]; {$z$} ] ]
+    \end{tikzpicture}
+\end{center}
+
+Можем да повторим частта $T_1 \setminus T_2$ произволен брой пъти, както се вижда на картинката:
+
+\begin{center}
 \begin{tikzpicture}[grow=right]
     \Tree
     [.$S$
@@ -413,16 +426,10 @@ $\exists$ път в $T$ с височина поне $|V \setminus \Sigma| + 1$,
 \end{tikzpicture}
 \end{center}
 
-\begin{center}
-\begin{tikzpicture}[grow=right]
-    \Tree
-    [.$S$
-        [.$\dots$ \edge[roof]; {$u$} ]
-        [.$\dots$
-            [.$A$ \edge[roof]; {$x$} ] ]
-        [.$\dots$ \edge[roof]; {$z$} ] ]
-\end{tikzpicture}
-\end{center}
+Следователно за всяко $n \in \mathbb{N}$ можем да направим дърво, извеждащо $uv^nxy^nz \implies$
+$\forall n \in \mathbb{N}$ $uv^nxy^nz \in L(G)$, с което завършваме доказателството на лемата.
+
+
 
 \subsection{Примери за езици, които не са КСЕ}
 
