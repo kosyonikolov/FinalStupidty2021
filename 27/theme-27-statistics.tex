@@ -126,8 +126,8 @@ $p_i=P(\{\xi = x_i\}), 0 < p_i < 1, i=1,\dots,n,\dots$ са вероятност
 Събитията $\{\xi = x_n\}$ образуват пълна група от несъвместими събития, то $\sum_{i \in \#values(\xi)} p_i = 1$.
 
 \subsection{Числови характеристики(на дискретните сл. величини) - мат. очакване и дисперсия)}
-\textbf{Математическо очакване} на сл величина $\xi$ дава грубо оценка за средната стойност на величината.
-$E\xi = \sum_i x_i p_i$
+\textbf{Математическо очакване} на дискретна случайна величина $\xi$ дава грубо оценка за средната стойност на
+величината. $E\xi = \sum_i x_i p_i$
 
 \subsubsection{Свойства на математическото очакване}
 \begin{itemize}
@@ -137,9 +137,9 @@ $E\xi = \sum_i x_i p_i$
     E\eta$
 \end{itemize}
 
-\textbf{Дисперсия} на сл величина представлява мярка за разсейване около средната ѝ стойност. Намира се по формулата
-$D\xi = E[\left(\xi - E\xi\right)^2] = \sum_i (x_i - E\xi)^2 p_i = E\xi^2 - (E\xi)^2$.
-Дисперсията винаги е положително число.
+\textbf{Дисперсия} на дискретна случайна величина представлява мярка за разсейване около средната ѝ стойност. Намира се
+по формулата $D\xi = E[\left(\xi - E\xi\right)^2] = \sum_i (x_i - E\xi)^2 p_i = E\xi^2 - (E\xi)^2$. Дисперсията винаги е
+положително число.
 
 \subsubsection{Свойства на дисперсията}
 \begin{itemize}
@@ -394,10 +394,32 @@ $p \rightarrow 0$. Това е т.нар. схема на Поансон и ак
 разпределение. 
 \begin{itemize}
     \item мат очакване : $\lim_{n \rightarrow \infty} ES_n = \lim_{n \rightarrow \infty, p \rightarrow 0} np = \lambda$
-    \item дисперсия : $\lim_{n \rightarrow \infty} DS_n = \lim_{n \rightarrow \infty, p \rightarrow 0} npq = \lambda
-    \lim q = \lambda * 1 = \lambda$
+    \item дисперсия : $\lim_{n \rightarrow \infty} DS_n = \lim_{n \rightarrow \infty, p \rightarrow 0} npq$
+     $ = \lambda \lim{q \rightarrow 1} q = \lambda * 1 = \lambda$
     \item пораждаща функция : $\phi_\pi(t) = e^{\lambda(t-1)}$
 \end{itemize}
+\subsubsection{Числови характеристики по втори начин}
+\begin{itemize}
+    \item пораждаща функция : $\phi_\pi(t) = E(t^\pi) = \sum_{k \geq 0} t^{k}p_k$
+    $= \sum_{k \geq 0} t^{k} * \frac{e^{-\lambda}\lambda^k}{k!} = e^{-\lambda} \sum_{k \geq 0} \frac{(\lambda t)^k}{k!}$
+    $= e^{-\lambda} * e^{\lambda t} = e^{\lambda t - \lambda}$
+    \item мат очакване : $E(\pi) = \lambda$
+    
+    $\phi_\pi'(t) = e^{\lambda t - \lambda} * \lambda$ 
+    
+    $E(\pi) = m_1 = \phi_\pi'(1) = e^0 * \lambda = \lambda$
+    
+    \item дисперсия $D(\pi) = \lambda$
+    
+    $\phi_\pi''(t) = e^{\lambda t - \lambda} * \lambda^2$ 
+    
+    $\phi_\pi''(1) = e^0 * \lambda^2$
+
+    $D(\pi) = E(\pi^2) - (E(\pi))^2 = m_2 - (m_1)^2 = m_2 - m_1 + m_1 + (m_1)^2 = (m_2 - m_1) + m_1 + (m_1)^2$
+
+    $= \phi_\pi''(1) + \phi_\pi'(1) - (\phi_\pi'(1))^2 = \lambda^2 + \lambda - \lambda^2 = \lambda$
+\end{itemize}
+
 \subsubsection{Използване} 
 Разпределението на Поасон e приближение на биномното разпределение за голям брой опити и ниска вероятност за успех.
 
@@ -410,7 +432,7 @@ $p \rightarrow 0$. Това е т.нар. схема на Поансон и ак
 
 Това е приложимо за природни катаклизми, икономически прогнози или процент неизправности.
 
-Пример : при 300 разговора месечно в мрежата на Виваком каква е вероятността да настъпят 3 грешки(т.е. 1\%)?
+Пример : при 300 разговора месечно в мрежата на Виваком каква е вероятността да настъпят 3 грешки(т.е. 1\% грешки)?
 
 събитие А = {грешка при свързване}, 
 
