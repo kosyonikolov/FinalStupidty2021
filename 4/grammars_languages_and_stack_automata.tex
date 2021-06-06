@@ -362,11 +362,13 @@ $\Phi(G) = \mmax(\{|\alpha| \hspace{2mm} | \hspace{2mm} A \to_G \alpha \in R, A 
 
 \textit{\textbf{Доказателство:}}
 
-Нека $T$ е граматичното дърво с \textbf{най-малка височина}, което поражда думата $w = uvxyz$, където $w \in L(G)$ и $|w| > \Phi(G)^{|V \setminus \Sigma|}$. \\
-От \textit{\textbf{Лема 2}} знаем, че $\Phi(G)^{|V \setminus \Sigma|} < |w| \leq \Phi(G)^h$, където $h$ е височината на $T$ $\implies$ $h > |V \setminus \Sigma|$, т.е. $h \geq |V \setminus \Sigma| + 1$ $\implies$ \\
+Нека $T$ е граматичното дърво с \textbf{най-малък брой листа}, което поражда думата $w = uvxyz$, 
+където $w \in L(G)$ и $|w| > \Phi(G)^{|V \setminus \Sigma|}$. 
+От \textit{\textbf{Лема 2}} знаем, че $\Phi(G)^{|V \setminus \Sigma|} < |w| \leq \Phi(G)^h$, където $h$ е височината на $T$ $\implies$ $h > |V \setminus \Sigma|$, т.е. $h \geq |V \setminus \Sigma| + 1$ $\implies$ 
 $\exists$ път в $T$ с височина поне $|V \setminus \Sigma| + 1$, т.е. в него участват поне $|V \setminus \Sigma| + 2$ върха, където един е листо, т.е. е терминал, и $|V \setminus \Sigma| + 1$ са нетерминали.
 
-От принципа на Дирихле получаваме, че поне един от всички нетерминали участва поне два пъти в този път понеже те са $|V \setminus \Sigma|$ на брой. На картинка е нещо такова (расте надясно за да пестим хартия и опазваме околната среда):
+От принципа на Дирихле получаваме, че поне един от всички нетерминали участва поне два пъти в този път понеже те са $|V \setminus \Sigma|$ на брой. 
+На картинка е нещо такова (расте надясно за да пестим хартия и опазваме околната среда):
 
 \begin{center}
 \begin{tikzpicture}[grow=right]
@@ -384,7 +386,9 @@ $\exists$ път в $T$ с височина поне $|V \setminus \Sigma| + 1$,
 \end{center}
 
 
-Нека $T$ извежда $uvxyz$, $T_1$ извежда $vxy$ и $T_2$ извежда $x$. Ако $vy = \varepsilon$, то $T$ няма да бъде граматичното дърво с най-малка височина разпознаващо $w$ $\implies$ противоречие, т.е. $vy \neq \varepsilon$.
+Нека $T$ извежда $uvxyz$, $T_1$ извежда $vxy$ и $T_2$ извежда $x$. 
+Ако $vy = \varepsilon$, то $T$ няма да бъде граматичното дърво с най-малък брой листа,
+разпознаващо $w$ - бихме могли просто да пропуснем първото разширяване на $A$ $\implies$ противоречие, т.е. $vy \neq \varepsilon$.
 
 \begin{center}
 \begin{tikzpicture}[grow=right]
@@ -419,10 +423,10 @@ $\exists$ път в $T$ с височина поне $|V \setminus \Sigma| + 1$,
 \subsection{Примери за езици, които не са КСЕ}
 
 \begin{enumerate}
-    \item $L = \{a^nb^nc^n | n \in \mathbb{N} \}$
-    \item $L = \{a^n | n \in \mathbb{N}\}$ (малко ми е съмнително)
-    \item $L = \{a^ib^j | j = i^2\}$
-    \item $L = \{a^ib^jc^k | i < j < k\}$
+    \item $L = \{a^nb^nc^n \hspace{2mm} | \hspace{2mm} n \in \mathbb{N} \}$
+    \item $L = \{a^n \hspace{2mm} | \hspace{2mm} n \text{ е просто}\}$
+    \item $L = \{a^ib^j \hspace{2mm} | \hspace{2mm} j = i^2\}$
+    \item $L = \{a^ib^jc^k \hspace{2mm} | \hspace{2mm} i < j < k\}$
 \end{enumerate}
 
 
