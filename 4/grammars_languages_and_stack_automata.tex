@@ -36,9 +36,9 @@
 \section{Контекстно-свободни граматики и езици}
 \subsection{Дадености}
 
-\textit{\textbf{Деф}} - Контекстно-свободна граматика (КСГ) наричаме четворката $G = (V, \Sigma, R, S)$, където $V$ е азбука, $\Sigma$ - множество на терминалите (осн. азбука), $\Sigma \subseteq V$, $V \backslash \Sigma$ - азбука на нетерминалите, $R \subseteq (V \backslash \Sigma) \times V^*$ - множество от правила, $S$ - нетерминал, наречен начален символ.
+\textit{\textbf{Деф}} - Контекстно-свободна граматика (КСГ) наричаме четворката $G = (V, \Sigma, R, S)$, където $V$ е азбука, $\Sigma$ - множество на терминалите (осн. азбука), $\Sigma \subseteq V$, $V \setminus \Sigma$ - азбука на нетерминалите, $R \subseteq (V \setminus \Sigma) \times V^*$ - множество от правила, $S$ - нетерминал, наречен начален символ.
 
-\textit{\textbf{Деф}} - Ако $(A, v) \in R$ ще го бележим $A \to_G v$, за $A \in V \backslash \Sigma, v \in V^*$ в КСГ $G=(V, \Sigma, R, S)$.
+\textit{\textbf{Деф}} - Ако $(A, v) \in R$ ще го бележим $A \to_G v$, за $A \in V \setminus \Sigma, v \in V^*$ в КСГ $G=(V, \Sigma, R, S)$.
 
 \textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Казваме, че $u = xAy$ се преработва за във $v = xv'y$ с помощта на $G$, ако $\exists x, y \in V^*$ и $A \to_G v'$ е правило в $R$. Бележим като $u \Rightarrow_G v$.
 
@@ -54,9 +54,9 @@
 
 \textit{Примери:\\
 \begin{enumerate}
-    \item Нека $G = (V, \Sigma, R, S)$, $V \backslash \Sigma = \{S, P, N, A, V\}$, $\Sigma = \{a, b, c, d, e\}$, $R = \{P \to_G N, P \to_G AP, S \to_G PVP, V \to_G b, A \to_G d, A \to_G e, N \to_G a, N \to_G c\}$ $\implies$ $S \Rightarrow_G PVP \Rightarrow_G PbP \Rightarrow_G APbAP \Rightarrow_G dNbeN \Rightarrow_G dabec$.
+    \item Нека $G = (V, \Sigma, R, S)$, $V \setminus \Sigma = \{S, P, N, A, V\}$, $\Sigma = \{a, b, c, d, e\}$, $R = \{P \to_G N, P \to_G AP, S \to_G PVP, V \to_G b, A \to_G d, A \to_G e, N \to_G a, N \to_G c\}$ $\implies$ $S \Rightarrow_G PVP \Rightarrow_G PbP \Rightarrow_G APbAP \Rightarrow_G dNbeN \Rightarrow_G dabec$.
     \item Нека $G = (V, \Sigma, R, S)$, $V = \{S\} \cup \Sigma$, $\Sigma = \{a, b\}$, $R = \{S \to_G aSb, S \to_G \varepsilon\}$ $\implies$ $s \Rightarrow_G aSb \Rightarrow_G a^2Sb^2 \Rightarrow_G a^2b^2$ $\implies$ $L(G) = \{a^nb^n | n \in \mathbb{N}\}$, т.е. не е регулярен.
-    \item Нека $G = (V, \Sigma, R, s)$, $R = \{s \to_G ap, s \to_G bs, p \to_G aq, p \to_G bp, q \to_G as, q \to_G aq, q \to_G \varepsilon\}$, $\Sigma = \{a, b\}$, $V \backslash \Sigma = \{s, p, q\}$, като $L(G) = L(M)$, където M е автоматът от картинката.
+    \item Нека $G = (V, \Sigma, R, s)$, $R = \{s \to_G ap, s \to_G bs, p \to_G aq, p \to_G bp, q \to_G as, q \to_G aq, q \to_G \varepsilon\}$, $\Sigma = \{a, b\}$, $V \setminus \Sigma = \{s, p, q\}$, като $L(G) = L(M)$, където M е автоматът от картинката.
 \end{enumerate}
 \begin{center}
 \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
@@ -79,8 +79,8 @@
 \textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Граматично дърво $D$ с корен $A$ над $G$ дефинираме индуктивно по следния начин:
 \begin{enumerate}
     \item Ако $A = a, a \in \Sigma$, то $D$ поражда $a$.
-    \item Ако $\exists$ правило $A \to_G \varepsilon, A \in V \backslash \Sigma$, то $D$ поражда $\varepsilon$.
-    \item Нека $D_1, D_2, \dots, D_n$ са граматични дървета с корени съответно $A_1, A_2, \dots, A_n \in V$, пораждащи съответно $y_1, y_2, \dots, y_n \in \Sigma^*, A \in V \backslash \Sigma$. Ако $\exists$ правило $A \to_G A_1A_2{\dots}A_n$ в $R$, то дървото $D$ поражда $y_1 \circ y_2 \circ \dots \circ y_n$.
+    \item Ако $\exists$ правило $A \to_G \varepsilon, A \in V \setminus \Sigma$, то $D$ поражда $\varepsilon$.
+    \item Нека $D_1, D_2, \dots, D_n$ са граматични дървета с корени съответно $A_1, A_2, \dots, A_n \in V$, пораждащи съответно $y_1, y_2, \dots, y_n \in \Sigma^*, A \in V \setminus \Sigma$. Ако $\exists$ правило $A \to_G A_1A_2{\dots}A_n$ в $R$, то дървото $D$ поражда $y_1 \circ y_2 \circ \dots \circ y_n$.
 \end{enumerate}
 
 \begin{center}
@@ -186,7 +186,7 @@ $D_2$ : $S \Rightarrow_G SS \Rightarrow_G S(S) \Rightarrow_G S() \Rightarrow_G (
     \item $D$: $x_1 \Rightarrow_G x_2 \Rightarrow_G \dots \Rightarrow_G x_n$
     \item $D'$: $x'_1 \Rightarrow_G x'_2 \Rightarrow_G \dots \Rightarrow_G x'_n$
 \end{itemize}
-и $x_1, x'_1 \in V \backslash \Sigma$, $x_n, x'_n \in \Sigma^*$. Казваме, че $D$ предхожда $D' \iff$ $\exists k: 1 < k < n$:
+и $x_1, x'_1 \in V \setminus \Sigma$, $x_n, x'_n \in \Sigma^*$. Казваме, че $D$ предхожда $D' \iff$ $\exists k: 1 < k < n$:
 \begin{enumerate}
     \item $x_i = x'_i$, за $i \neq k$,
     \item $x_{k-1} = x'_{k-1} = uAvBw$,
@@ -194,7 +194,7 @@ $D_2$ : $S \Rightarrow_G SS \Rightarrow_G S(S) \Rightarrow_G S() \Rightarrow_G (
     \item $x'_k = uAvzw, B \to_G z \in R$,
     \item $x_{k+1} = x'_{k+1} = uyvzw$,
 \end{enumerate}
-където $A, B \in V \backslash \Sigma$ и $u, y, v, z, w \in V^*$. \\
+където $A, B \in V \setminus \Sigma$ и $u, y, v, z, w \in V^*$. \\
 Означаваме с $D \prec D'$, като $(D, D')$ наричаме предшестване.
 
 \textit{Пример:\\
@@ -223,13 +223,13 @@ $\implies D_1 \prec D_2 \prec D_4$, като $D_3$ не предхожда и н
     \item $A \xRightarrow[]{L}_G^* w$,
     \item $A \xRightarrow[]{R}_G^* w$,
 \end{enumerate}
-където $A \in V \backslash \Sigma, w \in \Sigma^*$.
+където $A \in V \setminus \Sigma, w \in \Sigma^*$.
 
 \subsection{Нормална форма на Чомски}
 
-\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Казваме, че $G$ е в нормална форма на Чомски $\iff$ $R \subseteq (V \backslash \Sigma) \times V^2$, т.е. всяко правило е от вида $A \to_G B_1B_2$, където $A \in V \backslash \Sigma$, а $B_1, B_2 \in V$.
+\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Казваме, че $G$ е в нормална форма на Чомски $\iff$ $R \subseteq (V \setminus \Sigma) \times V^2$, т.е. всяко правило е от вида $A \to_G B_1B_2$, където $A \in V \setminus \Sigma$, а $B_1, B_2 \in V$.
 
-\textit{\textbf{Твърдение}} - Нека $G$ е произволна КСГ. Тогава $\exists$ КСГ в нормална форма на Чомски $G'$, такава че $L(G') = L(G) \backslash (\Sigma \cup \{\varepsilon\})$.
+\textit{\textbf{Твърдение}} - Нека $G$ е произволна КСГ. Тогава $\exists$ КСГ в нормална форма на Чомски $G'$, такава че $L(G') = L(G) \setminus (\Sigma \cup \{\varepsilon\})$.
 
 \section{Стекови автомати}
 
@@ -313,7 +313,7 @@ q & $\varepsilon$ & $\varepsilon$ & 6 \\
 \hline
 \end{tabular}
 
-\textit{\textbf{Лема 1}} - Нека $w \in \Sigma^*$ и $\alpha \in ((V \backslash \Sigma) \circ V^*) \cup \{\varepsilon\}$. 
+\textit{\textbf{Лема 1}} - Нека $w \in \Sigma^*$ и $\alpha \in ((V \setminus \Sigma) \circ V^*) \cup \{\varepsilon\}$. 
 
 Приемаме, че \textit{\textbf{Лема 1}} е доказана и тогава: \\
 $w \in L(G) \iff S \xRightarrow[]{L}_G^* w\alpha \iff (s, w, \varepsilon) \vdash_M (q, w, S) \vdash_M^* (q, \varepsilon, \alpha)$.
@@ -333,7 +333,7 @@ $\implies$ доказахме, че $L(G) = L(M)$.
 \textbf{Стъпка} - Ще я докажем за някое $n + 1$. Тогава: \\
 
 $S = u_0 \xRightarrow[]{L}_G u1 \xRightarrow[]{L}_G \dots \xRightarrow[]{L}_G u_n \xRightarrow[]{L}_G u_{n+1} = w\alpha$. \\
-От ИП имаме, че $u_n = xA\beta$, където $x \in \Sigma^*, A \in V \backslash \Sigma, \beta \in V^*$ и $A \to_G \gamma \in R$, защото извършваните преходи са с \textbf{най-ляв приоритет}. \\
+От ИП имаме, че $u_n = xA\beta$, където $x \in \Sigma^*, A \in V \setminus \Sigma, \beta \in V^*$ и $A \to_G \gamma \in R$, защото извършваните преходи са с \textbf{най-ляв приоритет}. \\
 Тогава $w\alpha = x\gamma\beta$ и от ИП $(q, x, S) \vdash_M^* (q, \varepsilon, A\beta)$. \\
 Разглеждаме последователно за $w = xy$, където $x, y \in \Sigma^*$, $y\alpha = \gamma\beta$, т.е. $y$ е начало на $\gamma$: \\
 
@@ -351,7 +351,7 @@ $(q, xy, S) \overset{[1]}{\vdash_M^*} (q, y, A\beta) \overset{[2]}{\vdash_M} (q,
 
 \textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$. Тогава дефинираме: 
 
-$\Phi(G) = \mmax(\{|\alpha| \hspace{2mm} | \hspace{2mm} A \to_G \alpha \in R, A \in V \backslash \Sigma, \alpha \in V^*\})$.
+$\Phi(G) = \mmax(\{|\alpha| \hspace{2mm} | \hspace{2mm} A \to_G \alpha \in R, A \in V \setminus \Sigma, \alpha \in V^*\})$.
 
 \textit{\textbf{Забележка}} - Може да разглеждаме $\Phi(G)$ като разклоненост (branching factor) на всички граматични дървета от $G$.
 
@@ -362,11 +362,11 @@ $\Phi(G) = \mmax(\{|\alpha| \hspace{2mm} | \hspace{2mm} A \to_G \alpha \in R, A 
 
 \textit{\textbf{Доказателство:}}
 
-Нека $T$ е граматичното дърво с \textbf{най-малка височина}, което поражда думата $w = uvxyz$, където $w \in L(G)$ и $|w| > \Phi(G)^{|V \backslash \Sigma|}$. \\
-От \textit{\textbf{Лема 2}} знаем, че $\Phi(G)^{|V \backslash \Sigma|} < |w| \leq \Phi(G)^h$, където $h$ е височината на $T$ $\implies$ $h > |V \backslash \Sigma|$, т.е. $h \geq |V \backslash \Sigma| + 1$ $\implies$ \\
-$\exists$ път в $T$ с височина поне $|V \backslash \Sigma| + 1$, т.е. в него участват поне $|V \backslash \Sigma| + 2$ върха, където един е листо, т.е. е терминал, и $|V \backslash \Sigma| + 1$ са нетерминали.
+Нека $T$ е граматичното дърво с \textbf{най-малка височина}, което поражда думата $w = uvxyz$, където $w \in L(G)$ и $|w| > \Phi(G)^{|V \setminus \Sigma|}$. \\
+От \textit{\textbf{Лема 2}} знаем, че $\Phi(G)^{|V \setminus \Sigma|} < |w| \leq \Phi(G)^h$, където $h$ е височината на $T$ $\implies$ $h > |V \setminus \Sigma|$, т.е. $h \geq |V \setminus \Sigma| + 1$ $\implies$ \\
+$\exists$ път в $T$ с височина поне $|V \setminus \Sigma| + 1$, т.е. в него участват поне $|V \setminus \Sigma| + 2$ върха, където един е листо, т.е. е терминал, и $|V \setminus \Sigma| + 1$ са нетерминали.
 
-От принципа на Дирихле получаваме, че поне един от всички нетерминали участва поне два пъти в този път понеже те са $|V \backslash \Sigma|$ на брой. На картинка е нещо такова (расте надясно за да пестим хартия и опазваме околната среда):
+От принципа на Дирихле получаваме, че поне един от всички нетерминали участва поне два пъти в този път понеже те са $|V \setminus \Sigma|$ на брой. На картинка е нещо такова (расте надясно за да пестим хартия и опазваме околната среда):
 
 \begin{center}
 \begin{tikzpicture}[grow=right]
