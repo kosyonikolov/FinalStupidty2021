@@ -293,7 +293,12 @@ $((q, u, a), (p, \varepsilon))$ - pop.
 
 Ще докажем, че щом $L$ е КСЕ, то $L$ се разпознава от някой стеков автомат. За целта нека $G = (V, \Sigma, R, S)$ е КСГ, такава че $L = L(G)$. Ще построим автомат $M = (K, \Sigma, \Gamma, \Delta, s, F)$, където $K = \{s, q\}$, $\Gamma = V$, $F = \{q\}$ и $\Delta = \{((s, \varepsilon, \varepsilon), (q, S))\} \cup \{((q, \varepsilon, A), (q, \gamma)) | A \to_G \gamma \in R\} \cup \{((q, a, a), (q, \varepsilon)) | a \in \Sigma\}$.
 
-Преход от тип 1 ще наричаме $((s, \varepsilon, \varepsilon), (q, S))$, от тип 2 - $((q, \varepsilon, A), (q, \gamma))$, за $ A \to_G \gamma \in R$, от тип 3 - $((q, a, a), (q, \varepsilon))$, за $a \in \Sigma$.
+Преходите ще разделим на три типа:
+\begin{enumerate}
+    \item $((s, \varepsilon, \varepsilon), (q, S))$ - има единствен такъв
+    \item \label{transition_type:two} $((q, \varepsilon, A), (q, \gamma))$, за всяко правило $ A \to_G \gamma \in R$
+    \item $((q, a, a), (q, \varepsilon))$, за всяко $a \in \Sigma$
+\end{enumerate}
 
 \textit{Пример - Нека $G = (V, \Sigma, R, S)$, $V = \{S\} \cup \Sigma$, $\Sigma = \{a, b, c\}$, $R = \{S \to_G c, S \to_G aSa, S \to_G bSb\}$.} \\
 \textit{Очевидно $L(G) = \{wcw^R | w \in \{a, b\}^*\}$}. \\
@@ -350,7 +355,7 @@ $(q, xy, S) \overset{[1]}{\vdash_M^*} (q, y, A\beta) \overset{[2]}{\vdash_M} (q,
 
 ($\impliedby$) \\
 Нека $(q, w, S) \vdash_M^* (q, \varepsilon, \alpha)$, където $w \in \Sigma^*$ и $\alpha \in ((V \setminus \Sigma) \times V^*) \cup \{\varepsilon\}$. \\
-Ще докажем чрез индукция относно \textbf{броя на преходите от тип 2} в изчислението на автомата $M$, че $S \xRightarrow[]{L}_G^* w\alpha$.
+Ще докажем чрез индукция относно \textbf{броя на преходите от тип \ref{transition_type:two}} в изчислението на автомата $M$, че $S \xRightarrow[]{L}_G^* w\alpha$.
 
 \textbf{База} - Ако $n = 0$, то $w = \varepsilon, \alpha = S$, то очевидно $S \xRightarrow[]{L}_G^* S$.
 
