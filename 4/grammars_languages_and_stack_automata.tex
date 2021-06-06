@@ -40,7 +40,7 @@
 
 \textit{\textbf{Деф}} - Ако $(A, v) \in R$ ще го бележим $A \to_G v$, за $A \in V \setminus \Sigma, v \in V^*$ в КСГ $G=(V, \Sigma, R, S)$.
 
-\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Казваме, че $u = xAy$ се преработва за във $v = xv'y$ с помощта на $G$, ако $\exists x, y \in V^*$ и $A \to_G v'$ е правило в $R$. Бележим като $u \Rightarrow_G v$.
+\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Казваме, че $u = xAy$ се преработва за една стъпка в $v = xv'y$ с помощта на $G$, ако $\exists x, y \in V^*$ и $\exists A \in V \setminus \Sigma: A \to_G v'$ е правило в $R$. Бележим като $u \Rightarrow_G v$.
 
 \textit{\textbf{Деф}} - $\Rightarrow_G^*$ е рефлексивно и транзитивно затваряне на $\Rightarrow_G$.
 
@@ -78,9 +78,10 @@
 
 \textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Граматично дърво $D$ с корен $A$ над $G$ дефинираме индуктивно по следния начин:
 \begin{enumerate}
-    \item Ако $A = a, a \in \Sigma$, то $D$ поражда $a$.
-    \item Ако $\exists$ правило $A \to_G \varepsilon, A \in V \setminus \Sigma$, то $D$ поражда $\varepsilon$.
-    \item Нека $D_1, D_2, \dots, D_n$ са граматични дървета с корени съответно $A_1, A_2, \dots, A_n \in V$, пораждащи съответно $y_1, y_2, \dots, y_n \in \Sigma^*, A \in V \setminus \Sigma$. Ако $\exists$ правило $A \to_G A_1A_2{\dots}A_n$ в $R$, то дървото $D$ поражда $y_1 \circ y_2 \circ \dots \circ y_n$.
+    \item Ако $A = a, a \in \Sigma$, то $D$ има единствено листо $a$ и поражда $a$.
+    \item Ако $\exists$ правило $A \to_G \varepsilon, A \in V \setminus \Sigma$, то $D$ има единствено листо $\varepsilon$ и поражда $\varepsilon$.
+    \item Нека $D_1, D_2, \dots, D_n$ са граматични дървета с корени съответно $A_1, A_2, \dots, A_n \in V$, пораждащи съответно $y_1, y_2, \dots, y_n \in \Sigma^*, A \in V \setminus \Sigma$. 
+    Ако $\exists$ правило $A \to_G A_1A_2{\dots}A_n$ в $R$, то след като приложим правилото, дървото $D$ съдържа листата на всичките дървета $D_1, D_2, \dots, D_n$ и поражда $y_1 \circ y_2 \circ \dots \circ y_n$.
 \end{enumerate}
 
 \begin{center}
@@ -181,7 +182,7 @@ $D_2$ : $S \Rightarrow_G SS \Rightarrow_G S(S) \Rightarrow_G S() \Rightarrow_G (
 \end{tikzpicture}
 \end{center}
 
-\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ и дърветата $D$ и $D'$ са такива, че:
+\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ и изводите $D$ и $D'$ са такива, че:
 \begin{itemize}
     \item $D$: $x_1 \Rightarrow_G x_2 \Rightarrow_G \dots \Rightarrow_G x_n$
     \item $D'$: $x'_1 \Rightarrow_G x'_2 \Rightarrow_G \dots \Rightarrow_G x'_n$
@@ -212,13 +213,13 @@ $\implies D_1 \prec D_2 \prec D_4$, като $D_3$ не предхожда и н
     \item $S \xRightarrow[]{L}_G^* w$ ще означаваме пораждането с най-голям приоритет отляво,
     \item $S \xRightarrow[]{R}_G^* w$ ще означаваме пораждането с най-голям приоритет отдясно,
 \end{itemize} 
-където $w \in \Sigma^*$.
+където $w \in L(G)$.
 
-\textit{\textbf{Деф}} - Казваме, че граматичните дървета $D$ и $D'$ са подобни $\iff$ $(D, D')$ принадлежи на рефлексивното, симетрично и транзитивно затваряне на $\prec$.
+\textit{\textbf{Деф}} - Казваме, че изводите $D$ и $D'$ са подобни $\iff$ $(D, D')$ принадлежи на рефлексивното, симетрично и транзитивно затваряне на $\prec$.
 
 \textit{\textbf{Твърдение}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Тогава следните твърдения са еквивалентни:
 \begin{enumerate}
-    \item $S \Rightarrow_G^* w$,
+    \item $A \Rightarrow_G^* w$,
     \item $\exists$ граматично дърво с корен $A$, пораждащо $w$,
     \item $A \xRightarrow[]{L}_G^* w$,
     \item $A \xRightarrow[]{R}_G^* w$,
@@ -259,7 +260,7 @@ $((q, u, a), (p, \varepsilon))$ - pop.
 
 \textit{\textbf{Деф}} - Нека $M = (K, \Sigma, \Gamma, \Delta, s, F)$ е СА. Тогава $L(M) = \{w | w \in \Sigma^*$ и $ (s, w, \varepsilon) \vdash_M^* (f, \varepsilon, \varepsilon), f \in F\}$ е езикът разпознаван от $M$.
 
-\textit{\textbf{Деф}} - Един СА $M = (K, \Sigma, \Gamma, \Delta, s, F)$ се нарича прост ако за всяко $((q, u, \beta), (p, \zeta)) \in \Delta$ е изпълнено, че $\beta \in \Gamma$ и $|\zeta| \leq 2$.
+\textit{\textbf{Деф}} - Един СА $M = (K, \Sigma, \Gamma, \Delta, s, F)$ се нарича прост ако за всяко правило за преход $((q, u, \beta), (p, \zeta)) \in \Delta$ такова, че $q \neq s$, е изпълнено, че $\beta \in \Gamma$ и $|\zeta| \leq 2$.
 
 \textit{\textbf{Деф}} - Два стекови автомата $M_1$ и $M_2$ са еквивалентни $\iff L(M_1) = L(M_2)$.
 
@@ -313,7 +314,8 @@ q & $\varepsilon$ & $\varepsilon$ & 6 \\
 \hline
 \end{tabular}
 
-\textit{\textbf{Лема 1}} - Нека $w \in \Sigma^*$ и $\alpha \in ((V \setminus \Sigma) \circ V^*) \cup \{\varepsilon\}$. 
+\textit{\textbf{Лема 1}} - Нека $w \in \Sigma^*$ и $\alpha \in ((V \setminus \Sigma) \circ V^*) \cup \{\varepsilon\}$.
+Тогава $S \xRightarrow[]{L}_G^* w\alpha$ $\iff$ $(q, w, S) \vdash_M^* (q, \varepsilon, \alpha)$
 
 Приемаме, че \textit{\textbf{Лема 1}} е доказана и тогава: \\
 $w \in L(G) \iff S \xRightarrow[]{L}_G^* w\alpha \iff (s, w, \varepsilon) \vdash_M (q, w, S) \vdash_M^* (q, \varepsilon, \alpha)$.
