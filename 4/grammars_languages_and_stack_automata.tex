@@ -15,6 +15,7 @@
 
 \DeclareMathOperator{\cotg}{cotg}
 \DeclareMathOperator{\LCS}{LCS}
+\DeclareMathOperator{\mmax}{max}
 \DeclareMathOperator{\longer}{longer}
 
 \setlength{\parskip}{1em}
@@ -350,7 +351,7 @@ $(q, xy, S) \overset{[1]}{\vdash_M^*} (q, y, A\beta) \overset{[2]}{\vdash_M} (q,
 
 \textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$. Тогава дефинираме: 
 
-$\Phi(G) = max(\{|\alpha| | A \to_G \alpha \in R, A \in V \backslash \Sigma, \alpha \in V^*\})$.
+$\Phi(G) = \mmax(\{|\alpha| \hspace{2mm} | \hspace{2mm} A \to_G \alpha \in R, A \in V \backslash \Sigma, \alpha \in V^*\})$.
 
 \textit{\textbf{Забележка}} - Може да разглеждаме $\Phi(G)$ като разклоненост (branching factor) на всички граматични дървета от $G$.
 
