@@ -324,10 +324,7 @@ q & $\varepsilon$ & $\varepsilon$ & 6 \\
 \textit{\textbf{Лема 1}} - Нека $w \in \Sigma^*$ и $\alpha \in ((V \setminus \Sigma) \times V^*) \cup \{\varepsilon\}$.
 Тогава $S \xRightarrow[]{L}_G^* w\alpha$ $\iff$ $(q, w, S) \vdash_M^* (q, \varepsilon, \alpha)$
 
-Приемаме, че \textit{\textbf{Лема 1}} е доказана и тогава: \\
-$w \in L(G) \iff S \xRightarrow[]{L}_G^* w\alpha \iff (s, w, \varepsilon) \vdash_M (q, w, S) \vdash_M^* (q, \varepsilon, \alpha)$.
-
-Очевидно щом $S \xRightarrow[]{L}_G^* w$, то след краен брой преходи $\alpha = \varepsilon \implies$ \\
+Приемаме, че \textit{\textbf{Лема 1}} е доказана и тогава за някоя дума $w \in L(G)$ имаме, че тя се състои само от терминали, т.е. единствената възможнста стойноста на $\alpha$ в този случай е $\varepsilon \implies$ \\
 $w \in L(G) \iff S \xRightarrow[]{L}_G^* w \iff (s, w, \varepsilon) \vdash_M (q, w, S) \vdash_M^* (q, \varepsilon, \varepsilon)$ \\
 $\implies$ доказахме, че $L(G) = L(M)$.
 
