@@ -34,7 +34,7 @@
 Нека $n \in \mathbb{N}, n \geq 1$ и означим $J_2 = \{ 0, 1 \}$. 
 Булева функция на $n$ променливи наричаме всяка функция $f : J_2^n \rightarrow J_2$.
 Множеството от всички булеви функции на $n$ променливи означаваме
-$\mathcal{F}_2^n$, а множеството на всички булеви функции $\mathcal{F}_2 = \cup_{n \in \mathbb{N}} \mathcal{F}^2_n$.
+$\mathcal{F}_2^n$, а множеството на всички булеви функции $\mathcal{F}_2 = \cup_{n \in \mathbb{N}} \mathcal{F}_2^n$.
 
 \subsection{Формула над множество БФ}
 Нека $X = \{ x_0, x_1, \dots \}$ - изброимо множество от променливи за
@@ -79,12 +79,12 @@ $\mathcal{F}_2^n$, а множеството на всички булеви фу
 \end{center}
 Имената им са както следва:
 \begin{itemize}
-    \item $x \vee y$ - дизюнкиця
+    \item $x \vee y$ - дизюнкция
     \item $x \wedge y$ - конюнкция. За кратко записваме $xy = x \wedge y$
     \item $x \oplus y$ - изключващо или
     \item $x \rightarrow y$ и $y \rightarrow x$ - импликации
-    \item $x \downarrow y$ - стрелка на Пиърс
-    \item $x|y$ - черта на Шефер
+    \item $x \downarrow y$ - стрелка на Пиърс (отрицание на дизюнкцията)
+    \item $x|y$ - черта на Шефер (отрицание на конюнкцията)
 \end{itemize}
 
 \section{Свойства на булеви функции}
@@ -95,7 +95,7 @@ $\mathcal{F}_2^n$, а множеството на всички булеви фу
     \item Асоциативност: $(x \vee y) \vee z = x \vee (y \vee z), (x \wedge y) \wedge z = x \wedge (y \wedge z), (x \oplus y) \oplus z = x \oplus (y \oplus z)$
     \item Дистрибутивност: $(x \wedge y) \vee z = (x \vee z) \wedge (y \vee z)$, $(x \vee y) \wedge z = xz \vee yz$, $(x \oplus y) \wedge z = xz \oplus yz$
     \item Идемпотентност: $x \wedge x = x$, $x \wedge x = x$, $x \oplus x = \widetilde{0}$
-    \item Свойства на отрицанието: $x\overline{x} = \widetilde{0}$, $x \vee \overline{x} = \widetilde{1}$, $x \oplus \overline{x} = \overline{1}$, $\overline{\overline{{x}}} = x$
+    \item Свойства на отрицанието: $x\overline{x} = \widetilde{0}$, $x \vee \overline{x} = \widetilde{1}$, $x \oplus \overline{x} = \widetilde{1}$, $\overline{\overline{{x}}} = x$
     \item Свойства на константите: $x\widetilde{0} = 0$, $x\widetilde{1} = x$, $x\vee \widetilde{0} = x$, $x \vee \widetilde{1} = 1$, $x \oplus \widetilde{0} = x$, $x \oplus \widetilde{1} = \overline{x}$
     \item Закони на де Морган: $\overline{x \vee y} = \overline{x} \wedge \overline{y}$, $\overline{x \wedge y} = \overline{x} \vee \overline{y}$.  
 \end{enumerate}
@@ -135,8 +135,8 @@ $\sigma_i \in J_2$ и $x_i \neq x_j$ при $i \neq j$ наричаме елем
 \textbf{Лема: } $x_{i_1}^{\sigma_1} x_{i_2}^{\sigma_2} \dots x_{i_n}^{\sigma_n} = 1 \Leftrightarrow x_{i_k} = \sigma_k$
 
 \subsection{Теорема за разбиване на БФ}
-Нека $f(x_1, x_2, \dots, x_n) \in \mathcal{F}_2$ и нека са избрани $1 \leq 1 \leq n$ променливи.
-Без ограничение на общоността, допускаме че това са първите $i$ променливи. Тогава
+Нека $f(x_1, x_2, \dots, x_n) \in \mathcal{F}_2$ и нека са избрани $1 \leq i \leq n$ променливи.
+Без ограничение на общността, допускаме че това са първите $i$ променливи. Тогава
 
 \[ f(x_1, x_2, \dots, x_n) = \bigvee_{\forall \sigma_1, \sigma_2, \dots, \sigma_i} x_1^{\sigma_1} x_2^{\sigma_2} \dots x_i^{\sigma_i} f(\sigma_1, \sigma_2, \dots, \sigma_n, x_{i+1}, \dots, x_n) \]
 
@@ -179,18 +179,18 @@ TODO
 Дефинираме множествата $T_i = \{f \in \mathcal{F}_2 | f \text{ запазва } i\}$ за $i=0,1$.
 
 \subsection{Линейни функции}
-Казваме, че функцията $f \in \mathcal{F}_2^n$, ако $f = a_0 x_0 \oplus a_1 x_1 \oplus \dots a_n x_n$.
+Казваме, че функцията $f \in \mathcal{F}_2^n$ е линейна, ако $f = a_0 x_0 \oplus a_1 x_1 \oplus \dots a_n x_n$.
 Множеството на всички линейни функции означаваме със $L$.
 
 \subsection{Двойствени и самоспрегнати функции}
 Казваме, че функцията $f^* \in \mathcal{F}_2^n$ е двойствена на $f \in \mathcal{F}_2^n \Leftrightarrow$
 $f^*(x_1, x_2, \dots, x_n) = \overline{f(\overline{x_1}, \overline{x_2}, \dots, \overline{x_n})}$.
 Казваме, че функцията $f \in \mathcal{F}_2$ е самоспрегната $\Leftrightarrow f = f^*$ и обозначаваме със $S$ множеството
-на всички самоспрегната функции.
+на всички самоспрегнати функции.
 
 \subsection{Монотонни функции}
 Нека $\alpha = (a_1, a_2, \dots, a_n), \beta = (b_1, b_2, \dots, b_n) \in J_2^n$. Казваме, че
-$\alpha$ е предщественик на $\beta$ и обозначаваме $\alpha \preceq \beta \Leftrightarrow a_1 \leq b_1, a_2 \leq b_2, \dots, a_n \leq b_n$.
+$\alpha$ е предшественик на $\beta$ и обозначаваме $\alpha \preceq \beta \Leftrightarrow a_1 \leq b_1, a_2 \leq b_2, \dots, a_n \leq b_n$.
 
 Казваме, че $f \in \mathcal{F}_2^n$ е монотонна, ако за произволни $\alpha, \beta \in J_2^n$ е изпълнено
 $\alpha \preceq \beta \Rightarrow f(\alpha) \leq f(\beta)$. Обозначаваме с $M$ множеството на всичко монотонни функции.
