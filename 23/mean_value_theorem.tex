@@ -5,10 +5,12 @@
 \usepackage[utf8]{inputenc}
 \usepackage[bulgarian]{babel}
 \usepackage[unicode]{hyperref}
-\usepackage{amsfonts}
+\usepackage{amsthm}
 \usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{accents}
+\usepackage{hyperref}
 \usepackage{enumitem, hyperref}
-\usepackage{upgreek}
 
 \renewcommand{\arraystretch}{1.3}   
 
@@ -44,8 +46,14 @@
 Нека $f(x)$ има локален минимум в т. $x_0$ (Аналогично се доказва за локален максимум, разглеждаме $-f(x)$),
 тогава съществува околност на т. $x_0$ от вида $(x_0 - \delta,x_0 + \delta), \delta > 0$, в която стойностите на $f(x)$ са по-големи или равни на $f(x_0)$
 Понеже $f(x)$ е диференцируема в т. $x_0$, то лявата и дясната производни в т. $x_0$ трябва да съвпадат.
-\[f'(x_0) = \lim_{h \to +0} \frac{ f(x_0 + h)-f(x_0)}{h} \geq 0, f(x_0 + h) \geq f(x_0)\]
-\[f'(x_0) = \lim_{h \to -0} \frac{ f(x_0 + h)-f(x_0)}{h} \leq 0, f(x_0 + h) \geq f(x_0)\]
+\[
+\begin{cases}
+    f(x_0 + h) \geq f(x_0)\\
+    f'(x_0) = \lim_{h \to +0} \frac{ f(x_0 + h)-f(x_0)}{h} \geq 0\\
+    f'(x_0) = \lim_{h \to -0} \frac{ f(x_0 + h)-f(x_0)}{h} \leq 0
+\end{cases}
+\]
+
 Следователно, за да съвпадат лявата и дясната производни, то $f'(x_0) = 0$
 
 \section{Теореми  за  средните  стойности}
