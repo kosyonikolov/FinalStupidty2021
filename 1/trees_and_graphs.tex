@@ -115,7 +115,7 @@ $v_{i0}, v_{i1}, \dots, v_{iL}$, за която $\forall p \in \{ 0, 1, \dots, 
 
 \textbf{Доказателство:} Отново ще използваме индуктивната дефиниция за кореново дърво.
 \begin{itemize}
-	\item Двойката $(\{r\}, \varnothing)$ е кореново дърво, $|V| = 1, |E| = 1$.
+	\item Двойката $(\{r\}, \varnothing)$ е кореново дърво, $|V| = 1, |E| = 0$.
 	\item Нека $D(V,E)$ е кореново дърво, $u \in V, v \notin V$. Тогава $D'(V', E'), V' = V \cup \{v\}, E' = E \cup \{ (v, u)\}$ е кореново дърво.
 	Имаме $\Rightarrow |V'| = |V| + 1, |E'| = |E| + 1$, но знаем, че $|V| = |E| + 1 \Leftrightarrow |V| + 1 = |E| + 1 + 1 \Leftrightarrow |V'| = |E'| + 1$.
 \end{itemize}
@@ -163,7 +163,7 @@ $p(t) : V \rightarrow V$ - функция на предшествениците,
 			\item Ако $t = r$, то всички върхове са обходени - приключваме
 			\item Ако не, $t \leftarrow p(t)$ и се връщаме на \ref{dfs:checkAdj}
 		\end{enumerate}
-		\item \label{dfs:addV} Ако има такъв връх, то $t \leftarrow v$, $v$ става обходен и се връщаме на \ref{dfs:checkAdj}
+		\item \label{dfs:addV} Ако има такъв връх, то $t \leftarrow u$, $u$ става обходен и се връщаме на \ref{dfs:checkAdj}
 	\end{enumerate}
 \end{enumerate} 
 
