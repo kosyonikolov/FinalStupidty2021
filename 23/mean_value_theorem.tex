@@ -23,6 +23,7 @@
 \maketitle
 
 \tableofcontents
+\pagebreak
 
 \begin{flushleft}
     
@@ -118,7 +119,10 @@ $=\sum_{k=1}^{n}\frac{f^{(k)}(t)}{(k-1)!}*(x-t)^{k-1} - \sum_{k=0}^{n} \frac{f^{
 и диференцируема във вътрешността на $U$ като $\psi'(t) \neq 0 : t \in U$.\\
 От теоремата на Коши следва че $\exists c \in$ вътрешността на $U: \frac{\phi'(c)}{\psi'(c)}=\frac{\phi(x)-\phi(\xi)}{\psi(x)-\psi(\xi)}$.
 \bigbreak
-Понеже $\phi(\xi) = R(x), \phi(x) = 0$, то $R(x) = -\frac{\phi'(c)*(\psi(x)-\psi(\xi))}{\psi'(c)} = \frac{\psi(x)-\psi(\xi)}{\psi'(c)}*\frac{f^{(n+1)}(c)}{n!}*(x-c)^n$\newline
+Забелязваме, че $\phi(t) = f(x) - \frac{f^{(0)}(t)}{0!}*(x-t)^0 - \sum_{k=1}^{n}\frac{f^{(k)}(t)}{k!}*(x-t)^k = f(x) - f(t) - \sum_{k=1}^{n}\frac{f^{(k)}(t)}{k!}*(x-t)^k$,
+т.е. $\phi(x) = f(x) - f(x) - \sum_{k=1}^{n}\frac{f^{(k)}(x)}{k!}*(x-x)^k = 0$
+\bigbreak
+Щом $\phi(\xi) = R(x), \phi(x) = 0$, то $R(x) = -\frac{\phi'(c)*(\psi(x)-\psi(\xi))}{\psi'(c)} = \frac{\psi(x)-\psi(\xi)}{\psi'(c)}*\frac{f^{(n+1)}(c)}{n!}*(x-c)^n$\newline
 От непрекъснатостта на $\psi(x)$ следва че: $\lim_{x->\xi} R(x) = \lim_{x->\xi} \frac{\psi(x)-\psi(\xi)}{\psi'(c)}*\frac{f^{(n+1)}(c)}{n!}*(x-c)^n = 0$
 \bigbreak
 Следователно в околност на $\xi$ e изпънено, че:
