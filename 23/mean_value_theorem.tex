@@ -1,4 +1,3 @@
-
 \documentclass[fleqn,12pt]{article}
 
 \usepackage[margin=15mm]{geometry}
@@ -8,15 +7,15 @@
 \usepackage{amsthm}
 \usepackage{amssymb}
 \usepackage{mathtools}
-\usepackage{accents}
-\usepackage{hyperref}
+\usepackage[unicode]{hyperref}
 \usepackage{enumitem, hyperref}
+\usepackage{indentfirst}
 
 \renewcommand{\arraystretch}{1.3}   
 
 \title{Теореми  за  средните  стойности  (Рол,  Лагранж  и  Коши).  Формула  на Тейлър}
-\author{v0.1}
-\date{3 юни 2021}
+\author{v1.0}
+\date{18 юни 2021}
 
 \begin{document}
     
@@ -24,14 +23,12 @@
 
 \tableofcontents
 \pagebreak
-
-\begin{flushleft}
     
 \section{Помощни теореми}
 
 \subsection{Определение за диференцируемост на функция}
 Функцията $f(x)$ е диференцируема в точката $x_0$ точно тогава, когато притежава лява и дясна производни в $x_0$ и те съвпадат.
-\[\lim_{h \to +0} \frac{f(x_0 + h)-f(x_0)}{h} = \lim_{h \to -0} \frac{ f(x_0 + h)-f(x_0)}{h}\]
+\[f'(x) = \lim_{h \to +0} \frac{f(x_0 + h)-f(x_0)}{h} = \lim_{h \to -0} \frac{ f(x_0 + h)-f(x_0)}{h}\]
 
 \subsection{Теорема на Вайерщрас}
 Нека $a<b$ и функцията $f:[a,b]\rightarrow\mathbb{R}$ е непрекъсната. Тогава е изпълнено, че $f(x)$ има точна горна и долна граница в $[a,b]$
@@ -46,17 +43,18 @@
 \bigbreak
 \textbf{Доказателство}
 Нека $f(x)$ има локален минимум в т. $x_0$ (Аналогично се доказва за локален максимум, разглеждаме $-f(x)$),
-тогава съществува околност на т. $x_0$ от вида $(x_0 - \delta,x_0 + \delta), \delta > 0$, в която стойностите на $f(x)$ са по-големи или равни на $f(x_0)$
-Понеже $f(x)$ е диференцируема в т. $x_0$, то лявата и дясната производни в т. $x_0$ трябва да съвпадат.
-\[
-\begin{cases}
-    f(x_0 + h) \geq f(x_0)\\
-    f'(x_0) = \lim_{h \to +0} \frac{ f(x_0 + h)-f(x_0)}{h} \geq 0\\
-    f'(x_0) = \lim_{h \to -0} \frac{ f(x_0 + h)-f(x_0)}{h} \leq 0
-\end{cases}
-\]
+тогава съществува околност $(x_0 - \delta,x_0 + \delta), \delta > 0$, такава че $|x-x_0| < \delta \Rightarrow f(x) \geq f(x_0)$.
+Нека $|h| < |\delta|$ и разгледаме отношението $L(h)$:
+\[ L(h) = \frac{f(x_0 + h) - f(x_0)}{h} \]
 
-Следователно, за да съвпадат лявата и дясната производни, то $f'(x_0) = 0$
+За $h \in (0, \delta)$ получаваме $f(x_0 + h) \geq f(x_0) \Leftrightarrow f(x_0 + h) - f(x_0) \geq 0 \Leftrightarrow L(h) \geq 0$.
+При $h \in (-\delta, 0)$ отново имаме $f(x_0 + h) \geq f(x_0) \Leftrightarrow f(x_0 + h) - f(x_0) \geq 0$,
+но понеже $h < 0 \Rightarrow L(h) \leq 0$.
+
+Понеже $f(x)$ е диференцируема в т. $x_0$, то в $x_0$ трябва да съществува границата
+\[ \lim_{h \to 0} \frac{ f(x_0 + h)-f(x_0)}{h} = L(h) = f'(x_0) \]
+
+Следователно, за да съществува производната, трябва $L(h) = 0$ за $|h| < |\delta| \Rightarrow f'(x_0) = 0$.
 
 \section{Теореми  за  средните  стойности}
 \subsection{Теорема на Рол}
@@ -75,68 +73,72 @@
 
 \subsection{Теорема на Лагранж}
 Нека $a<b$ и $f:[a,b]\rightarrow\mathbb{R}$ e непрекъсната в $[a,b]$ и диференцируема в $(a,b)$.
-Тогава съществува т. $c \in (a,b): f'(c) = \frac{f(b)-f(a)}{b-a}$
+Тогава съществува т. $c \in (a,b): f'(c) = \frac{f(b)-f(a)}{b-a}$.
 \bigbreak
 \textbf{Доказателство:}
-Нека разгледаме функцията $h(x)=f(x) - \frac{f(b)-f(a)}{b-a}*x$. 
-\begin{itemize}
-    \item $h(a)=\frac{f(a)*b - f(a)*a - f(b)*a + f(a)*a}{b-a} = \frac{f(a)*b-f(b)*a}{b-a} = \frac{f(b)*b - f(b)*a - f(b)*b + f(a)*b}{b-a} = h(b)$
-    \item Функциите $f(x)$ и $-\frac{f(b)-f(a)}{b-a}*x$ са непрекъснати в $[a,b]$, следователно функцията $h(x)$ също е непрекъсната в $[a,b]$.
-    \item Функциите $f(x)$ и $-\frac{f(b)-f(a)}{b-a}*x$ са диференцируеми в $(a,b)$, следователно функцията $h(x)$ също е диференцируема в $(a,b)$.
-\end{itemize}
-От теоремата на Рол, следва че $\exists c \in (a,b): h'(c) = f'(c) - \frac{f(b)-f(a)}{b-a} = 0, f'(c) = \frac{f(b)-f(a)}{b-a}$.
-Теоремата е доказана
+Нека разгледаме функцията $h(x)=f(x) + g(x)$, където $g(x) = \frac{f(b)-f(a)}{b-a}x$. Функциите $f(x)$ и $g(x)$ са непрекъснати в $[a,b]$, 
+следователно и $h(x)$ е непрекъсната в $[a,b]$. Двете функции са и диференцируеми в $(a,b) \Rightarrow h(x)$ също е диференцируема в $(a,b)$.
+Ще покажем, че $h(a) = h(b)$: 
+\[ h(a)=\frac{f(a)b - f(a)a - f(b)a + f(a)a}{b-a} = \frac{f(a)b-f(b)a}{b-a} = \frac{f(b)b - f(b)a - f(b)b + f(a)b}{b-a} = h(b) \]
+
+От теоремата на Рол, следва че $\exists c \in (a,b)$, такова че  $h'(c) = 0 \Leftrightarrow f'(c) - \frac{f(b)-f(a)}{b-a} = 0 \Leftrightarrow$
+$f'(c) = \frac{f(b)-f(a)}{b-a}$, с което теоремата е доказана.
 
 \subsection{Теорема на Коши}
-Нека $a<b$ и $f:[a,b]\rightarrow\mathbb{R}$, $g:[a,b]\rightarrow\mathbb{R}$ са непрекъснати в $[a,b]$ и са диференцируеми в $(a,b)$, $\forall x \in (a,b): g'(x) \neq 0$.
+Нека $a<b$ и $f,g:[a,b]\rightarrow\mathbb{R}$ са непрекъснати в $[a,b]$ и са диференцируеми в $(a,b)$, $\forall x \in (a,b): g'(x) \neq 0$.
 Тогава е изпълнено, че $\exists c \in (a,b): \frac{f'(c)}{g'(c)}=\frac{f(b)-f(a)}{g(b)-g(a)}$.
 \bigbreak
 \textbf{Доказателство:}
-Понеже $g'(x) \neq 0$ в интервала $(a,b)$, то теоремата на Рол не е изпълнена за $g(x)$ в $[a,b]$ и следователно $g(b) \neq g(a)$.
-Нека разгледаме функцията $h(x)=f(x) - \frac{f(b)-f(a)}{g(b)-g(a)}*g(x)$.
+Първо ще покажем, че $g(b) \neq g(a)$. Ако това не е изпълено, съществува $c \in (a,b): g'(c) = 0$ - по теорема на Рол. Но по условие $g'(x) \neq 0$ за $x \in (a,b) \Rightarrow$ противоречие.
+Нека разгледаме функцията $h(x)=f(x) - \frac{f(b)-f(a)}{g(b)-g(a)}g(x)$.
+\[ h(a)=\frac{f(a)g(b) - f(a)g(a) - f(b)g(a) + f(a)g(a)}{g(b)-g(a)} = \frac{f(a)g(b)-f(b)g(a)}{g(b)-g(a)} =  \]
+\[ = \frac{f(b)g(b) - f(b)g(a) - f(b)g(b) + f(a)g(b)}{g(b)-g(a)} = h(b) \]
 \begin{itemize}
-    \item $h(a)=\frac{f(a)*g(b) - f(a)*g(a) - f(b)*g(a) + f(a)*g(a)}{g(b)-g(a)} = \frac{f(a)*g(b)-f(b)*g(a)}{g(b)-g(a)} = \frac{f(b)*g(b) - f(b)*g(a) - f(b)*g(b) + f(a)*g(b)}{g(b)-g(a)} = h(b)$
-    \item Функциите $f(x)$ и $-\frac{f(b)-f(a)}{g(b)-g(a)}*g(x)$ са непрекъснати в $[a,b]$, следователно функцията $h(x)$ също е непрекъсната в $[a,b]$.
-    \item Функциите $f(x)$ и $-\frac{f(b)-f(a)}{g(b)-g(a)}*g(x)$ са диференцируеми в $(a,b)$, следователно функцията $h(x)$ също е диференцируема в $(a,b)$.
+    \item Функциите $f(x)$ и $-\frac{f(b)-f(a)}{g(b)-g(a)}g(x)$ са непрекъснати в $[a,b]$, следователно функцията $h(x)$ също е непрекъсната в $[a,b]$.
+    \item Функциите $f(x)$ и $-\frac{f(b)-f(a)}{g(b)-g(a)}g(x)$ са диференцируеми в $(a,b)$, следователно функцията $h(x)$ също е диференцируема в $(a,b)$.
 \end{itemize}
-От теоремата на Рол, следва че $\exists c \in (a,b): h'(c) = f'(c) - \frac{f(b)-f(a)}{g(b)-g(a)}*g'(c) = 0, \frac{f'(c)}{g'(c)} = \frac{f(b)-f(a)}{g(b)-g(a)}$.
-Теоремата е доказана
+
+От теоремата на Рол, следва че $\exists c \in (a,b): h'(c) = f'(c) - \frac{f(b)-f(a)}{g(b)-g(a)}g'(c) = 0, \frac{f'(c)}{g'(c)} = \frac{f(b)-f(a)}{g(b)-g(a)}$.
+Теоремата е доказана.
 
 
 \subsection{Теорема на Тейлър}
-Нека $a<b$ и $f:[a,b]\rightarrow\mathbb{R}$ e непрекъсната в $[a,b]$ и n+1-кратно диференцируема в $(a,b)$. Тогава за произволна точка $\xi \in (a,b)$ в достатъчна малка нейна околност е изпълнено, че:
-\[f(x)=\sum_{k = 0}^{n} \frac{f^{(k)}(\xi)}{k!}*(x-\xi)^k + R(x), \lim_{x \rightarrow \xi} R(x) = 0\]
+Нека $a<b$ и $f:[a,b]\rightarrow\mathbb{R}$ e непрекъсната в $[a,b]$ и n+1-кратно диференцируема в $(a,b)$. 
+Тогава за произволна точка $\xi \in (a,b)$ в достатъчна малка нейна околност е изпълнено, че:
+\[f(x)=\sum_{k = 0}^{n} \frac{f^{(k)}(\xi)}{k!}*(x-\xi)^k + R(x) \text{, } \lim_{x \rightarrow \xi} R(x) = 0\]
 където $R(x)$ се нарича остатъчен член.
-\bigbreak
+
 \textbf{Доказателство:}
-Нека $\xi,x \in (a,b)$ и нека $\phi(t) = f(x) - \sum_{k = 0}^{n} \frac{f^{(k)}(t)}{k!}*(x-t)^{k}$.
+Нека $\xi,x \in (a,b)$ и нека $\phi(t) = f(x) - \sum_{k = 0}^{n} \frac{f^{(k)}(t)}{k!}(x-t)^{k}$.
 Тогава $\phi(\xi)=R(x)$, т.е чрез $\phi$ можем да изразим и остатъчния член.
-\bigbreak
-$\phi'(t)=0 - \sum_{k=0}^{n} \frac{f^{(k+1)}(t)}{k!}*(x-t)^{k} +  \sum_{k=0}^{n}\frac{f^{(k)}(t)}{(k-1)!}*(x-t)^{k-1} =$
-$=\sum_{k=1}^{n}\frac{f^{(k)}(t)}{(k-1)!}*(x-t)^{k-1} - \sum_{k=0}^{n} \frac{f^{(k+1)}(t)}{k!}*(x-t)^{k} = -\frac{f^{(n+1)}(t)}{n!}*(x-t)^n$
-\bigbreak
-За да изразим остатъчния член в различни формати, то ще дефинираме множеството $U=[min(\xi,x),max(\xi,x)]$ и ще използваме помощна функция $\psi:U\rightarrow\mathbb{R}$, която е непрекъсната в $U$
+
+\[\phi'(t)=0 - \sum_{k=0}^{n} \frac{f^{(k+1)}(t)}{k!}*(x-t)^{k} +  \sum_{k=0}^{n}\frac{f^{(k)}(t)}{(k-1)!}*(x-t)^{k-1} = \]
+\[ =\sum_{k=1}^{n}\frac{f^{(k)}(t)}{(k-1)!}*(x-t)^{k-1} - \sum_{k=0}^{n} \frac{f^{(k+1)}(t)}{k!}*(x-t)^{k} = -\frac{f^{(n+1)}(t)}{n!}*(x-t)^n \]
+
+За да изразим остатъчния член в различни формати, то ще дефинираме множеството $U=[\min(\xi,x),\max(\xi,x)]$ и ще използваме помощна функция $\psi:U\rightarrow\mathbb{R}$, която е непрекъсната в $U$
 и диференцируема във вътрешността на $U$ като $\psi'(t) \neq 0 : t \in U$.\\
-От теоремата на Коши следва че $\exists c \in$ вътрешността на $U: \frac{\phi'(c)}{\psi'(c)}=\frac{\phi(x)-\phi(\xi)}{\psi(x)-\psi(\xi)}$.
-\bigbreak
-Забелязваме, че $\phi(t) = f(x) - \frac{f^{(0)}(t)}{0!}*(x-t)^0 - \sum_{k=1}^{n}\frac{f^{(k)}(t)}{k!}*(x-t)^k = f(x) - f(t) - \sum_{k=1}^{n}\frac{f^{(k)}(t)}{k!}*(x-t)^k$,
-т.е. $\phi(x) = f(x) - f(x) - \sum_{k=1}^{n}\frac{f^{(k)}(x)}{k!}*(x-x)^k = 0$
-\bigbreak
-Щом $\phi(\xi) = R(x), \phi(x) = 0$, то $R(x) = -\frac{\phi'(c)*(\psi(x)-\psi(\xi))}{\psi'(c)} = \frac{\psi(x)-\psi(\xi)}{\psi'(c)}*\frac{f^{(n+1)}(c)}{n!}*(x-c)^n$\newline
-От непрекъснатостта на $\psi(x)$ следва че: $\lim_{x->\xi} R(x) = \lim_{x->\xi} \frac{\psi(x)-\psi(\xi)}{\psi'(c)}*\frac{f^{(n+1)}(c)}{n!}*(x-c)^n = 0$
-\bigbreak
+От теоремата на Коши следва че съществува точка $c$ от вътрешността на $U: \frac{\phi'(c)}{\psi'(c)}=\frac{\phi(x)-\phi(\xi)}{\psi(x)-\psi(\xi)}$.
+Забелязваме, че
+\[ \phi(t) = f(x) - \frac{f^{(0)}(t)}{0!}(x-t)^0 - \sum_{k=1}^{n}\frac{f^{(k)}(t)}{k!}(x-t)^k = \] 
+\[ = f(x) - f(t) - \sum_{k=1}^{n}\frac{f^{(k)}(t)}{k!}(x-t)^k \]
+
+Тогава за $\phi(x)$ получаваме $\phi(x) = f(x) - f(x) - \sum_{k=1}^{n}\frac{f^{(k)}(x)}{k!}*(x-x)^k = 0$
+
+Щом $\phi(\xi) = R(x)$ и $\phi(x) = 0$, то 
+\[R(x) = -\frac{\phi'(c)(\psi(x)-\psi(\xi))}{\psi'(c)} = \frac{\psi(x)-\psi(\xi)}{\psi'(c)}\frac{f^{(n+1)}(c)}{n!}(x-c)^n\]
+
+От непрекъснатостта на $\psi(x)$ следва че: $\lim_{x\to\xi} R(x) = \lim_{x\to\xi} \frac{\psi(x)-\psi(\xi)}{\psi'(c)}\frac{f^{(n+1)}(c)}{n!}(x-c)^n = 0$.
 Следователно в околност на $\xi$ e изпънено, че:
 \[
 \begin{cases}
-    f(x) = \sum_{k = 0}^{n} \frac{f^{(k)}(t)}{k!}*(x-t)^{k} + \phi(\xi) = \sum_{k = 0}^{n} \frac{f^{(k)}(t)}{k!}*(x-t)^{k} + R(x)\\
-    \lim_{x->\xi} R(x) = 0
+    f(x) = \sum_{k = 0}^{n} \dfrac{f^{(k)}(t)}{k!}(x-t)^{k} + \phi(\xi) = \sum_{k = 0}^{n} \frac{f^{(k)}(t)}{k!}(x-t)^{k} + R(x)\\
+    \lim_{x\to\xi} R(x) = 0
 \end{cases}
 \]
 c което доказахме теоремата. 
-\bigbreak
-Казваме, че формулата на Тейлър e във форма на Лагранж ако $\psi(t)=(x-t)^{n+1}, \psi'(t)=-(n+1)*(x-t)^n$\\
-Следователно $R(x)=\frac{0-(x-\xi)^{n+1}}{-(n+1)*(x-c)^n}*\frac{f^{(n+1)}(c)}{n!}*(x-c)^n = \frac{f^{(n+1)}(c)}{(n+1)!}*(x-\xi)^{n+1}$
 
-\end{flushleft}
+Казваме, че формулата на Тейлър e във форма на Лагранж, ако 
+\[ \psi(t)=(x-t)^{n+1}, \psi'(t)=-(n+1)(x-t)^n \Rightarrow \]
+\[ \Rightarrow R(x)=\frac{0-(x-\xi)^{n+1}}{-(n+1)(x-c)^n}\frac{f^{(n+1)}(c)}{n!}(x-c)^n = \frac{f^{(n+1)}(c)}{(n+1)!}(x-\xi)^{n+1} \]
 
 \end{document}
