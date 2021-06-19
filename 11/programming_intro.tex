@@ -11,6 +11,35 @@
 
 \usepackage[dvipsnames]{xcolor}
 
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+
 \title{Процедурно програмиране - основни информационни и алгоритмични структури (на базата на C++)}
 \author{v1.0}
 \date{19 юни 2021}
@@ -22,8 +51,71 @@
 \tableofcontents
 \pagebreak
 
+\begin{flushleft}
+
 \section{Скаларни типове от данни}
+
+\textit{\textbf{Деф}} - Тип данни наричаме \textbf{скаларен} ако той се състои само от една компонента, т.е. е атомарен. Например числови и булеви типове. \\
+\textit{\textbf{Деф}} - Тип данни наричаме \textbf{съставен} ако той се състои от много компоненти. Например масиви. \\
+\textit{\textbf{Деф}} - Тип данни наричаме \textbf{примитивен} когато той директно съдържа стойността. \\
+\textit{\textbf{Деф}} - Тип данни наричаме \textbf{указател} ако той съдържа адреса към локацията в паметта където се пази стойността. \\
+
 \subsection{Логически тип}
+
+\textit{\textbf{Деф}} - Множеството от допустимите ст-сти на логическия (булевият) тип данни е $\{true, false\}$, т.е. истина или лъжа. 
+Променливите от този тип се наричат булеви.
+\bigbreak
+В \textit{C++} булевите променливи се означават чрез ключовата дума bool и заемат по 1b. Примери за дефиниция са:
+
+\begin{lstlisting}[language=C++, caption=Bool variables]
+int main()
+{
+    bool a; // when the var is not initialized it is undefined by default
+    bool b = false;
+}
+\end{lstlisting}
+
+В \textit{C++} булевите променливи се представят вътрешно като числа 0 за \textit{false} или 1 за \textit{true}.
+Следните оператори могат да бъдат прилагани над булеви променливи:
+
+\begin{lstlisting}[language=C++, caption=Bool operators]
+#include <iostream>
+
+int main()
+{
+    bool a = true;
+    bool b = false;
+
+    // Logical AND
+    a && a; // true
+    a && b; // false
+    b && a; // false
+    b && b; // false
+
+    // Logical OR
+    a || a; // true
+    a || b; // true
+    b || a; // true
+    b || b; // false
+
+    // Logical negation
+    !a; // false
+    !b; // true
+
+    // Comparison operators where the operand codes are compared
+    a == a; a == b; // is equal -> true, false
+    a != a; a != b; // is not equal -> false, true
+    a > a; a > b; b > a; b > b; // greater than -> false, true, false, false
+    a >= a; a >= b; b >= a; b >= b; // greater than or equal to -> true, true, false, true
+    a < a; a < b; b < a; b < b; // less than -> false, false, true, false
+    a <= a; a <= b; b <= a; b <= b; // less than or equal to -> true, false, true, true
+
+    // IO streams
+    // std::cin >> a; -> not allowed
+    std::cout << a; std::cout << (a && b); // sends the internal code of the boolean expression to the stdout fd -> 1, 0
+}
+\end{lstlisting}
+
 \subsection{Числени типове цял и реален}
 
 \section{Основни структури от данни}
@@ -47,4 +139,5 @@
 \subsection{Предаване на параметрите чрез псевдоним}
 \subsection{Масиви като формални параметри}
 
+\end{flushleft}
 \end{document}
