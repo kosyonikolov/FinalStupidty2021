@@ -8,11 +8,15 @@
 \usepackage{amssymb}
 \usepackage{enumitem, hyperref}
 \usepackage{upgreek}
+\usepackage{graphicx}
+\usepackage{mathtools}
 
 \usepackage[dvipsnames]{xcolor}
 
 \usepackage{listings}
 \usepackage{xcolor}
+
+\graphicspath{ {./img/} }
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -146,8 +150,8 @@ int main()
 
     // Unary (ops with 1 arg)
     +a; -b; // 5, 10
-    ++a; a++; // incrementation -> 6, 6
-    --a; a--; // decrementation -> -4, -4
+    ++a; a++; // incrementation -> 6, 7
+    --a; a--; // decrementation -> 6, 5
 
     // Binary (ops with 2 args)
     a - b; // 15
@@ -177,6 +181,60 @@ int main()
 \end{lstlisting}
 
 \subsection{Реални типове}
+
+\textit{\textbf{Деф}} - Реалният тип данни е скаларен тип от данни, чийто множество от допустими стойности е някакъв затворен интервал от $\mathbb{R}$.
+Променливите от този тип се наричат реални.
+Реалните числа биват записвани като последователност от битове според \textit{IEEE 754}, като 1-вия бит се използва за знак, следващите няколко за експонента и най-младшите за мантиса.
+При при 64-битови реални променливи имаме следното:
+
+\includegraphics[width=\textwidth]{floating_point_num.png}
+
+Стойността на числото се изчислява по формулата $(-1)^{sign} (1.mantissa) 2^{exp - \lfloor max(exp)/2 \rfloor}$, където $sign = b_{63}, exp = b_{62}b_{61} \dots b_{52}, mantissa = b_{51}b_{50} \dots b_{0}$, $max(exp)$ е максималната стойност на $exp$ (при 64-битови числа 2046) и $b_i$ е битът на позиция $i$.
+\bigbreak
+В \textit{C++} реалните променливи се означават чрез ключовите думи \textit{float} и \textit{double}, като те обичайно заемат съответно по 4b и 8b. Примери за дефиниция са:
+
+\begin{lstlisting}[language=C++, caption=Real numbers]
+int main()
+{
+    double a; // undefined default value
+    double b = 5.0;
+}
+\end{lstlisting}
+
+Следните оператори могат да бъдат прилагани над реални променливи:
+
+\begin{lstlisting}[language=C++, caption=Real number operations]
+#include <iostream>
+
+int main()
+{
+    double a = -1.0;
+    double b = 5.0;
+    double c = 0.0;
+
+    // Unary ops are similar to the ones with integers
+    -a; +a; // ~1.0, ~-1.0
+    ++a; a++; --a; a--; // ~0.0, ~1.0, ~0.0, ~-1.0
+
+    // Arithmetics work similar to the ones with integers
+    a + b; a - b; // ~4.0, ~-6.0
+    a / b; a * b; // ~-0.2, ~-5.0
+    // a % b is not allowed
+
+    // Boolean ops
+    // Numbers different from 0.0 are interpreted as true
+    a && c; a && b; // 0.0, 1.0
+    a || c; c || c; // 1.0, 0.0
+    !c; !!c; // 0.0, 1.0
+
+    // Comparison ops are the same as with integers
+
+    // IO ops
+    std::cin >> a; // reads the number from the stdin fd
+    std::cout << a; // sends the number string represenation to the stdout fd
+}
+
+\end{lstlisting}
 
 \section{Основни структури от данни}
 \subsection{Съставни типове от данни}
