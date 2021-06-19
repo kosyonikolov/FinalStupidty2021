@@ -62,10 +62,10 @@
 
 \subsection{Логически тип}
 
-\textit{\textbf{Деф}} - Множеството от допустимите ст-сти на логическия (булевият) тип данни е $\{true, false\}$, т.е. истина или лъжа. 
+\textit{\textbf{Деф}} - Логическия (булевият) тип данни е скаларен тип от данни, чийто множество от допустими ст-сти е $\{true, false\}$, т.е. истина или лъжа. 
 Променливите от този тип се наричат булеви.
 \bigbreak
-В \textit{C++} булевите променливи се означават чрез ключовата дума bool и заемат по 1b. Примери за дефиниция са:
+В \textit{C++} булевите променливи се означават чрез ключовата дума \textit{bool} и заемат по 1b. Примери за дефиниция са:
 
 \begin{lstlisting}[language=C++, caption=Bool variables]
 int main()
@@ -116,7 +116,67 @@ int main()
 }
 \end{lstlisting}
 
-\subsection{Числени типове цял и реален}
+\subsection{Целочислени типове}
+
+\textit{\textbf{Деф}} - Целочисленият тип от данни е вид скаларен тип от данни, чийто множество от допустими стойности e $\{x_0, x_1, \dots, x_n\}: x_0 < x_1 < \dots < x_n, x_i + 1 = x_{i+1}, \forall i \in [0, n-1]$ и $x_0, x_1, \dots, x_n \in \mathbb{Z}$.
+Променливите от този тип се наричат целочислени. Стойностите на $x_0$ и $x_n$ зависят от това колка байта са заделени за променливата.
+В паметта целите числа биват представени в двоичен вид чрез последователни битове, като ако типа не е от неотрицателни целочислени числа, то най-старшият бит е заделен за знак.
+\bigbreak
+В \textit{C++} целочислените променливи се означават чрез ключовите думи \textit{short int, int, long int, long long int} и техните \textit{unsigned} версии, като те заемат съответно по поне 2b, 2b, 4b и 8b в зависимост от \textit{language data} моделът, който от своя страна зависи от шината на дънната платка. Примери за дефиниция са:
+
+\begin{lstlisting}[language=C++, caption=Integer variables]
+int main()
+{
+    int a; // undefined default value
+    int b = 5;
+}
+\end{lstlisting}
+
+Следните оператори могат да бъдат прилагани над целочислени променливи:
+
+\begin{lstlisting}[language=C++, caption=Integer operators]
+#include <iostream>
+
+int main() 
+{
+    int a = 5;
+    int b = -10;
+    int c = 2;
+    int d = 0;
+
+    // Unary (ops with 1 arg)
+    +a; -b; // 5, 10
+    ++a; a++; // incrementation -> 6, 6
+    --a; a--; // decrementation -> -4, -4
+
+    // Binary (ops with 2 args)
+    a - b; // 15
+    a + b; // -5
+    a * b; // -50
+    b / a; a / c; // -2, 2
+    a % c; // 1
+
+    // Boolean ops
+    // Integers different from 0 are interpreted as true
+    a && b; a && d; // true, false
+    a || d; d || d; // true, false
+    !b; !!b; // 0, 1
+
+    // Comparison ops
+    a == a; a == b; // is equal to -> true, false
+    a != a; a != b; // is not equal to -> false, true
+    a > a; a > b; // greater than -> false, true
+    a >= a; a >= b; // greater than or equal -> true, true
+    a < a; a < b; // less than -> false, false
+    a <= a; b <= a; // less than or equal -> true, true
+
+    // IO ops
+    std::cin >> a; // read number of stdin fd
+    std::cout << a; // sends the number's decimal representation to the stdout fd
+}
+\end{lstlisting}
+
+\subsection{Реални типове}
 
 \section{Основни структури от данни}
 \subsection{Съставни типове от данни}
