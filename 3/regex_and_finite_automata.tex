@@ -74,7 +74,7 @@
 
 \textit{\textbf{Деф}} - Обединението на езиците $L_1$ и $L_2$ в азб. $\Sigma$ бележим като $L_1 \cup L_2$ и дефинираме като $L_1 \cup L_2 = \{w | w \in L_1 $ или $ w \in L_2\}$.
 
-\textit{Пример - $\{a, b\} \cup \{pumba, jay, b\} = \{a, b, pumbda, jay, b\}$}.
+\textit{Пример - $\{a, b\} \cup \{pumba, jay, b\} = \{a, b, pumba, jay, b\}$}.
 
 \textit{\textbf{Деф}} - Степен на език $L$ в азбука $\Sigma$ дефинираме индуктивно като:
 \begin{enumerate}
@@ -194,7 +194,7 @@ $(\impliedby)$ Нека $(E(s), va) \vdash_{M'}^* (P, \varepsilon)$, т.е. $(E(
 
 \textit{\textbf{Теорема на Клини}} - Един език $L$ е автоматен $\iff$ $L$ е регулярен.
 \textit{\textbf{Д-во:}}\\
-$(\implies)$ Нека $L$ е регулярен $\implies exists$ рег. езраз $\alpha: L = \gimel[\alpha]$. Ще докажем твърдението с индукция относно $\alpha$: \\
+$(\impliedby)$ Нека $L$ е регулярен $\implies \exists$ рег. езраз $\alpha: L = \gimel[\alpha]$. Ще докажем твърдението с индукция относно $\alpha$: \\
 \textbf{База} Разглеждаме следните случаи:
 \begin{enumerate}
     \item Ако $\alpha = \emptyset \implies \gimel[\alpha] = \emptyset \implies$ можем да постр. автомат $M = (K, \Sigma, \Delta, s, \emptyset)$, където $\Delta = \{(s, a, s) | a \in \Sigma\}$ $\implies L(M) = \gimel[\alpha]$. \\
