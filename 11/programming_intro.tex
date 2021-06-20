@@ -91,20 +91,13 @@ int main()
     bool b = false;
 
     // Logical AND
-    a && a; // true
-    a && b; // false
-    b && a; // false
-    b && b; // false
+    a && a; a && b; b && a; b && b; // true, false, false, false
 
     // Logical OR
-    a || a; // true
-    a || b; // true
-    b || a; // true
-    b || b; // false
+    a || a; a || b; b || a; b || b; // true, true, true, false
 
     // Logical negation
-    !a; // false
-    !b; // true
+    !a; !b; // false, true
 
     // Comparison operators where the operand codes are compared
     a == a; a == b; // is equal -> true, false
@@ -143,22 +136,14 @@ int main()
 
 int main() 
 {
-    int a = 5;
-    int b = -10;
-    int c = 2;
-    int d = 0;
+    int a = 5, b = -10, c = 2, d = 0;
 
     // Unary (ops with 1 arg)
     +a; -b; // 5, 10
-    ++a; a++; // incrementation -> 6, 7
-    --a; a--; // decrementation -> 6, 5
+    ++a; a++; --a; a--; // incrementation and decrementation -> 6, 7, 6, 5
 
     // Binary (ops with 2 args)
-    a - b; // 15
-    a + b; // -5
-    a * b; // -50
-    b / a; a / c; // -2, 2
-    a % c; // 1
+    a - b; a + b; a * b; b / a; a / c; a % c; // 15, -5, -50, -2, 2, 1
 
     // Boolean ops
     // Integers different from 0 are interpreted as true
@@ -182,16 +167,18 @@ int main()
 
 \subsection{Реални типове}
 
-\textit{\textbf{Деф}} - Реалният тип данни е скаларен тип от данни, чийто множество от допустими стойности е някакъв затворен интервал от $\mathbb{R}$.
-Променливите от този тип се наричат реални.
-Реалните числа биват записвани като последователност от битове според \textit{IEEE 754}, като 1-вия бит се използва за знак, следващите няколко за експонента и най-младшите за мантиса.
-При при 64-битови реални променливи имаме следното:
+\textit{\textbf{Деф}} - Рационалният тип данни е скаларен тип от данни, чийто множество от допустими стойности е подмножество на някакъв затворен интервал от $\mathbb{Q}$.
+Той често бива по грешка наричан реален. Променливите от този тип се наричат рационални (или реални).
+Рационалните числа биват записвани като последователност от битове според \textit{IEEE 754}, като 1-вия бит се използва за знак, следващите няколко за експонента и най-младшите за мантиса.
+При при 64-битови рационални променливи имаме следното:
 
 \includegraphics[width=\textwidth]{floating_point_num.png}
 
-Стойността на числото се изчислява по формулата $(-1)^{sign} (1.mantissa) 2^{exp - \lfloor max(exp)/2 \rfloor}$, където $sign = b_{63}, exp = b_{62}b_{61} \dots b_{52}, mantissa = b_{51}b_{50} \dots b_{0}$, $max(exp)$ е максималната стойност на $exp$ (при 64-битови числа 2046) и $b_i$ е битът на позиция $i$.
+Стойността на числото се изчислява по формулата $(-1)^{sign} (1.mantissa) 2^{exp - \lfloor max(exp)/2 \rfloor}$, където $sign = b_{63}, exp = b_{62}b_{61} \dots b_{52}, mantissa = b_{51}b_{50} \dots b_{0}$, $max(exp)$ е максималната стойност на $exp$ (при 64-битови числа е 2046) и $b_i$ е битът на позиция $i$.
 \bigbreak
-В \textit{C++} реалните променливи се означават чрез ключовите думи \textit{float} и \textit{double}, като те обичайно заемат съответно по 4b и 8b. Примери за дефиниция са:
+Други особености са, че не е комутативен. Също така е препоръчително при сравнения на рационални променливи да се добавя $\varepsilon \in \mathbb{Q}, \varepsilon > 0$ и $\varepsilon$ достатъчно малък за да не наруши необходимата точност.
+\bigbreak
+В \textit{C++} рационалните променливи се означават чрез ключовите думи \textit{float} и \textit{double}, като те обичайно заемат съответно по 4b и 8b. Примери за дефиниция са:
 
 \begin{lstlisting}[language=C++, caption=Real numbers]
 int main()
@@ -201,16 +188,14 @@ int main()
 }
 \end{lstlisting}
 
-Следните оператори могат да бъдат прилагани над реални променливи:
+Следните оператори могат да бъдат прилагани над рационални променливи:
 
 \begin{lstlisting}[language=C++, caption=Real number operations]
 #include <iostream>
 
 int main()
 {
-    double a = -1.0;
-    double b = 5.0;
-    double c = 0.0;
+    double a = -1.0, b = 5.0, c = 0.0;
 
     // Unary ops are similar to the ones with integers
     -a; +a; // ~1.0, ~-1.0
