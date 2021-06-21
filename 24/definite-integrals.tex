@@ -10,6 +10,8 @@
 \usepackage{upgreek}
 \usepackage{graphicx}
 \usepackage{mathtools}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
 
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{5}
@@ -77,13 +79,13 @@ $\lim_{x \rightarrow \infty} R(f;\tau;\xi_1,\xi_2, .. ,\xi_{j-1},\xi_j^{(k)},\xi
 Нека $f$ е ограничена в интервала $[a,b]$ и $\tau$ е разбиване на интервала $[a,b]$ на системата от точки $\{x_i\}_{i=0}^{n}$.
 Тогава "малка сума на Дарбу" дефинираме като $\underline{s}(f,[a,b],\tau)=\sum_{i=1}^{n} m_i(x_i-x_{i-1})$, където $m_i=\inf_{x\in[x_{i-1},x_i]}f(x)$.
 
-(Тук да поставя диаграма)
+\includegraphics{darboux_lower_sum.png}
 
 \subsection{Голяма сума на Дарбу}
 Нека $f$ е ограничена в интервала $[a,b]$ и $\tau$ е разбиване на интервала $[a,b]$ на системата от точки $\{x_i\}_{i=0}^{n}$.
 Тогава "голяма сума на Дарбу" дефинираме като $\overline{S}(f,[a,b],\tau)=\sum_{i=1}^{n} M_i(x_i-x_{i-1})$, където $M_i=\sup_{x\in[x_{i-1},x_i]}f(x)$.
 
-(Тук да поставя диаграма)
+\includegraphics{darboux_higher_sums.png}
 
 \subsection{Характеристики на сумите на Дарбу}
 \subsubsection{Връзка между сумите на Дарбу и Римановите суми}
