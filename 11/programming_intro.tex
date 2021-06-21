@@ -72,45 +72,36 @@
 В \textit{C++} булевите променливи се означават чрез ключовата дума \textit{bool} и заемат по 1b. Примери за дефиниция са:
 
 \begin{lstlisting}[language=C++, caption=Bool variables]
-int main()
-{
-    bool a; // when the var is not initialized it is undefined by default
-    bool b = false;
-}
+bool a; // when the var is not initialized it is undefined by default
+bool b = false;
 \end{lstlisting}
 
 В \textit{C++} булевите променливи се представят вътрешно като числа 0 за \textit{false} или 1 за \textit{true}.
 Следните оператори могат да бъдат прилагани над булеви променливи:
 
 \begin{lstlisting}[language=C++, caption=Bool operators]
-#include <iostream>
+bool a = true, b = false;
 
-int main()
-{
-    bool a = true;
-    bool b = false;
+// Logical AND
+a && a; a && b; b && a; b && b; // true, false, false, false
 
-    // Logical AND
-    a && a; a && b; b && a; b && b; // true, false, false, false
+// Logical OR
+a || a; a || b; b || a; b || b; // true, true, true, false
 
-    // Logical OR
-    a || a; a || b; b || a; b || b; // true, true, true, false
+// Logical negation
+!a; !b; // false, true
 
-    // Logical negation
-    !a; !b; // false, true
+// Comparison operators where the operand codes are compared
+a == a; a == b; // is equal -> true, false
+a != a; a != b; // is not equal -> false, true
+a > a; a > b; b > a; b > b; // greater than -> false, true, false, false
+a >= a; a >= b; b >= a; b >= b; // greater than or equal to -> true, true, false, true
+a < a; a < b; b < a; b < b; // less than -> false, false, true, false
+a <= a; a <= b; b <= a; b <= b; // less than or equal to -> true, false, true, true
 
-    // Comparison operators where the operand codes are compared
-    a == a; a == b; // is equal -> true, false
-    a != a; a != b; // is not equal -> false, true
-    a > a; a > b; b > a; b > b; // greater than -> false, true, false, false
-    a >= a; a >= b; b >= a; b >= b; // greater than or equal to -> true, true, false, true
-    a < a; a < b; b < a; b < b; // less than -> false, false, true, false
-    a <= a; a <= b; b <= a; b <= b; // less than or equal to -> true, false, true, true
-
-    // IO streams
-    // std::cin >> a; -> not allowed
-    std::cout << a; std::cout << (a && b); // sends the internal code of the boolean expression to the stdout fd -> 1, 0
-}
+// IO streams
+// std::cin >> a; -> not allowed
+std::cout << a; std::cout << (a && b); // sends the internal code of the boolean expression to the stdout fd -> 1, 0
 \end{lstlisting}
 
 \subsection{Целочислени типове}
@@ -122,47 +113,39 @@ int main()
 В \textit{C++} целочислените променливи се означават чрез ключовите думи \textit{short int, int, long int, long long int} и техните \textit{unsigned} версии, като те заемат съответно по поне 2b, 2b, 4b и 8b в зависимост от \textit{language data} моделът, който от своя страна зависи от шината на дънната платка. Примери за дефиниция са:
 
 \begin{lstlisting}[language=C++, caption=Integer variables]
-int main()
-{
-    int a; // undefined default value
-    int b = 5;
-}
+int a; // undefined default value
+int b = 5;
 \end{lstlisting}
 
 Следните оператори могат да бъдат прилагани над целочислени променливи:
 
 \begin{lstlisting}[language=C++, caption=Integer operators]
-#include <iostream>
+int a = 5, b = -10, c = 2, d = 0;
 
-int main() 
-{
-    int a = 5, b = -10, c = 2, d = 0;
+// Unary (ops with 1 arg)
++a; -b; // 5, 10
+++a; a++; --a; a--; // incrementation and decrementation -> 6, 7, 6, 5
 
-    // Unary (ops with 1 arg)
-    +a; -b; // 5, 10
-    ++a; a++; --a; a--; // incrementation and decrementation -> 6, 7, 6, 5
+// Binary (ops with 2 args)
+a - b; a + b; a * b; b / a; a / c; a % c; // 15, -5, -50, -2, 2, 1
 
-    // Binary (ops with 2 args)
-    a - b; a + b; a * b; b / a; a / c; a % c; // 15, -5, -50, -2, 2, 1
+// Boolean ops
+// Integers different from 0 are interpreted as true
+a && b; a && d; // true, false
+a || d; d || d; // true, false
+!b; !!b; // 0, 1
 
-    // Boolean ops
-    // Integers different from 0 are interpreted as true
-    a && b; a && d; // true, false
-    a || d; d || d; // true, false
-    !b; !!b; // 0, 1
+// Comparison ops
+a == a; a == b; // is equal to -> true, false
+a != a; a != b; // is not equal to -> false, true
+a > a; a > b; // greater than -> false, true
+a >= a; a >= b; // greater than or equal -> true, true
+a < a; a < b; // less than -> false, false
+a <= a; b <= a; // less than or equal -> true, true
 
-    // Comparison ops
-    a == a; a == b; // is equal to -> true, false
-    a != a; a != b; // is not equal to -> false, true
-    a > a; a > b; // greater than -> false, true
-    a >= a; a >= b; // greater than or equal -> true, true
-    a < a; a < b; // less than -> false, false
-    a <= a; b <= a; // less than or equal -> true, true
-
-    // IO ops
-    std::cin >> a; // read number of stdin fd
-    std::cout << a; // sends the number's decimal representation to the stdout fd
-}
+// IO ops
+std::cin >> a; // read number of stdin fd
+std::cout << a; // sends the number's decimal representation to the stdout fd
 \end{lstlisting}
 
 \subsection{Реални типове}
@@ -181,57 +164,98 @@ int main()
 В \textit{C++} рационалните променливи се означават чрез ключовите думи \textit{float} и \textit{double}, като те обичайно заемат съответно по 4b и 8b. Примери за дефиниция са:
 
 \begin{lstlisting}[language=C++, caption=Real numbers]
-int main()
-{
-    double a; // undefined default value
-    double b = 5.0;
-}
+double a; // undefined default value
+double b = 5.0;
 \end{lstlisting}
 
 Следните оператори могат да бъдат прилагани над рационални променливи:
 
 \begin{lstlisting}[language=C++, caption=Real number operations]
-#include <iostream>
+double a = -1.0, b = 5.0, c = 0.0;
 
-int main()
-{
-    double a = -1.0, b = 5.0, c = 0.0;
+// Unary ops are similar to the ones with integers
+-a; +a; // ~1.0, ~-1.0
+++a; a++; --a; a--; // ~0.0, ~1.0, ~0.0, ~-1.0
 
-    // Unary ops are similar to the ones with integers
-    -a; +a; // ~1.0, ~-1.0
-    ++a; a++; --a; a--; // ~0.0, ~1.0, ~0.0, ~-1.0
+// Arithmetics work similar to the ones with integers
+a + b; a - b; // ~4.0, ~-6.0
+a / b; a * b; // ~-0.2, ~-5.0
+// a % b is not allowed
 
-    // Arithmetics work similar to the ones with integers
-    a + b; a - b; // ~4.0, ~-6.0
-    a / b; a * b; // ~-0.2, ~-5.0
-    // a % b is not allowed
+// Boolean ops
+// Numbers different from 0.0 are interpreted as true
+a && c; a && b; // 0.0, 1.0
+a || c; c || c; // 1.0, 0.0
+!c; !!c; // 0.0, 1.0
 
-    // Boolean ops
-    // Numbers different from 0.0 are interpreted as true
-    a && c; a && b; // 0.0, 1.0
-    a || c; c || c; // 1.0, 0.0
-    !c; !!c; // 0.0, 1.0
+// Comparison ops are the same as with integers
 
-    // Comparison ops are the same as with integers
-
-    // IO ops
-    std::cin >> a; // reads the number from the stdin fd
-    std::cout << a; // sends the number string represenation to the stdout fd
-}
-
+// IO ops
+std::cin >> a; // reads the number from the stdin fd
+std::cout << a; // sends the number string represenation to the stdout fd
 \end{lstlisting}
-$\quote spin\quote$
 
 \section{Основни структури от данни}
 \subsection{Съставни типове от данни}
+
+\textit{\textbf{Деф}} - Структурите от данни представляват начин за организация на информация с цел по-ефикасното ѝ използване.
+
 \subsection{Структура от данни масив}
+
+\textit{\textbf{Деф}} - Масивът е крайна редица от фиксиран брой хомогенни елементи, т.е. от един и същи тип, без значение дали е скаларен или съставен.
+Всеки елемент е индексиран, което позволява пряк достъп до него.
+\bigbreak
+Има два вида масиви - статични и динамични.
+Към статичните не могат да бъдат добавяни и премахвани елементи, т.е. са статични структури от данни.
+При динамичните масиви това е възможно, като обичайно те са имплементират върху статични масиви чрез заделяне динамична памет.
+\bigbreak
+Елементите на даден масив се заделят последователно в паметта.
+Това позволява, използвайки размера на типа им от данни, конкретен такъв да бъде достъпен директно.
+\bigbreak
+В \textit{C++} масив се дефинира чрез типа масив.
+
 \subsection{Тип масив}
+
+Типът масив се определя чрез задаване на типа и броя на елементите на редицата, определяща масив.
+Нека \textbf{T} е име или дефиниция на произволен тип, различен от псевдоним, \textbf{void} и функционален, а \textbf{size} е неотрицателна целочислена променлива.
+Тогава \textbf{T[size]} е тип масив от \textbf{size} елемента от тип \textbf{T}.
+Елементите се индексират от \textbf{0} до \textbf{size–1}.
+\textbf{T} се нарича базов тип, а \textbf{size} – размер/капацитет.
+
+Променлива от тип масив се дефинира по начина \textbf{T <arr\_name>[size] [= \{<comma\_separated\_constanst\_values>\}]} или \textbf{T <arr\_name>[] = \{<comma\_separated\_constanst\_values>\}}.
+Примери са:
+
+\begin{lstlisting}[language=C++, caption=Example array definitions]
+int a[5]; // array with 5 elements of type int indexed from 0 to 4
+double b[10]; // array with 5 elements of type double indexed from 0 to 9
+
+bool c[] = {false, true, false, true, true}; // array with 5 elements of type bool
+\end{lstlisting}
+
+Множеството от допустими стойности на типа \textbf{T[size]} се състои от всички редици от по \textbf{size} елемента, които са произволни константи от тип \textbf{T}.
+Елементите от множеството от допустими стойности на даден тип масив са константите на този тип масив.
+\bigbreak
+Елементите на масив с размер \textbf{size} са индексирани поледователно с естественитe числа от \textbf{0} до \textbf{size-1}.
+Достъпът до конкретен елемент се осъществява посредством неговата индексирана променлива.
+Индексираните променливи имат следния синтаксис \textbf{<indexed\_var> := <arr\_name>[index]}, където \textbf{index} е от целочислен тип.
+Пример е:
+
+\begin{lstlisting}[language=C++, caption=Example array item access]
+int a[] = {1, 2, 85, 4, 101};
+
+a[0]; a[1]; a[2]; a[3]; a[4]; // 1, 2, 85, 4, 101
+// a[5]; yields a segfault error
+\end{lstlisting}
 
 \section{Тип указател}
 \subsection{Дефиниране}
 \subsection{Основни операции}
 \subsection{Указателна аритметика}
 \subsection{Указатели и едномерни масиви}
+
+Дефиницията на променлива от тип масив заделя памет (обикновено 4b), в която записва адреса в паметта на първата индексирана променлива на масива.
+Останалите се достъпват директно, използвайки указателна аритметика и размера на типа от данни на елементите.
+
 \subsection{Указатели и двумерни масиви}
 \subsection{Указатели и низове}
 
