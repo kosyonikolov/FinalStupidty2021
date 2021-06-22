@@ -81,6 +81,7 @@ $\lim_{x \rightarrow \infty} R(f;\tau;\xi_1,\xi_2, .. ,\xi_{j-1},\xi_j^{(k)},\xi
 
 \includegraphics{darboux_lower_sum.png}
 
+
 \subsection{Голяма сума на Дарбу}
 Нека $f$ е ограничена в интервала $[a,b]$ и $\tau$ е разбиване на интервала $[a,b]$ на системата от точки $\{x_i\}_{i=0}^{n}$.
 Тогава "голяма сума на Дарбу" дефинираме като $\overline{S}(f,[a,b],\tau)=\sum_{i=1}^{n} M_i(x_i-x_{i-1})$, където $M_i=\sup_{x\in[x_{i-1},x_i]}f(x)$.
@@ -134,7 +135,7 @@ $ = (M_1-M_j)(x^{*} - x_{j-1}) + (M_2-M_j)(x_j - x^{*})$. Но понеже $M_1
 
 \section{Дадена функция е интегруема по Риман тогава и само тогава, когато $\forall\epsilon > 0$ съществуват голяма и малка сума на Дарбу $\overline{S}$ и $\underline{s}$ такива, че $\overline{S}-\underline{s} < \epsilon$}
 \textbf{Доказателство ($\Longrightarrow$):} Нека $f$ e интегруема по Риман в $[a,b]$, следователно е интегруема по Дарбу в $[a,b]$. \\
-Ще докажем че $\forall\epsilon > 0$ съществуват голяма и малка сума на Дарбу $\overline{S}$ и $\underline{s}$ такива, че $\overline{S}-\underline{s} < \epsilon$.
+Ще докажем че $\forall\epsilon > 0$ съществуват голяма и малка сума на Дарбу $\overline{S}$ и $\underline{s}$ такива, че $\overline{S} - \underline{s} < \epsilon$.
 Тогава $\underline{I}=\overline{I}=I$ и нека изберем произволно $\epsilon > 0$. Понеже $I$ е горна граница на малките суми на Дарбу, то 
 $I - \frac{\epsilon}{2}$ не е горна граница на малките суми на Дарбу. Понеже $I$ е долна граница на големите суми на Дарбу, то $I + \frac{\epsilon}{2}$ не е долна граница на големите суми на Дарбу.
 Следователно $\exists \tau_1,\tau_2$ разбивания на интервала $[a,b]$, такива че: \\
@@ -145,7 +146,7 @@ $I - \frac{\epsilon}{2} < \underline{s}(f,[a,b],\tau_1) \leq  \underline{s}(f,[a
 $\overline{S}(f,[a,b],\tau_3) - \underline{s}(f,[a,b],\tau_3) < I + \frac{\epsilon}{2} - I + \frac{\epsilon}{2} = \epsilon$
 Следователно твърденуето в тази посока е в сила.
 \textbf{Доказателство ($\Longleftarrow$):}
-Нека $f$ e ограничена функция в $[a,b]$ за която е изпълнено,че $\forall\epsilon > 0$ съществуват голяма и малка сума на Дарбу $\overline{S}$ и $\underline{s}$ такива, че $\overline{S} − \underline{s} < \epsilon$}.
+Нека $f$ e ограничена функция в $[a,b]$ за която е изпълнено,че $\forall\epsilon > 0$ съществуват голяма и малка сума на Дарбу $\overline{S}$ и $\underline{s}$ такива, че $\overline{S} - \underline{s} < \epsilon$.
 Ще докажем, че $f$ e интегруема по Риман в $[a,b]$. Нека приемем, че $f$ не е интегруема по Риман, следователно не е интегруема по Дарбу - т.е $\underline{I} < \overline{I}$.
 Нека $\epsilon = \frac{\underline{I} + \overline{I}}{2}$, тогава $\exists\tau : \overline{S}(f,[a,b],\tau) - \underline{s}(f,[a,b],\tau) < \epsilon$.
 Понеже $\underline{s}(f,[a,b],\tau) \leq \underline{I} < \overline{I} \leq \overline{S}(f,[a,b],\tau) \Longrightarrow \epsilon > \overline{S}(f,[a,b],\tau) - \underline{s}(f,[a,b],\tau) \leq \overline{I} - \underline{I} = 2\epsilon$
