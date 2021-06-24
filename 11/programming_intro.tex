@@ -63,6 +63,85 @@
 \noindent \textit{\textbf{Деф}} - Тип данни наричаме \textbf{примитивен} когато той директно съдържа стойността. \\
 \noindent \textit{\textbf{Деф}} - Тип данни наричаме \textbf{указател} ако той съдържа адреса към локацията в паметта където се пази стойността. \\
 
+\subsection{Целочислени типове}
+
+\subsubsection{Определение}
+\noindent \textit{\textbf{Деф}} - Целочисленият тип от данни е вид скаларен тип от данни, а променливите от този тип се наричат целочислени. 
+Множеството допустими стойности зависи от размера на типа в битове (нека бъде $N$) и дали типът е знаков:
+\begin{itemize}
+    \item $[0, 2^N - 1]$ за неотрицателни числа
+    \item $[-2^{N - 1}, 2^{N - 1} - 1]$ за числа със знак (кодиране \textbf{two's complement}).
+\end{itemize}
+
+В паметта целите числа биват представени в двоичен вид чрез последователни битове, като ако типа е със знак, то най-старшият бит е заделен за знака.
+
+\subsubsection{Размер}
+В \textit{C++} целочислените променливи се означават чрез ключовите думи \textit{signed char, short int, int, long int, long long int} и техните \textit{unsigned} версии.
+Стандарта дефинира минималният размер на типовете, както и изисква по-голям тип да е поне толкова голям, колкото предходния. Реалният размер зависи от компилатора и средата.
+
+\begin{tabular}{ |c|c|c|c| } 
+\hline
+Тип & Минимален размер & GCC Linux x86 & MSVC x86 \\ 
+\hline
+signed char & 1 & 1 & 1 \\ 
+\hline
+short & 2 & 2 & 2 \\ 
+\hline
+int & 2 & 4 & 4 \\ 
+\hline
+long & 4 & 8 & 4 \\ 
+\hline
+long long & 8 & 8 & 8 \\ 
+\hline
+\end{tabular}
+
+Ако са необходими целочислени променливи с точно определен размер, независимо от платформата, може да се използва системния хедър \textbf{<cstdint>}. 
+В него са дефинирани типове \textit{(u)int8\_t, (u)int16\_t, (u)int32\_t} и т.н.
+
+\subsubsection{Оператори и примери}
+
+Следните оператори могат да бъдат прилагани над целочислени променливи:
+
+\begin{lstlisting}[language=C++, caption=Integer operators]
+int a = 5, b = -10, c = 2, d = 0;
+
+// Unary (ops with 1 arg)
+int d = +a; // 5
+int e = -a; // -5
++a; -b; // 5, 10
+++a; a++; --a; a--; // incrementation and decrementation -> 6, 7, 6, 5
+
+// Binary (ops with 2 args)
+a - b; a + b; a * b; b / a; a / c; a % c; // 15, -5, -50, -2, 2, 1
+
+// Boolean ops
+// Integers different from 0 are interpreted as true
+a && b; a && d; // true, false
+a || d; d || d; // true, false
+!b; !!b; // 0, 1
+
+// Comparison ops
+a == a; a == b; // is equal to -> true, false
+a != a; a != b; // is not equal to -> false, true
+a > a; a > b; // greater than -> false, true
+a >= a; a >= b; // greater than or equal -> true, true
+a < a; a < b; // less than -> false, false
+a <= a; b <= a; // less than or equal -> true, true
+
+// Bitwise ops
+a | b; // or
+a & b; // and
+a ^ b; // exclusive or (xor)
+~a; // negation
+a << b; // shift left
+a >> b; // shift right
+
+// IO ops (overloaded bitshift operator)
+std::cin >> a; // read number of stdin fd
+std::cout << a; // sends the number's decimal representation to the stdout fd
+\end{lstlisting}
+
+
 \subsection{Логически тип}
 
 \noindent \textit{\textbf{Деф}} - Логическия (булевият) тип данни е скаларен тип от данни, чийто множество от допустими стойности е $\{true, false\}$, т.е. истина или лъжа. 
@@ -104,76 +183,6 @@ a <= a; a <= b; b <= a; b <= b; // less than or equal to -> true, false, true, t
 // IO streams
 // std::cin >> a; -> not allowed
 std::cout << a; std::cout << (a && b); // sends the internal code of the boolean expression to the stdout fd -> 1, 0
-\end{lstlisting}
-
-\subsection{Целочислени типове}
-
-\noindent \textit{\textbf{Деф}} - Целочисленият тип от данни е вид скаларен тип от данни, чийто множество от допустими стойности e $\{x_0, x_1, \dots, x_n\}: x_0 < x_1 < \dots < x_n, x_i + 1 = x_{i+1}, \forall i \in [0, n-1]$ и $x_0, x_1, \dots, x_n \in \mathbb{Z}$.
-Променливите от този тип се наричат целочислени. Стойностите на $x_0$ и $x_n$ зависят от това колка байта са заделени за променливата.
-В паметта целите числа биват представени в двоичен вид чрез последователни битове, като ако типа е със знак, то най-старшият бит е заделен за знака.
-\bigbreak
-В \textit{C++} целочислените променливи се означават чрез ключовите думи \textit{signed char, short int, int, long int, long long int} и техните \textit{unsigned} версии.
-Стандарта дефинира минималният размер на типовете, както и изисква по-голям тип да е поне толкова голям, колкото предходния. Реалният размер зависи от компилатора и средата.
-
-\begin{tabular}{ |c|c|c|c| } 
-\hline
-Тип & Минимален размер & GCC Linux x86 & MSVC x86 \\ 
-\hline
-signed char & 1 & 1 & 1 \\ 
-\hline
-short & 2 & 2 & 2 \\ 
-\hline
-int & 2 & 4 & 4 \\ 
-\hline
-long & 4 & 8 & 4 \\ 
-\hline
-long long & 8 & 8 & 8 \\ 
-\hline
-\end{tabular}
-
-Примерно използване:
-\begin{lstlisting}[language=C++, caption=Integer variables]
-int a; // undefined default value
-int b = 5;
-\end{lstlisting}
-
-Следните оператори могат да бъдат прилагани над целочислени променливи:
-
-\begin{lstlisting}[language=C++, caption=Integer operators]
-int a = 5, b = -10, c = 2, d = 0;
-
-// Unary (ops with 1 arg)
-+a; -b; // 5, 10
-++a; a++; --a; a--; // incrementation and decrementation -> 6, 7, 6, 5
-
-// Binary (ops with 2 args)
-a - b; a + b; a * b; b / a; a / c; a % c; // 15, -5, -50, -2, 2, 1
-
-// Boolean ops
-// Integers different from 0 are interpreted as true
-a && b; a && d; // true, false
-a || d; d || d; // true, false
-!b; !!b; // 0, 1
-
-// Comparison ops
-a == a; a == b; // is equal to -> true, false
-a != a; a != b; // is not equal to -> false, true
-a > a; a > b; // greater than -> false, true
-a >= a; a >= b; // greater than or equal -> true, true
-a < a; a < b; // less than -> false, false
-a <= a; b <= a; // less than or equal -> true, true
-
-// Bitwise ops
-a | b; // or
-a & b; // and
-a ^ b; // exclusive or (xor)
-~a; // negation
-a << b; // shift left
-a >> b; // shift right
-
-// IO ops (overloaded bitshift operator)
-std::cin >> a; // read number of stdin fd
-std::cout << a; // sends the number's decimal representation to the stdout fd
 \end{lstlisting}
 
 \subsection{Реални типове}
