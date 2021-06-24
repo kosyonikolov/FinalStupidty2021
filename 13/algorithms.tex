@@ -11,6 +11,7 @@
 \usepackage{upgreek}
 \usepackage{indentfirst}
 \usepackage{array}
+\usepackage{listings}
 
 \usepackage{amsmath}
 \DeclareMathOperator{\cotg}{cotg}
@@ -87,7 +88,51 @@ $N^2 + \log N + 5 \in O(N^2)$.
 \end{center}
 
 \subsection{Примери за анализ на алгоритми}
-TODO
+
+\subsubsection{Двоично търсене}
+Ще докажем, че сложността на двоичното търсене е $O(\log N)$.
+Нека обозначим с $l_k$ и $r_k$ стойностите на променливите $left$ и $right$ на $k$-тата итерация на цикъла (нека първата итерация е $k = 0$).
+Тогава размерът на масива, в който търсим, на всяка итерация е $N_k = r_k - l_k + 1$. За индекса на сравнение $m_k$ получваме
+$m_k = \Big\lfloor\dfrac{l_k + r_k}{2}\Big\rfloor$ Интересува ни какво е $N_{k + 1}$, като имаме два случая:
+\begin{itemize}
+    \item $l_{k+1} = l_k, r_{k+1} = m_k - 1$. Тогава $N_{k+1} = \Big\lfloor\dfrac{l_k + r_k}{2}\Big\rfloor - 1 - l_k + 1 \leq \dfrac{l_k + r_k}{2} - l_k = \dfrac{N_k - 1}{2}$.
+    Съответно $N_{k+1} \leq \Bigg\lfloor \dfrac{N_k}{2} \Bigg\rfloor$.
+    \item $l_{k+1} = m_k + 1, r_{k+1} = r_k \Rightarrow N_{k+1} = r_k - \Big\lfloor\dfrac{l_k + r_k}{2}\Big\rfloor - 1 + 1 < \dfrac{r_k - l_k}{2} + 1 = \dfrac{N_k - 1}{2} + 1$. 
+    $\dfrac{N_k - 1}{2} + 1 = \dfrac{N_k + 1}{2} = \Bigg\lceil \dfrac{N_k}{2} \Bigg\rceil$.
+    Съответно получваме $N_{k+1} < \Bigg\lceil \dfrac{N_k}{2} \Bigg\rceil \Leftrightarrow N_{k+1} \leq \Bigg\lceil \dfrac{N_k}{2} \Bigg\rceil - 1 \Leftrightarrow $
+    $N_{k+1} \leq \Bigg\lfloor \dfrac{N_k}{2} \Bigg\rfloor$
+\end{itemize}
+
+И двата случая получихме $N_{k+1} \leq \Bigg\lfloor \dfrac{N_k}{2} \Bigg\rfloor$.
+Можем да приложим неравенството няколко пъти, както и да почнем от $N_0 = N$. 
+Тогава получваме $N_k \leq \Bigg\lfloor \dfrac{N}{2^k} \Bigg\rfloor$. Алгоритъмът спира при $N_k < 1$,
+следователно може да има най-много $\log_2 N$ стъпки $\Rightarrow O(\log N)$.
+
+Алтернативно, можем да съставим рекурентна формула за времето в най-лошия случай - $T(n) = T\left(\frac{N}{2}\right) + 1$.
+Вече споменахме, че за тази формула $T(n) \in \theta(\log N)$. 
+
+Ако искаме да докажем и коректността на алгоритъма, то трябва да намерим и докажем инвариантата на цикъла.
+В този случай това е следното твърдение: \textit{Елементът със стойност $target$ \textbf{не} се намира в подмасивите с индекси $0 \dots l_k - 1$ и $r_k + 1 \dots size - 1$}.
+Доказването на инвариантите на цикъл обаче е извън обхвата на темата, така че ще го пропуснем.
+
+\begin{lstlisting}[language=C++, caption=Двоично търсене]
+int binary_search(const int * arr, const int size, const int target)
+{
+    int left = 0;
+    int right = size - 1;
+
+    while (left <= right)
+    {
+        const int m = (left + right) / 2;
+        if (arr[m] == target) return m;
+        if (arr[m] < target) left = m + 1;
+        else right = m - 1;
+    }
+
+    return -1;
+}
+\end{lstlisting}
+    
 
 \section{Абстрактни типове от данни}
 \subsection{Дефиниция и идея}
