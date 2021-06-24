@@ -30,4 +30,5 @@ To install TeX follow this [tutorial](https://tex.stackexchange.com/questions/46
 
 - [Something written by soft girls](https://drive.google.com/drive/folders/1RvNXix6UjzIm1BFbxI_se9q2q94zfLoS?usp=sharing)
 - [Many more soft scripts](https://drive.google.com/drive/folders/1w91x7uKvEj_RJztHYV_y8pR-SC_RQqOf?usp=sharing)
-- [Consultation materials](https://drive.google.com/drive/folders/1obA3PIWWbU4-pkRXqrTM9hrreb0hGrCJ?usp=sharing)
+- [Hand-written consultation materials](https://drive.google.com/drive/folders/1obA3PIWWbU4-pkRXqrTM9hrreb0hGrCJ?usp=sharing)
+- [Table of consulations](https://docs.google.com/spreadsheets/d/1sbUp2tPAHLIrNS0jF4AVaVNHpwEvqoeAMP6iBrmKSYI/edit?fbclid=IwAR0KNEdX0bZ-u7CafCRClicDFjl4y_36uygYeCe5FKHsx-Fgw689PQqoZ1E#gid=0)
