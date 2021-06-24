@@ -25,3 +25,9 @@ Then in VSCode:
 ### :apple: MacOS
 
 To install TeX follow this [tutorial](https://tex.stackexchange.com/questions/462365/how-to-use-latex-on-vs-code) (*it covers VS Code integartion*).
+
+### Links to useful resources
+
+- [Something written by soft girls](https://drive.google.com/drive/folders/1RvNXix6UjzIm1BFbxI_se9q2q94zfLoS?usp=sharing)
+- [Many more soft scripts](https://drive.google.com/drive/folders/1w91x7uKvEj_RJztHYV_y8pR-SC_RQqOf?usp=sharing)
+- [Consultation materials](https://drive.google.com/drive/folders/1obA3PIWWbU4-pkRXqrTM9hrreb0hGrCJ?usp=sharing)
