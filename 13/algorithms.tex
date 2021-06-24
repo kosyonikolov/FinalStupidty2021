@@ -256,11 +256,41 @@ int binary_search(const int * arr, const int size, const int target)
 извършва минимален брой \textbf{размени}. Следователно си струва да се обмисли, ако цената на едно преместване е
 много по-голяма от цената на едно сравнение. Алгоритъмът не е стабилен.
 
+\begin{lstlisting}[language=C++, caption=Selection sort]
+void selection_sort(int * arr, const int size)
+{
+    for (int i = 0; i < size - 1; i++)
+    {
+        int min_idx = i;
+        for (int j = i + 1; j < size; j++) 
+            if (arr[j] < arr[min_idx]) min_idx = j;
+        std::swap(arr[i], arr[min_idx]);
+    }
+}
+\end{lstlisting}
+
 \subsubsection{Сортиране с вмъкване (Insertion sort)}
 Познат още като \textbf{метода на картоиграча}. Инвариантата му е, че на $i$-та стъпка (броейки от 0), подмасивът 
 с индекси $0 \dots i - 1$ е сортиран. Следователно на всяка стъпка се намира мястото на елемента $A[i]$. 
 Предимството идва от факта, че това може да отнеме по-малко от $i$ стъпки, следователно при почти сортирани масиви
 времето за работа е $O(N)$. Алгоритъмът е стабилен.
+
+\begin{lstlisting}[language=C++, caption=Insertion sort]
+void insertion_sort(int * arr, const int size)
+{
+    for (int i = 1; i < size; i++)
+    {
+        const int new_val = arr[i];
+        int idx = i;
+        while (idx > 0 && arr[idx - 1] > new_val)
+        {
+            arr[idx] = arr[idx - 1];
+            idx--; 
+        }
+        arr[idx] = new_val;
+    }
+}
+\end{lstlisting}
 
 \subsubsection{Сортиране с метода на балончето (Bubble sort)}
 Този метод няма предимства пред останалите. По-трудно се разбира и не е по-бърз, но все пак е успял 
@@ -286,5 +316,24 @@ int binary_search(const int * arr, const int size, const int target)
 
 Дали алгоритъмът използва допълнителна памет и дали е стабилен зависи от версията на \textbf{partition}. Ако не ползваме допълнителна памет,
 сортирането не е стабилно и обратно.
+
+\begin{lstlisting}[language=C++, caption=QuickSort]
+// Rearange arr so that all elements <= val are in the front
+// Return the index of some element that is equal to val after rearanging
+int partition(int * arr, const int size, const int val)
+{
+    // ...
+}
+
+void quick_sort(int * arr, const int size)
+{
+    if (size < 2) return;
+    const int k = arr[size / 2];
+
+    const int k_idx = partition(arr, size, k);
+    quick_sort(arr, k_idx + 1);
+    quick_sort(arr + k_idx + 1, size - k_idx - 1);
+}
+\end{lstlisting}
 
 \end{document}
