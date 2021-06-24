@@ -10,6 +10,7 @@
 \usepackage{enumitem, hyperref}
 \usepackage{upgreek}
 \usepackage{indentfirst}
+\usepackage{array}
 
 \usepackage{amsmath}
 \DeclareMathOperator{\cotg}{cotg}
@@ -33,10 +34,57 @@
 TODO
 
 \subsection{Асимптотична нотация на сложността}
-TODO
+\subsubsection{Дефиниция}
+Нека $f, g : \mathbb{N} \rightarrow \mathbb{R}$. Казваме, че $f$ расте по-бавно от $g$ (или че $g$ мажорира $f$) и означаваме $f \prec g$, ако 
+съществува $c \in \mathbb{R}$ и $n_0 \in \mathbb{N}$, за които е изпълнено $N > n_0 \Rightarrow f(N) < c.g(N)$.
+Чрез $f \preceq g$ означаваме нестрогата форма на неравенството - $g$ расте поне толкова бързо, колкото $f$.
+
+Нека $f : \mathbb{N} \rightarrow \mathbb{R}$. Дефинираме следните множества чрез релациите $\prec$ и $\preceq$:
+\begin{itemize}
+    \item $O(f) = \{g \hspace{2mm} | \hspace{2mm} g \preceq f\}$
+    \item $o(f) = \{g \hspace{2mm} | \hspace{2mm} g \prec f\}$
+    \item $\Omega(f) = \{g \hspace{2mm} | \hspace{2mm} f \preceq g\}$
+    \item $\omega(f) = \{g \hspace{2mm} | \hspace{2mm} f \prec g\}$
+    \item $\Theta(f) = \{g \hspace{2mm} | \hspace{2mm} f \preceq g \preceq f\}$
+\end{itemize}
+
+\subsubsection{Наредба на стандартните функции}
+\noindent\[ C \prec \log \log N \prec \log N \prec \sqrt{N} \prec N \prec N^2 \prec N^3 \prec 2^N \prec 3^N \prec N! \prec N^N \]
+
+\subsubsection{Свойства и примери}
+Ако $f \preceq g$ и $h(n) = f(n) + g(n)$, то $h(n) \in \Theta(f)$.
+Следвателно ни интересува само най-големия член на дадена формула, например
+$N^2 + \log N + 5 \in O(N^2)$.
 
 \subsection{Основни рекурентни формули}
-TODO
+\subsubsection{Дефиниция}
+Нека с $T(N)$ обозначим времето за работа на алгоритъм при размер на входа $N$.
+Ако можем да изразим $T(N)$ чрез формула, съдържаща $T$, то изразът наричаме \textbf{рекуретна формула}.
+Такива изрази възникват често, когато алгоритми използват рекурсия.
+
+Времето $T(N)$ можем да разглеждаме в най-лошия, средния и най-добрия случай (подредени по важност).
+Освен време, по същия начин можем да разглеждаме и паметта, която алгоритъмът използва - нека я обозначим $M(N)$.
+Очевидно $M(N) \preceq T(N)$.
+
+\subsubsection{Примери}
+
+\begin{center}
+\begin{tabular}{|c|c|m{80mm}|}
+    \hline
+    Формула & Сложност & Примерен алгоритъм \\ 
+    \hline
+    $T(N) = T(N - 1) + N$ & $\Theta(N^2)$ & Наивна сортировка \\  
+    \hline
+    $T(N) = T\left(\dfrac{N}{2}\right) + 1$ & $\Theta(\log N)$ & Двоично търсене \\  
+    \hline    
+    $T(N) = T\left(\dfrac{N}{2}\right) + N$ & $\Theta(N)$ & Среден случай на търсене на медиана с \textbf{quick select} \\  
+    \hline   
+    $T(N) = 2T\left(\dfrac{N}{2}\right) + N$ & $\Theta(N \log N)$ & Бърза сортировка \\  
+    \hline
+    $T(N) = 2T\left(\dfrac{N}{2}\right) + 1$ & $\Theta(N)$ & Търсене на минимален елемент по схемата "разделяй и владей" \\  
+    \hline     
+\end{tabular}
+\end{center}
 
 \subsection{Примери за анализ на алгоритми}
 TODO
