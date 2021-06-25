@@ -304,37 +304,38 @@ void proc() {
 
 \subsection{Тръба чрез редуване на процесите}
 \begin{multicols}{2}
-    P
+    Consumer
 
     \dots
 
-    sQ.wait()
+    sConsumer.wait()
     
     b = sharedData
     
-    sP.signal()
+    sProducer.signal()
     
     \dots
 
 \columnbreak
-    Q
+    Producer
     
     \dots
     
-    sP.wait()
+    sProducer.wait()
     
     sharedData = b
     
-    sQ.signal()
+    sConsumer.signal()
     
     \dots
 
 \end{multicols}
 
-Нека имаме два процеса S и Q с разписаната по горе критична секция.
-Нека имаме съответно и два семафора sP и sQ, инициализирани съответно с 0 и 1.
-Критичната секция на sQ ще се изпълни първа, а после тази на sP.
-Ако тези два процеса се изпълняват последователно в безкраен цикъл, то те ще се редуват прехвърляйки един елемент информация от Q към P при всяко завъртане.
+Нека имаме два процеса \textbf{Consumer} и \textbf{Producer} с разписаната по горе критична секция.
+Нека имаме съответно и два семафора \textbf{sConsumer} и \textbf{sProducer}, инициализирани съответно с 0 и 1.
+Критичната секция на \textbf{Producer} ще се изпълни първа, а после тази на \textbf{Consumer}, защото \textbf{sProducer} е инициализиран с 1, а \textbf{sConsumer} с 0.
+Това е и логично защото преди да се изконсумира нещо, то първо трябва да бъде създадено.
+Ако тези два процеса се изпълняват последователно в безкраен цикъл, то те ще се редуват прехвърляйки един елемент информация от \textbf{Producer} към \textbf{Consumer} при всяко завъртане.
 Това е бавен вариант за осъществяване на тръба, защото твърде много процеси биват приспивани и събуждани.
 
 \subsection{Тръба с буфер от n елемента}
@@ -345,15 +346,15 @@ void proc() {
     
         \dots
     
-        write.wait()
+        sConsumer.wait()
 
-        mread.wait()
+        mConsumer.wait()
         
         Q.Pop()
 
-        mread.signal()
+        mConsumer.signal()
         
-        read.signal()
+        sProducer.signal()
 
         \dots
     
@@ -362,15 +363,15 @@ void proc() {
         
         \dots
         
-        read.wait()
+        sProducer.wait()
 
-        mwrite.wait()
+        mProducer.wait()
         
         Q.Push(\dots)
 
-        mwrite.signal()
+        mProducer.signal()
         
-        write.signal()
+        sConsumer.signal()
 
         \dots
     
@@ -379,12 +380,12 @@ void proc() {
 
     Нека имаме два процеса съдържащи горепосочената секция от инструкции, където:
     \begin{itemize}
-        \item \textbf{mread} и \textbf{mwrite} са \textit{mutex}-и.
+        \item \textbf{mConsumer} и \textbf{mProducer} са \textit{mutex}-и.
         \item \textbf{Q[n]} - опашката от споделена памет.
-        \item \textbf{read} и \textbf{write} са семафори, които са инициализирани съответно като:
+        \item \textbf{sProducer} и \textbf{sConsumer} са семафори, които са инициализирани съответно като:
         \begin{itemize}
-            \item \textbf{read = init(n)} - семафора инициализирана с размера на опашката.
-            \item \textbf{write = init(0)} - семафора инициализирана с 0, т.е. консуматора не може да чете преди да има нещо продуцирано.
+            \item \textbf{sProducer = init(n)} - семафора инициализирана с размера на опашката.
+            \item \textbf{sConsumer = init(0)} - семафора инициализирана с 0, т.е. консуматора не може да чете преди да има нещо продуцирано.
         \end{itemize}
     \end{itemize}
 
