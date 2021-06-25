@@ -39,6 +39,7 @@ We have a script that uses docker latex to build all topic `tex` files, bundle t
 You could run it with:
 
 ```bash
+source .envrc # or just use direnv
 GITHUB_API_TOKEN=api-token ./hack/release.sh tag=vx.x.x
 ```
 
