@@ -26,6 +26,22 @@ Then in VSCode:
 
 To install TeX follow this [tutorial](https://tex.stackexchange.com/questions/462365/how-to-use-latex-on-vs-code) (*it covers VS Code integartion*).
 
+### Conventions
+
+Always put your topic in a folder named `xx` where `xx` are digits representing the topic number.
+Always add your images in a subfolder of the topic folder named `img`, i.e. `xx/img`.
+
+### Creating a release
+
+You need to have installed [jq](https://stedolan.github.io/jq/), [zip](https://linuxize.com/post/how-to-zip-files-and-directories-in-linux/) and `docker` as a prerequisite.
+
+We have a script that uses docker latex to build all topic `tex` files, bundle them up, create a github release and upload the bundle as an asset.
+You could run it with:
+
+```bash
+GITHUB_API_TOKEN=api-token ./hack/release.sh tag=vx.x.x
+```
+
 ### Links to useful resources
 
 - [Something written by soft girls](https://drive.google.com/drive/folders/1RvNXix6UjzIm1BFbxI_se9q2q94zfLoS?usp=sharing)
