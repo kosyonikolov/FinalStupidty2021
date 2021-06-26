@@ -8,7 +8,7 @@
 #
 
 # Check dependencies.
-set -euo pipefail
+set -e
 xargs=$(which gxargs || which xargs)
 
 # Validate settings.
