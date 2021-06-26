@@ -30,6 +30,7 @@ To install TeX follow this [tutorial](https://tex.stackexchange.com/questions/46
 
 Always put your topic in a folder named `xx` where `xx` are digits representing the topic number.
 Always add your images in a subfolder of the topic folder named `img`, i.e. `xx/img`.
+Always begin your topic title with `Тема xx\\ `.
 
 ### Creating a release
 
