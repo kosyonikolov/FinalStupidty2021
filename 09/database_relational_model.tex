@@ -1,0 +1,326 @@
+\documentclass[fleqn,12pt]{article}
+
+\usepackage[margin=15mm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[bulgarian]{babel}
+\usepackage[unicode]{hyperref}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{indentfirst}
+\usepackage{enumitem, hyperref}
+\usepackage{blindtext}
+\usepackage{multicol}
+
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\title{Бази от данни. Релационен модел на данните}
+\author{v1.0}
+\date{14 юни 2021}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\pagebreak
+
+\section{Релационен модел}
+
+\textit{\textbf{Релационният модел}} е модел за управление на данни, където те са представени като кортежи групирани в релации.
+База от данни, която използва релационния модел се нарича релационна база от данни, а СУБД управляващо релационна база от данни е релационна СУБД
+\bigbreak
+Основната цел на този модел е да предостави \textbf{декларативен} начин за представяне на данните и заявките към тях, скривайки реалната имплементация.
+Следователно изборът на структурите от данни и алгоритмите за това е резервирана функионалност за релационните СУБД-та.
+
+\subsection{Домейн}
+% the egg and chicken problem
+
+\textbf{\textit{Домейн (Област)}} наричаме множество от допустими стойности за някаква величина.
+\bigbreak
+Релационният модел изисква стойностите на всички компоненти на кортежите да бъдат \textbf{атомарни}.
+Обичайно домейнът дефинира скаларния тип на данните, както и някои допълнителни ограничения.
+
+\subsection{Релация}
+
+\textbf{\textit{Релация}} по дефиниция на Код наричаме всяко подмножество на декартово произведение $D_1 \times \dots \times D_n, n \in \mathbb{N}$.
+В контекста на базите от данни релация може да се разглежда като таблица, където всеки ред е наредена n-торка съдържаща запис от данни, а стълбовете съдържат елементи само от една и съща област.
+
+\subsection{Кортеж}
+
+\textbf{\textit{Кортеж}} наричаме всеки елемент на $R$, където $R$ е релация, т.е. кортеж е наредена n-торка.
+Щом $R$ е множество, то следователно кортежите в едно множество $R$ трябва да са уникални.
+\bigbreak
+Множеството от всички кортежи на дадена релация наричаме \textit{\textbf{екземпляр на релацията}}.
+Екземплярите на релациите се променят при променяне, добавяне и премахване на кортежи в тях.
+Броят на кортежите в един екземпляр на релация наричаме негова кардиналност.
+\bigbreak
+Релационна база от данни наричаме множество от релации.
+Всяко множество от конкретни екземпляри на релации се нарича текущо състояние на релационната база от данни.
+
+\subsection{Атрибути}
+
+Нека $R$ е някоя релация и $R \subseteq D_1 \times \dots \times D_n, n \in \mathbb{N}$.
+Всеки стълб на табличното представяне на $R$ притежава име, което наричаме \textbf{\textit{атрибут}}.
+Следователно всеки домейн $D_i$ е асоцииран с някой атрибут $A_i$, където $i \in \mathbb{N}, i \in [1, n]$.
+\bigbreak
+От семантична/практична гледна точка атрибутите се използват за описване на характеристиките на складираните данни.
+
+\subsection{Схема на релация и релационна база от данни}
+
+Името на една релация и множеството от нейните атрибути наричаме \textbf{\textit{схема на релацията}}.
+Прието е схемата на релация $R$ с атрибути $\{A_1, \dots, A_n\}$ да означаваме като $R(A_1, \dots, A_n)$.
+\bigbreak
+Въпреки, че атрибутите в една схема са множество, а не списък, е практично да се въведе $``$стандартна$''$ наредба.
+При схема $R(A_1, \dots, A_n)$ стандартната наредба е $A_1, \dots, A_n$.
+\bigbreak
+При релационния модел, дизайнът на една база от данни се състои от множество от схеми на релации, което наричаме \textbf{\textit{схема на релационната база от данни (или просто схема на базата от данни)}}.
+
+\subsection{Реализация на релационна база от данни}
+
+Първата фаза от проектирането на една релационна БД обичайно се фокусира над изграждането на даннов модел.
+Тя може да се раздели на следните стъпки:
+\begin{enumerate}
+    \item Дефиниране на това каква информация ще се съхранява.
+    \item Дефиниране на зависимости (връзки) между информационните елементи.
+    \item Определяне на ограничения над данните като например ключове посредством зависимостите, възможни стойности и прочие.
+\end{enumerate}
+
+Важно е при изграждането на данновия модел да се моделира коректно и просто реалния свят, да се избягват излишества и да се подберат правилните елементи и връзки между тях.
+Обичайно продуктът от тази фаза се изразява в \textbf{модел Същност/Връзка (Entity/Relationship (E/R))}.
+\bigbreak
+Следващата фаза е данновият модел да се транслира до релационна схема на БД.
+При транслацията от \textbf{E/R} модел към релационна схема на БД първата подфаза се състои от:
+\begin{enumerate}
+    \item превръщане на всяка същност в релация със същите атрибути.
+    \item заместване на всяка връзка с релация, където атрибутите са ключовете на свързаните същности.
+\end{enumerate}
+
+Обичайно това е достатъчно, но понякога има изключения като например, че:
+\begin{itemize}
+    \item транслацията на $``$слабите$''$ същности към релации не е тривиална.
+    \item $``Isa''$ връзките изискват специално внимание.
+    \item понякога е добре да слеем две релации в една, като тези произлизащи от същност \textbf{E} и нейна връзка \textbf{R} с друга същност \textbf{F} където:
+    \begin{itemize}
+        \item връзката \textbf{R} е тип много към 1 съответно от \textbf{E} към \textbf{F}.
+        \item релациите от \textbf{E} и \textbf{R} съдържат атрибутите от ключа на същността \textbf{E}.
+        \item новополучената релация съдържа атрибутите на \textbf{E} и \textbf{R}, като в това число и ключа на \textbf{F}.
+    \end{itemize}
+\end{itemize}
+
+Възможен е и алтернативен подход, който включва директно проектиране на данновия модел като релационен, но той е ограничен и неудобен.
+
+
+\subsection{Видове операции върху релационната база данни}
+
+Релационните СУБД-та най-често използват езика \textbf{SQL} за извършване на операции в бази от данни.
+Той е декларативен и се състои от две части \textbf{Data Definition Language (DDL)} и \textbf{Data Manipulation Language (DML)}.
+\bigbreak
+\textbf{DDL} се използва за дефиниция на схемата на базата от данни, като това включва добавяне и изтриване на релации, модифициране на вече съществуващи такива чрез добавяне/промяна/изтриване на атрибути, както и поставяне на ограничения.
+Имплементират се посредством \textbf{DDL} statement-и съдържащи операциите \textbf{CREATE} (създай), \textbf{DROP} (премахни) и \textbf{ALTER} (промени).
+\bigbreak
+\textbf{DML} се използва за манипулация на кортежите чрез операциите селектиране, добавяне, промяна и изтриване, които се имплементират съответно чрез \textbf{DDL} statement-и съдържащи операциите \textbf{SELECT, INSERT, UPDATE и DELETE}.
+
+\subsection{Заявки към релационната база данни}
+
+\bigbreak
+Примерни \textbf{DDL} заявки са:
+
+\begin{lstlisting}[language=SQL, caption=DLL queries example]
+-- Create a relation Actors(actor_id, name, age) with a primary key actor_id.
+CREATE TABLE Actors(
+    actor_id INTEGER PRIMARY_KEY,
+    name VARCHAR(50) NOT_NULL,
+    age INTEGER NOT_NULL,
+);
+
+-- Add an optional attribute called height.
+ALTER TABLE Actors ADD height INTEGER;
+
+-- Delete the height attrib.
+ALTER TABLE Actors DROP COLUMN height;
+
+-- Delete the Actors relation.
+DROP TABLE Actors;
+\end{lstlisting}
+
+
+Примерни \textbf{DML} заявки са:
+
+\begin{lstlisting}[language=SQL, caption=DML queries example]
+-- Assume a relation Actors(actor_id, name, age) with a key {actor_id}
+-- Assume a relation Movies(movie_id, name, length_in_min) with a key {movie_id}
+-- Assume a relation Roles(movie_id, actor_id, name) with a key {movie_id, actor_id}
+
+-- Extract the names and role names of all actors aged upon 30 that have participated in Titanic.
+SELECT Actors.actor_name, Roles.name FROM Actors
+JOIN Roles ON Actors.actor_id=Roles.actor_id
+JOIN Movies ON Roles.movie_id=Movies.movie_id
+WHERE Actors.age > 30 AND Movies.name="Titanic";
+
+-- Add a Movie named The Flintstones with a length of 2 hours.
+INSERT INTO Movies (movie_id, name, length_in_min)
+VALUES (3, "The Flintstones", 125);
+
+-- Update the movie named Aladin to have a lenth of 3 hours.
+UPDATE Movies SET length_in_min=180 WHERE name="Aladin";
+
+-- Delete the move named Terminator.
+DELETE FROM Movies WHERE name="Terminator";
+\end{lstlisting}
+
+
+\section{Релационна алгебра}
+
+\textit{\textbf{Релационната алгеба (РА)}} е алгебра, където операндите са релации.
+Тя дефинира множество от стандартни операции за изпълнение на заявки върху релационни бази от данни.
+Релационната алгебра не е пълна по Тюринг, т.е. не можем да извършваме всичко с нея, но това позволява допълнителни оптимизации от страна на СУБД, които я имплементират.
+
+\subsection{Основни операции}
+
+Казваме, че релациите $R(A_1, \dots, A_n)$ и $S(B_1, \dots, B_m)$ за $n, m \in \mathbb{N}$ са \textbf{\textit{съвместими}} когато:
+\begin{itemize}
+    \item $m = n$.
+    \item $dom(A_i) = dom(B_i), i \in \mathbb{N}, i \in [1, n]$, където $dom$ е функция връщаща домейна асоцииран с атрибута, който ѝ е подаден като аргумент.
+    \item редът атрибутите в двете релации съвпада.
+\end{itemize}
+\bigbreak
+
+\textbf{\textit{Обединенние (Union)}} на две съвместими релации $R$ и $S$ наричаме релацията $U$, която съдържа всички кортежи на $R$ и $S$.
+Бележим $U = R \cup S$.
+Тя е бинарна, комутативна и асоциативна операция.
+\bigbreak
+
+\textbf{\textit{Разлика (Difference)}} на две съвместими релации $R$ и $S$, където от $R$ изваждаме $S$, наричаме релацията $D$ която съдържа елементите на $R$, които не се съдържат в $S$.
+Бележим като $D = R \setminus S$.
+Тя е бинарна и некомутативна.
+\bigbreak
+
+\textbf{\textit{Проекция (Projection)}} на $n$-мерната релация $R(A_1, \dots, A_n), n \in \mathbb{N}$ наричаме релацията \\
+$P(A_{i_1}, \dots, A_{i_k})$, $k \in \mathbb{N}, k \leq n$, където $\{A_{i_1}, \dots, A_{i_k}\} \subseteq \{A_1, \dots, A_n\}$.
+Тя се получава чрез отстраняване на всички атрибути на $R$, които не фигурират в конфигурацията на $P$.
+Следователно може да се каже, че тя е намаляване в ширина (по брой атрибути).
+Като страничен ефект може да настъпи и намаляване в дълбочина (по брой кортежи) при премахване на всички атрибути, отличаващи поне два кортежа.
+При релационни СУБД данните обичайно се пазят като мултимножества и такава загуба на информация не може да настъпи.
+\bigbreak
+Бележим проекция на $R(A_1, \dots, A_n)$ в $P(A_{i_1}, \dots, A_{i_k})$ чрез функцията $\pi_{A_{i_1}, \dots, A_{i_k}}(R)$.
+Тази операция е аналог на \textbf{SELECT} в \textbf{SQL}.
+\bigbreak
+
+\textbf{\textit{Селекция (Selection)}} върху релация $R(A_1, \dots, A_n), n \in \mathbb{N}$ според предиката $E$ е релацията $(R:E)(A_1, \dots, A_n)$, където $R:E = \{c \in R | E(c) = true\}$.
+Бележим с $\sigma_{[predicate]}(R)$.
+Тази операция е аналог на \textbf{WHERE} в \textbf{SQL}.
+\bigbreak
+
+\textbf{\textit{Преименуване (Renaming)}} на релация $R(A_1, \dots, A_n), n \in \mathbb{N}$ е релация $R'(B_1, \dots, B_n)$, такава че $R = R'$, но не е задължително да е изпълнено $A_i = B_i$ за $i \in \mathbb{N}, i \in [0, 1]$. 
+Накратко е операция, която сменя имената на атрибутите в дадена релация без да променя домейните им.
+Бележим като $\rho_{[new names]}(R)$.
+Тази операция е аналог на \textbf{AS} в \textbf{SQL}.
+
+\textbf{\textit{Декартово произведение (Cartesian product)}} на две релации $R(X)$ и $S(Y)$, където $X$ и $Y$ са множества от атрибути наричаме релацията $(R \times S)(Z)$, където:
+\begin{equation}
+    \begin{cases}
+        Z = X \circ Y\\
+        R \times S = \{r \circ s | r \in R, s \in S\}
+    \end{cases}
+\end{equation}
+, където $\circ$ е конкатенация.
+На прост език съдържа комбинацията на всеки кортеж от първото множество с всеки такъв от второто.
+
+
+\subsection{Допълнителни операции}
+
+\textbf{\textit{Сечение (Intersection)}} на две съвместими релации $R$ и $S$ наричаме релацията $I$, която съдържа само общите кортежи на $R$ и $S$.
+Бележим $I = R \cap S$.
+Тя е бинарна, комутативна и асоциативна операция.
+\bigbreak
+
+\textbf{\textit{Частно (Division)}} на две релации $N(X)$ и $D(Y)$, където $X$ и $Y$ са множества от атрибути и $Y \subset X$, наричаме релацията $R$, за която е изпълнено, че:
+\begin{itemize}
+    \item съдържа само атрибутите $X \setminus Y$.
+    \item съдържа само кортежите на $N$, които за една комбинация на $X \setminus Y$ са съпоставени спрямо всички кортежи на $D$.
+\end{itemize}
+
+Отбелязваме като $R = N \div D$. Пример е:\\
+
+\begin{multicols}{3}
+\begin{center}
+\begin{tabular}{ |c|c| }
+    \hline
+    \multicolumn{2}{|c|}{StudentSports} \\
+    \hline
+    student\_id & sport \\
+    \hline
+    1 & badminton \\
+    2 & cricket \\
+    2 & badminton \\
+    4 & cricket \\
+    \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{ |c| } 
+    \hline
+    \multicolumn{1}{|c|}{Sports} \\
+    \hline
+    sport \\
+    \hline
+    badminton \\
+    cricket \\
+    \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{ |c| } 
+    \hline
+    \multicolumn{1}{|c|}{StudentSports $\div$ Sports} \\
+    \hline
+    student\_id \\
+    \hline
+    2 \\
+    \hline
+\end{tabular}
+\end{center}
+
+\end{multicols}
+
+\textbf{\textit{Съединение (Theta join)}} на две релации $R(X)$ и $S(Y)$, където $X$ и $Y$ са множества от атрибути, по предиката $C$ е релацията $T = \{t \in R \times S | C(t) = true\}$.
+На кратко това са всички кортежи от декартовото произведение, които отговарят на някакво условие.
+\bigbreak
+Бележим с $T = X \underset{C}{\Theta} Y$.
+
+\textbf{\textit{Естествено съединение (Natural join)}} на две релации $R(X)$ и $S(Y)$, където $X$ и $Y$ са множества от атрибути, наричаме релация $N = \{t \in R \times S | \exists tp \in \pi_{X \cap Y}(\{t\}): tp \in \pi_{X \cap Y}(R)$ и $tp \in \pi_{X \cap Y}(S)\}$.
+На кратко е частен случай на съединението между две множества, където условието е кортежите да съвпадат по стойности в атрибутите с еднакви имена.
+\bigbreak
+Бележим с $N = R \bowtie S$. Тази операция е аналог на \textbf{JOIN} в \textbf{SQL}.
+
+\end{document}
