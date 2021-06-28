@@ -288,16 +288,162 @@ a[0]; a[1]; a[2]; a[3]; a[4]; // 1, 2, 85, 4, 101
 \end{lstlisting}
 
 \section{Тип указател}
-\subsection{Дефиниране}
+\subsection{Дефиниция}
+Указателите съдържат \textbf{адреси} към променлива (или променливи) от даден \textbf{тип}.
+Същият тип се използва при дефинирането на указателите:
+
+\begin{lstlisting}[language=C++, caption=Pointer example]
+int * a = nullptr;
+double * b;
+char * c;
+\end{lstlisting}
+
+Можем да дефинираме и указател към указател - т.е. можем да добавяме произволно много нива на \textbf{indirection}.
+\begin{lstlisting}[language=C++, caption=Pointer example]
+int ** a = nullptr;
+double *** b = 0;
+char **** c;
+\end{lstlisting}
+
+Напрактика броя на звездичките следва експоненциално разпределение: най-често се ползват просто указатели, след това двойни указатели и т.н.
+
+\subsection{Размер}
+Размерът на указателите зависи от големината на адресното пространство. Следователно размерът е 2 (16 битова система), 4 (32 битова), 
+или 8 байта (64 битова).
+
 \subsection{Основни операции}
+Адрес на променлива можем да извлечем чрез оператора \textbf(\&). Този адрес можем да присвоим на указател. 
+Чрез оператора \textbf{*} можем да достъпим и променяме стойността на променливата, към която указателят сочи.
+\begin{lstlisting}[language=C++, caption=Pointer example 2]
+int a = 5;
+int * ptr = &a;
+*ptr = 7;
+// a is now 7
+\end{lstlisting}
+
+Можем да добавяме и изваждаме \textbf{цели} числа от указатели. Това премества указателя да сочи към съседни променливи.
+Можем да изваждаме указател от указател, като резултатът от това е \textbf{цяло} число, което показва колко променливи от 
+дадения тип има между двата указателя (със знак). Събиране на два указателя е безсмислено.
+
+\begin{lstlisting}[language=C++, caption=Pointer example 3]
+int * base_ptr = ...;
+int * curr_ptr = base_ptr + i;
+int * best_ptr = ...;
+int distance = best_ptr - base_ptr;
+\end{lstlisting}
+
 \subsection{Указателна аритметика}
+При гореописаните операции се взима впредвид \textbf{типа} на указателя. При добавяне на число $n$ към указател, който в момента сочи към $a$, се 
+добавя $n . sizeof(T)$, където $T$ е типа на указателя. Аналогично, при изваждане на указатели разликата в адресите се дели на размера на типа.
+
 \subsection{Указатели и едномерни масиви}
 
-Дефиницията на променлива от тип масив заделя памет (обикновено 4b), в която записва адреса в паметта на първата индексирана променлива на масива.
-Останалите се достъпват директно, използвайки указателна аритметика и размера на типа от данни на елементите.
+Указателите имат дефиниран \textbf{operator[]}, който е съкратен запис на \textbf{*} и добавяне на число към указател:
+\begin{lstlisting}[language=C++, caption=Pointer example 3]
+int * base_ptr = ...;
 
-\subsection{Указатели и двумерни масиви}
+// These two are equivalent
+*(base_ptr + i) = i;
+base_ptr[i] = i;
+\end{lstlisting}
+
+Всъщност така се имплементира индексирането на масиви. Променливите от тип масив автоматично се конвертират към тип указател.
+Единствената разлика е, че няма как типа на указателя да съхранява към колко обекта сочи, т.е.:
+
+\begin{lstlisting}[language=C++, caption=Pointer example 3]
+int arr[] = { 1, 2, 3 };
+int * p = arr;
+
+int size_1 = sizeof(arr) / sizeof(arr[0]); // 3
+int size_2 = sizeof(p) / sizeof(p[0]); // 0, 1 or 2 - depending on how big the pointer is wrt to the int type
+\end{lstlisting}
+
+\subsection{Указатели и многомерни масиви}
+Адресното пространство е линейно, което означава че многомерните масиви трябва да се записват като един или няколко едномерни.
+Начина, по който са записани, се отразява на типа на указателите, които сочат към тях.
+
+\subsubsection{Заделени като един едномерен масив}
+В този случай целият масив заема един блок памет. Единствената разлика с едномерен масив е, че са известни всички без първото измерение:
+\begin{lstlisting}[language=C++, caption=Multidimensional pointers]
+int arr[3][5][7];
+int (*)p[5][7] = a;
+
+// These do the same thing
+arr[1][1][1] = 1;
+p[1][1][1] = 1;
+\end{lstlisting}
+
+В случая \textbf{p} сочи към масив от \textbf{5x7 двумерни масиви}. Същия синтаксис можем да ползваме за произволна размерност.
+При адресация на отделни елементи, компилатора взема впредвид индивидуалните размери.
+
+Ако многомерният масив не е с предварително известни всички-без-едно-измерения, то този начин на дефиниране на указатели и адресация
+не може да работи, защото компилатора няма как да върши сметките вместо нас. В този случай е необходимо ръчно да изчислияваме линейните адреси.
+Ще дадем често срещан пример в практиката - триканално \textit{RGB} изображение:
+\begin{lstlisting}[language=C++, caption=Multidimensional pointers]
+uint8_t * image = ...;
+
+// These may not be compile time constants
+int width = 1920;
+int height = 1080;
+int ch = 3;
+
+int x = 100;
+int y = 50;
+
+// Set the green component of the (x, y) to 128
+image[y * width * ch + x * ch + 1] = 128;
+
+// Alternatively, first obtain pointer to y-th line of image
+int * line_ptr = image + y * width * ch;
+line_ptr[x * ch + 1] = 128;
+\end{lstlisting}
+
+\subsubsection{Заделени като много едномерни масиви}
+В този случай имаме масив от указатели (в двумерния случай). Всеки указател сочи към масив от елементи от съответния тип.
+Съответно не е задължително всички подмасиви да са с еднакъв размер, дори не е задължително да няма припокриване.
+Следователно е леко спорно доколко това реално са \textit{масиви}, но го споменава, защото това позволява използването
+на [] адресацията дори когато размерите не са известни по време на компилация:
+
+\begin{lstlisting}[language=C++, caption=Multidimensional pointers 2]
+int ** matrix = ...;
+int size = 9;
+
+matrix[3][5] = 17; // OK
+matrix[3 * size + 5] = 17; // NOT the same! Probably points to memory we shouldn't touch
+\end{lstlisting}
+
+В този случай за достъп до всеки елемент се минава през 2 указателя, докато минаваме само през 1 при предходния подход.
+
 \subsection{Указатели и низове}
+Специален клас низове, наречени \textbf{C strings}, се дефинират единствено с указател към символния тип \textbf{char}.
+Тези низове винаги завършват с нулев байт, което означава, че няма нужда да се съхранява дължината им.
+В стандартана библиотека има много функции, работещи с такива низове: \textit{strlen, strcmp, strcpy, \dots}.
+
+\subsection{Константи указатели и указатели към константа}
+Думичката \textbf{const} може да се приложи на няколко места в дефиницията на указател, но има само две различни (но не взаимноизключващи) функции:
+\begin{itemize}
+    \item Ако \textbf{const} се появи преди \textbf{*}, то указателят е към \textbf{константен тип} $\Rightarrow$ стойността на променливата \textbf{НЕ} може да се променя през него
+    \item Ако \textbf{const} се появи след \textbf{*}, то указателят е константен. Това означава, че може да му се присвои стойност единствено при инициализация. След това тя \textbf{не} може да бъде променяна.
+\end{itemize}
+
+\begin{lstlisting}[language=C++, caption=Multidimensional pointers 2]
+int a = 5;
+const int b = 7;
+
+const int * p1 = &a; // OK, a cannot be changed through p1
+int const * p2 = &a; // OK, same as p1
+int * p3 = & a; // OK, value can be changed through p3
+
+int * p4 = &b; // Compile error, type of p4 says that value of b can be changed through it, but b is const
+const int * p5 = &b; // OK, types agree
+p5 = &a; // OK, pointer itself is not const
+
+int * const p6 = a; // OK, p6 cannot be redirected
+const int * const p7 = b; // OK
+
+p7 = p6; // Error, p7 is a const pointer
+\end{lstlisting}
+
 
 \section{Функции}
 \subsection{Дефиниране на функция}
