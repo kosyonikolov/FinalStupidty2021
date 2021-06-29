@@ -2,6 +2,9 @@
 
 Prepare for the end is near. 🌋 🌋 :leaves:
 
+
+![Ahhh shit here we go again!](img/when_the_pope_wants_to_take_back_the_holy_land.png "Ahhh shit here we go again")
+
 ## Dev guideline
 
 ### :penguin: Ubuntu
