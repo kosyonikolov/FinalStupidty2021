@@ -1,0 +1,368 @@
+\documentclass[fleqn,12pt]{article}
+
+\usepackage[margin=15mm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[bulgarian]{babel}
+\usepackage[unicode]{hyperref}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{indentfirst}
+\usepackage{enumitem, hyperref}
+\usepackage{blindtext}
+\usepackage{multicol}
+
+\usepackage{systeme}
+\usepackage{amsmath}
+\DeclareMathOperator{\cotg}{cotg}
+\DeclareMathOperator{\LCS}{LCS}
+\DeclareMathOperator{\longer}{longer}
+
+\title{Базис, размерност, координати.  Системи линейни уравнения.Теорема на Руше. Връзка между решенията на хомогенна и нехомогенна система линейни уравнения.}
+\author{v1.0}
+\date{28 юни 2021}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\begin{flushleft}
+
+\section{Осноена лема на линейната алгебра}
+Нека $ \{ a_i \}_1^n (A) $ и $ \{ b_j \}_1^k (B) $ и нека векторите от B се изразяват като линейни комбинации на векторите на A. Ако $ k > n $, то системата B е линейно зависима система от вектори, тоест ако повече на брой вектори се изразяват като линйни комбинации на по-малко на брой вектори (Ако са в линейна обвивка на по-малко на брой вектори), то повечето на брой вектори са линейно зависими.
+
+\vspace{5mm}
+
+\textbf{Доказателство:}
+
+Чрез индукция по n
+
+\vspace{5mm}
+
+Нека $ n = 1 \Rightarrow A = \{a_1\} $ и $ B = \{b_1, b_2, ..., b_k \} = \{\lambda_1 a_1, \lambda_2 a_1, ..., \lambda_k aq_1 \} $
+
+В частност може $ a_1 = \theta $
+
+\vspace{5mm}
+
+Индукционно предположение:  Ако A се състои от по-малко от n вектора и имаме условието на Лемата $ \Rightarrow B $ е линейно зависима система.
+
+$ A = \{a_1, a_2, ..., a_n\}, B = \{b_1, b_2, ..., b_k\}, k > n $ и $ b_j \in l(A) \Rightarrow \exists \lambda_{i_j} \in F $
+
+$ b_1 = \lambda_{1_1} a_1 + \lambda_{1_2} a_2 + ... + \lambda_{1_n} a_n $\\
+$ b_2 = \lambda_{2_1} a_1 + \lambda_{2_2} a_2 + ... + \lambda_{2_n} a_n $\\
+...\\
+$ b_k = \lambda_{k_1} a_1 + \lambda_{k_2} a_2 + ... + \lambda_{k_n} a_n $
+
+Ако $ \theta \in B \Rightarrow B $ е линейно зависима
+
+Ако $ \theta \notin B $, тоест без ограничение на общността $ b_k \notin \theta \Rightarrow $ без ограничение на общността $\lambda_{k_n} \notin 0 $
+
+Без $ a_n $:
+
+$ b_1 - \frac{\lambda_{1_n}}{\lambda_{k_n}} b_k = (\lambda_{1_1} - \frac{\lambda_{1_n}}{\lambda_{k_n}} \lambda_{k_1}) a_1 + ... + (\lambda_{1_{n-1}} - \frac{\lambda_{1_n}}{\lambda_{k_n}} \lambda_{k_{n-1}}) a_{n-1} $\\
+...\\
+$ b_{k-1} - \frac{\lambda_{{k-1}_n}}{\lambda_{k_n}} b_k = (\lambda_{{k-1}_1} - \frac{\lambda_{{k-1}_n}}{\lambda_{k_n}} \lambda_{k_1}) a_1 + ... + (\lambda_{{k-1}_{n-1}} - \frac{\lambda_{{k-1}_n}}{\lambda_{k_n}} \lambda_{k_{n-1}}) a_{n-1} $\\
+
+$ \{b_1, b_2, ..., b_{k-1} \} $ са линейна комбинация на $ \{a_1, a_2, ..., a_{n-1} \} $ и $ k > n \Rightarrow k-1 > n - 1$
+
+\vspace{5mm}
+
+ИП $ \Rightarrow \{ b_1, ..., b_{k-1} \} $ са линейно зависими, тоест $ \exists \mu_1, ..., \mu_{k-1} \in F$, без ограничение на областа $\mu_1 \neq 0 $
+
+$ \mu_1 (b_1 - \frac{\lambda_{1_n}}{\lambda_{k_n}} b_k) + \mu_2 (b_2 - \frac{\lambda_{2_n}}{\lambda_{k_n}} b_k) + ... + \mu_{k-1} (b_{k-1} - \frac{\lambda_{{k-1}_n}}{\lambda_{k_n}} b_k) = \theta$
+
+$ \mu_1 b_1 + \mu_2 b_2 + ... + \mu_{k-1} b_{k-1} + (...) b_k = \theta $
+
+$ \Rightarrow \{ b_1, b_2, ..., b_k \} $ са линейна система
+
+
+\section{Базис, размерсност, координати}
+    Нека $ V \neq \{ \theta \} $. (за цялата секция)
+    
+    \vspace{5mm}
+    
+    \textbf{Лема:} Нека $\{a_1, a_2, ...., a_k\}$ са линейно независима система от V и нека $ a \notin l(\{ a_1, a_2, ...., a_k\}) $. Тогава $ \{a_1, a_2, ... a_k, a \} $ е отново линейно независима система.
+
+    \vspace{5mm}
+    
+    \textbf{Доказателство:} Нека $\{a_1, a_2, ..., a_k\} $ са линейно независими и допуснем, че системата $ \{a_1, a_2, ... a_k, a \} $ е линейно зависимa
+
+    \vspace{5mm}
+    
+    $ \lambda_1 a_1 + \lambda_2 a_2 + ... + \lambda_k a_k + \lambda a = \theta $ и поне един от коефицентите е различен на 0
+
+    \vspace{5mm}
+    
+    Първи случай: $\lambda = 0 $
+
+    $ \lambda_1 a_1 + \lambda_2 a_2 + ... + \lambda_k a_k = \theta $ и поне един от $\lambda_j \neq 0 $
+
+    $ \Rightarrow \{a_1, a_2, ...., a_k\} $ са линейно зависими, което е противоречие
+    
+    $ \Rightarrow \{a_1, a_2, ...., a_k, а\} $ са линейно независими
+
+    \vspace{5mm}
+    
+    Втори случай: $\lambda = 0 $
+
+    $ а = - \frac{1}{\lambda} ( \lambda_1 a_1 + \lambda_2 a_2 + ... + \lambda_k a_k ) $ 
+
+    $ \Rightarrow a \in l(\{a_1, a_2, ...., a_k\}) $, което противоречи на условието
+    
+    $ \Rightarrow \{a_1, a_2, ...., a_k, а\} $ са линейно независими
+
+    
+    \vspace{5mm}
+    
+    \textbf{Дефиниция:} Нека V е линейно пространство над F. Казваме, че една система вектори B от V e базис на V, ако са изпълнени следните две условия:
+
+    \begin{enumerate}
+        \item B е линейно независима система вектори
+        \item $l(B) = V \Leftrightarrow $ Всеки вектор $ v \in V $ е линейна комбинация на векторите от системата В.
+    \end{enumerate}
+
+        \textbf{Пример:} $ F^n = V $
+
+        $\{ e_i\}_1^n $ са базис на $ F^n = V $, $ e_1 = (1, 0, ..., 0), e_2 = (0, 1, ..., 0) ... e_n = (0, 0, ..., 1)$
+
+        $ \{ e_i\}_1^n $ са линейно независима система вектори.
+
+        $ \lambda_1 е_1 + \lambda_2 е_2 + ... + \lambda_n е_n = \theta $
+
+        $ (\lambda_1, \lambda_2, ..., \lambda_n) = \theta \Leftrightarrow \lambda_i = 0, i = \overline{1,n}$
+
+        $ a = (a_1, a_2, ...., a_n) = a_1 e_1 + a_2 e_2 + ... + a_n e_n $
+
+        $ a = \sum_{i=1}^{n} a_i e_i$
+
+    
+    \vspace{5mm}
+
+    \textbf{Твърдение:} Нека $ V = l(a_1, a_2, ..., a_n) $. Тогава може да се избере подсистема на векторите $ a_1, a_2, ..., a_n $, такива че подсистемата да е базис на V.
+
+    \vspace{5mm}
+    
+        \textbf{Доказателство:}
+        Нека $ V = l(a_1, a_2, ..., a_n) $
+
+        $ a_1 \neq \theta $, ако $ l(a_1) = V \Rightarrow $ базис на V e $a_1, a_1 \neq \theta \Rightarrow $ линейно независима
+
+        Ако $ l(a_1) \leq V, \exists a_2 \notin l(a_1) \Rightarrow a_1, a_2 $ са линейно независими
+
+        Ако $ l(a_1, a_2) = V \Rightarrow $ базис на V e $a_1, a_2$. В противен случай $\exists a_3 ...$
+
+        След краен брой стъпки сме избрали $a_1, a_2, ..., a_k (k \leq n) $, които са линейно независими и $l(a_1, a_2, ... a_k) = V /Rightarrow a_1, a_2, ..., a_k $ са базси на V
+    
+    \vspace{5mm}
+    
+    \textbf{Дефиниция:} Казваме, че едно линейно пространство V е крайномерно, ако в него може да бъде избран базис B състоящ се от краен брой вектори. В противен случай, казваме, че V e безкрайно
+
+    \vspace{5mm}
+    
+    \textbf{Твърдение:} Нека V е крайномерно линейно пространство и нека $\{ a_i \}_1^n $ и $\{ b_j \}_1^k $ са базиси на V. Тогава $ k = n $.
+
+    \vspace{5mm}
+    
+        \textbf{Доказателство:}
+
+        $ \{a_i\}_1^n $ е базис
+        \begin{enumerate}
+            \item $\{a_i\}_1^n $ са линейно независими
+            \item $ l(\{a_i\}_1^n) = V $
+        \end{enumerate}
+
+        и
+
+        $ \{b_j\}_1^k $ е базис
+        \begin{enumerate}
+            \item $\{b_j\}_1^k $ са линейно независими
+            \item $ l(\{b_j\}_1^k) = V $
+        \end{enumerate}
+
+        Ако предположим, че $k < n $ от Основната лема на Линейната Алгебра следва, че $ \{b_j\}_1^k $ са линейно зависими, значи не са базис $\Rightarrow k \leq n $
+
+        Аналогично, ако $n < k $ от Основната лема на Линейната Алгебра следва, че $ \{a_i\}_1^n $ са линейно зависими, значи не са базис $\Rightarrow k = n $
+
+
+    
+    \vspace{5mm}
+    
+    \textbf{Дефиниция:} Броят на векторите в кой да е базис на крайномерно $V, (V = \{\theta\}) $, наричаме размерност на пространството и означаваме като: $dim_F V = \Pi = dimV$.
+
+    Ако $V = \{\theta\} $ по дефиниция $ dimV = 0$. 
+
+    Ако V e bezkrajno, то по дефиниция $ dimV = \infty$. 
+
+    \vspace{5mm}
+    
+    \textbf{Теорема:} Нека V е линейно пространство над F
+    
+    \begin{enumerate}
+        \item V e n-мерно(крайномерно с $dimV = n$ ) $\Leftrightarrow \exists a_1, a_2, ..., a_n $ линейно независими вектори и $ \forall (n+1)$ на брой вектори $b_1, b_2, ..., b_n, b_{n+1}$ са линейно независими. В частност всяка съвкупност от n на брой линейно независими вектора е базси на V
+        \item V е безкрайно $ \Leftrightarrow  \forall n \in \mathbb{N}, \exists n $ на брой линейно независими вектора
+    \end{enumerate}
+
+    \vspace{5mm}
+    
+        \textbf{Доказателство:}
+
+        1. Ако $dimV = n $
+            
+        \vspace{5mm}
+        
+        $\Rightarrow \exists a_1, a_2, ..., a_n $ базис на V и $l(a_1, a_2, ..., a_n) = V$ $\Rightarrow \forall v \in V v \in l(a_1, a_2, ..., a_n) \Rightarrow a_1, a_2, ..., a_n, v $ са линейно зависими 
+
+        \vspace{5mm}
+    
+        $\Leftarrow $ Ако $ \exists a_1, a_2, ..., a_n $ линейно независими вектори и $ \forall (n + 1) $ на брой вектора са линейно зависими $\Rightarrow \forall v \in V \Rightarrow $ 
+            
+        $a_1, a_2, ..., a_n $ линейно независими\\
+        $a_1, a_2, ..., a_n, v \Rightarrow $  линейно зависими
+            
+        $\Rightarrow v \in l(a_1, a_2, ..., a_n), \forall v \in V \Rightarrow l(a_1, a_2, ..., a_n) = V \Rightarrow $ по дефиниция $ \{a_i\}_1^n $ е базис на V
+
+        \vspace{5mm}
+    
+        2. Нека предположим противното. От ОЛЛА следва, че сме в ситуацията от точка 1. Следователно имаме противоречие
+        
+    
+    \vspace{5mm}
+    
+    
+\section{Системи линейни уравнения}
+Нека е дадена система линейни уравнения
+\begin{equation*}
+    (1)\begin{cases}
+        a_{1_1}x_1+...+a_{1_n}x_n = c_1\\
+        a_{2_1}x_1+...+a_{2_n}x_n = c_2\\
+        ...\\
+        a_{m_1}x_1+...+a_{m_n}x_n = c_m
+    \end{cases}
+\end{equation*}
+
+$(x_1^o, x_2^o, ..., x_n^o)$ е решение на (1)
+
+$ A = (a_{ij})_{m \times n} $ е матрица на (1)
+
+$ \overline{A} = (a_{ij} | C) $ е разширена матрица на (1)
+
+Нека $ r(A) = r < min(m, n) $
+
+
+\section{Теорема на Руше}
+Една система линейни уравнения е съвместима $ \Leftrightarrow r(A) = r(\overline{A}) $
+
+\vspace{5mm}
+    
+    \textbf{Доказателство:}
+
+    $ r(A) \leq r(\overline{A})$, като $ r(A) = r(\overline{A}) \Leftrightarrow C \in l(b_1, b_2, ..., b_n)$ - вектор стълбовете на А
+
+    $ \Rightarrow \exists \lambda_1, \lambda_2, ..., \lambda_n \in F: \lambda_1 b_1 + \lambda_2 b_2 + ... + \lambda_n b_n = C $
+
+    $ \Leftrightarrow \lambda_1, \lambda_2, ..., \lambda_n $ е решение на (1)
+
+    \vspace{5mm}
+
+    Първи случай: 
+
+    $ r = n \Leftrightarrow detA \neq 0 \Rightarrow $ определена система (съвместима и определена). Съществува единсвено решение на (1). По формули на Крамер:
+
+    $ x_i = \frac{\Delta i}{\Delta} $
+
+    \vspace{5mm}
+
+    Втори случай:
+
+    $ r < n \Leftrightarrow detA = 0 $ без ограничение на общността нека имаме (2):
+
+    \begin{equation*}
+        (2)\begin{cases}
+            a_{1_1}x_1+...+a_{1_r}x_r = c_1 - a_{1_{r+1}}x_{r+1} - ... - a_{1_n}x_n\\
+            a_{2_1}x_1+...+a_{2_r}x_r = c_2 - a_{2_{r+1}}x_{r+1} - ... - a_{2_n}x_n\\
+            ...\\
+            a_{r_1}x_1+...+a_{r_r}x_r = c_r - a_{r_{r+1}}x_{r+1} - ... - a_{r_n}x_n
+        \end{cases}
+    \end{equation*}
+
+    $ \Delta = | a_{ij} |_{r \times r} \neq 0 $
+
+    Всяко решение на (1) е $ ( x_1^o, x_2^o, ..., x_r^o, x_{r+1}^o, x_{r+2}^o, ..., x_n^o ) $
+
+    Свободните неизвестни са $ x_{r+1}^o, x_{r+2}^o, ..., x_n^o $ и се намират с формули на Крамер.
+
+    $ x_1^o, x_2^o, ..., x_r^o $ са зависими неизвестни определят спрямо другите.
+
+
+\section{Връзка между решенията на хомогенна и нехомогенна система линейни уравнения}
+Хомогенна система линейни уравнения наричаме
+\begin{equation*}
+    (1')\begin{cases}
+        a_{1_1}x_1+...+a_{1_n}x_n = 0\\
+        a_{2_1}x_1+...+a_{2_n}x_n = 0\\
+        ...\\
+        a_{m_1}x_1+...+a_{m_n}x_n = 0
+    \end{cases}
+\end{equation*}
+
+\begin{equation*}
+    \Rightarrow(2)\begin{cases}
+        a_{1_1}x_1+...+a_{1_r}x_r = - a_{1_{r+1}}x_{r+1} - ... - a_{1_n}x_n\\
+        a_{2_1}x_1+...+a_{2_r}x_r = - a_{2_{r+1}}x_{r+1} - ... - a_{2_n}x_n\\
+        ...\\
+        a_{r_1}x_1+...+a_{r_r}x_r = - a_{r_{r+1}}x_{r+1} - ... - a_{r_n}x_n
+    \end{cases}
+\end{equation*}
+
+$ F^n = V $ над F
+
+$ ( x_1^o, x_2^o, ..., x_n^o ) \in V $ е решение на хомогенната система линейни уравнения
+
+$ \theta $ - винаги е решение на (1')
+
+\vspace{5mm}
+
+\textbf{Твърдение:} Множествтото от решенията на хомогенна система линейни уравнения (1') е подпространство на $ F^n $
+
+\vspace{5mm}
+
+\textbf{Доказателство:}
+
+$ ( x_1^o, x_2^o, ..., x_n^o ) $ и $ ( y_1^o, y_2^o, ..., y_n^o )$ са решения на (1')
+
+$\Rightarrow \lambda x^o + \mu y^o $ решение на (1')
+
+Например: $ a_{1_1} (\lambda x_1^o + \mu y_1^o) + a_{1_2} (\lambda x_2^o + \mu y_2^o) + ... + a_{1_n} (\lambda x_n^o + \mu y_n^o) = 0 $
+
+$ \Leftrightarrow \lambda (a_{1_1} x_1^o + a_{1_2} x_2^o + ... + a_{1_n} x_n^o) + \mu  (a_{1_1} y_1^o + a_{1_2} y_2^o + ... + a_{1_n} y_n^o) $
+
+\vspace{5mm}
+
+Ще означаваме $ U: | (1') , U \leq V = F^n $
+
+\vspace{5mm}
+
+\textbf{Дефиниция: } Фундаментална система от решения на хомогенна система линейни уравнения (1') ще наричаме всеки базис на подпространството $ U (U \neq \theta) \leq V $ зададено с тази система:
+
+$ |(1') F^n = V \Rightarrow U: |(2'), U \leq V $
+
+При $ r(A) = r $, ако $ r = n \Rightarrow U = \{ \theta \} $
+
+Ако $ r = 0 \Rightarrow A = \mathbb{O} \Rightarrow U = F^n $
+
+
+\begin{equation*}
+   \{\theta\} \begin{cases}
+        x_1 = 0 \\
+        x_2 = 0 \\
+        ...\\
+        x_n = 0
+    \end{cases}
+\end{equation*}
+
+\end{flushleft}
+
+
+\end{document}
