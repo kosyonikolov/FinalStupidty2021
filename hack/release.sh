@@ -46,7 +46,7 @@ build_bundle() {
     echo -e "${Y}Began build...${W}"
 
     mkdir -p "${BUNDLE_PATH}"
-    run_docker_latex /bin/bash -c "while read -r tex_file_path; do echo \"Building \${tex_file_path}...\"; pushd \"\$(dirname \$tex_file_path)\" &> /dev/null; pdflatex \$tex_file_path &> build.log; latexmk -c &> /dev/null; popd &> /dev/null; done< <(find /data | grep -E '^/data/[0-9]+/.*\.tex$')" || echo $?
+    run_docker_latex /bin/bash -c "while read -r tex_file_path; do echo \"Building \${tex_file_path}...\"; pushd \"\$(dirname \$tex_file_path)\" &> /dev/null; latexmk -pdf \$tex_file_path &> build.log; latexmk -c &> /dev/null; popd &> /dev/null; done< <(find /data | grep -E '^/data/[0-9]+/.*\.tex$')" || echo $?
 
     echo -e "${Y}Bundling sources...${W}"
 
