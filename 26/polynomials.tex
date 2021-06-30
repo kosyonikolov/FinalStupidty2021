@@ -253,7 +253,7 @@ $f(\alpha_i) = g(\alpha_i)$, тогава $f = g$.
 \begin{enumerate}
     \item $a.g \mid b.f$
     \item $g \mid f \Rightarrow a.g \mid b.f$
-    \item $f \mid g$ и $g \mid f \Rightarrow f = c.g, c \in F, c\neq 0$
+    \item \label{div_prop:mutual_div} $f \mid g$ и $g \mid f \Rightarrow f = c.g, c \in F, c\neq 0$
     \item $f \mid g$ и $g \mid h \Rightarrow f \mid h$
     \item $f \mid g_i$ за $i = 1 \dots k \Rightarrow f \mid (t_1 g_1 + \dots + t_k g_k), t_i \in F[x]$
     \item \label{div_prop:sum} $f \mid (g_1 + g_2)$ и $f \mid g_1 \Rightarrow f \mid g_2$ 
@@ -270,6 +270,7 @@ $f(\alpha_i) = g(\alpha_i)$, тогава $f = g$.
 С точност до ненулева констант $d=(f,g)$ е еднозначно определен от $f$ и $g$.
 
 \subsection{Tеорема за съществуване на най-голям общ делител на два полинома с коефициенти над поле}
+\label{sec:gcd_exist}
 Нека $f,g \in F[x]$. Тогава съществува $d=(f,g) \in F[x]$.
 
 \textbf{Доказателство: } Първо разглеждаме случая $f = g = 0$. Тогава лесно се вижда, че нулевият полином е НОД.
@@ -300,6 +301,13 @@ f - (M_0 . f + N_0 . g)q =
 доказахме, че $d$ съществува и е НОД на $f,g$, т.е. $d = (f,g)$.
 
 \subsection{Тъждество на Безу}
+Нека $f,g \in F[x]$, като в $F[x]$ няма делители на нулата. Тогава съществуват $u,v \in F[x]$, такива че $d= (f,g) = u.f + v.g$.
+
+\subsection{Доказателство}
+Вече доказахме в \ref{sec:gcd_exist}, че делител в такъв вид съществува - нека го отбелижим с $d_0$. Нека вземем произволен 
+друг НОД - $d_1$. От свойство \ref{div_prop:mutual_div} следва, че $d_1 = c . d_0, c \in F$. Ако $d_0 = u.f + v.g$, то 
+$d_1 = \frac{u}{c} . f + \frac{v}{c} . g$, т.е. може да се представи в желания вид. Доказахме, че всеки НОД може да се 
+представи в желания вид.
 
 \subsection{Алгоритъм на Евклид}
 \subsubsection{Алгоритъм}
