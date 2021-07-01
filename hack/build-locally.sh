@@ -1,5 +1,7 @@
 #!/bin/bash
 
+pushd ../
+
 outdir=build-$(date +"%y-%m-%d")
 
 mkdir ${outdir}
@@ -14,7 +16,7 @@ do
         latexmk -interaction=nonstopmode -pdf ${tex_file} &> /dev/null
         latexmk -c &> /dev/null
         mv ${result_pdf} ../${outdir}/$(dirname ${FILE})_${result_pdf}
-        echo "done building ${tex_file}..."
+        echo "done building ${tex_file}"
     popd &> /dev/null
     echo ""
 done
