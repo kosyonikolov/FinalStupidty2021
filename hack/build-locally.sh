@@ -1,9 +1,11 @@
 #!/bin/bash
 
-pushd ../
+# navigating to project root
+cd "$(dirname ${0})/.."
 
 outdir=build-$(date +"%y-%m-%d")
 
+echo "creating dir ${outdir}"
 mkdir ${outdir}
 
 for FILE in $(find . -type f -name '*.tex')
