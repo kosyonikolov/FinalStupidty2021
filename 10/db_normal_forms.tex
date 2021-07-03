@@ -188,7 +188,13 @@
 \section{Многозначни зависимости}
 
 \textbf{\textit{Деф за многозначна функционална зависимост (МФЗ)}} - Нека $R$ е релация с множество от атрибути $\{A_1, \dots, A_n, B_1, \dots, B_m, C_1 \dots, C_k\}, n, m, k \in \mathbb{N}$.
-Казваме, че $A_1, \dots, A_n$ определя многозначно $C_1, \dots, C_k$ $\iff$ за всеки два кортежа $U, T \in R$, съвпадащи по атрибутите $A_1, \dots, A_n$, $\exists$ кортеж $V \in R$, такъв че съвпада с кортежите $U$ и $T$ по атрибутите $A_1, \dots, A_n$, с кортежа $U$ по атрибутите $B_1, \dots, B_m$ и с кортежа $T$ по атрибутите $C_1, \dots, C_k$.
+Казваме, че $A_1, \dots, A_n$ определя многозначно $C_1, \dots, C_k$ $\iff$, ако за всеки два кортежа $U, T \in R$, съвпадащи по атрибутите $A_1, \dots, A_n$, $\exists$ кортеж $V \in R$, такъв че:
+\begin{itemize}
+    \item Съвпада с кортежите $U$ и $T$ по атрибутите $A_1, \dots, A_n$
+    \item Съвпада с кортежа $U$ по атрибутите $B_1, \dots, B_m$
+    \item Съвпада с кортежа $T$ по атрибутите $C_1, \dots, C_k$
+\end{itemize}
+
 Т.е. ако между два случайни кортежа с еднакви стойности по $A_1, \dots, A_n$ разменим стойностите на атрибутите $C_1, \dots, C_k$ ние получаваме същата релация.
 Означаваме като $A_1, \dots, A_n \twoheadrightarrow C_1, \dots, C_k$.
 \bigbreak
@@ -212,7 +218,11 @@
 
 \textbf{\textit{Правило за транзитивност}} - Ако $A \twoheadrightarrow B$ и $B \twoheadrightarrow C$, то $A \twoheadrightarrow C$.
 
-\textbf{\textit{Нови правила}} - Всяка ФЗ е МФЗ, т.е. ако $A \rightarrow B$, то $A \twoheadrightarrow B$. (При условие, че размерът на домейна на B е 1)
+\textbf{\textit{Нови правила}}:
+\begin{itemize}
+    \item Всяка ФЗ е МФЗ, т.е. ако $A \rightarrow B$, то $A \twoheadrightarrow B$.
+    \item \textbf{(Допълнение)} Ако $X \twoheadrightarrow Y$, то $X \twoheadrightarrow R \setminus (X \cup Y)$
+\end{itemize}
 
 \textbf{\textit{Заб}} - Правилото за разделяне и комбиниране не е в сила за МФЗ, т.е. ако $A \twoheadrightarrow B_1, B_2$, не значи, че $A \twoheadrightarrow B_1$ и $A \twoheadrightarrow B_2$ и обратното.
 
