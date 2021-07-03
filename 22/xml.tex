@@ -13,6 +13,33 @@
 \usepackage{graphicx}
 
 \usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
 
 \graphicspath{ {./img/} }
 
@@ -43,9 +70,6 @@
 Пример за поставяне на атрибут е \textbf{<div color='red'></div>}.
 \bigbreak
 
-Възможно е някои елементи да се състоят от единствен таг, където съдържанието е посочено чрез атрибути. Например \textbf{<self-contained content='Hello world!'>}.
-\bigbreak
-
 \textbf{XML документ} е текст под формата на един или повече елементи.
 \bigbreak
 
@@ -55,12 +79,68 @@
 \textbf{XML инструкциите} са конструкции предоставящи метаданни на външни приложения. Записваме ги като \textbf{<?$\dots$?>}. Пример за това са инструкциите при php.
 \bigbreak
 
-\textbf{XML декларация} наричаме конструкцията \\\textbf{<?xml version='1.0'} \textbf{encoding='UTF-16'} \textbf{standalone='yes'>}, която указва версията на XML спецификацията на документа, кодирането на документа и дали е асоцииран с външно DTD.
+\textbf{XML декларация} наричаме конструкцията \\\textbf{<?xml version='1.0'} \textbf{encoding='UTF-16'} \textbf{standalone='yes' ?>}, която указва версията на XML спецификацията на документа, кодирането на документа и дали е асоцииран с външно DTD.
 
 
 \subsection{Йерархии}
+
+XML документите могат да имат \textbf{дървовидно} представяне, като отделните възли са XML елементи.
+Всеки документ има точно един \textbf{root} елемент, който няма родител, в който се съдържат всички други елементи.
+
+Структурата на XML документите е следната:
+\begin{itemize}
+    \item \textbf{Пролог} - декларации, стилове и тип на документа;
+    \item \textbf{Екземпляр} - конкретна елемента йерархия;
+    \item \textbf{Допълнения} - коментари, CDATA секции и инструкции за обработка;
+\end{itemize}
+
+
 \subsection{Синтактични правила}
+
+XML документите трябва да следват следните правила, за да бъдат правилно структурирани:
+\begin{enumerate}
+    \item \textbf{Затвореност} - всеки затваряш таг трябва да има съвпадащ затварящ таг или да бъде self-closing;
+    \item \textbf{Без застъпване} - таговете не могат да се застъпват, като елементите трябва да са подходящо вложени. Некоректно е например \textbf{<a><b></a></b>}.
+    \item \textbf{One root to rule them all} - xml документите могат да имат само 1 корен;
+    \item \textbf{XML конвенции} - имената на таговете трябва да започват с малка буква, главна буква или ''-'', като не могат да започват с думите xml, XML, Xml, xmL, \dots;
+    \item \textbf{Whitespaces} - XML запазва празните пространства в PCDATA;
+    \item \textbf{Всеки атрибут трябва задължително да има стойност}, дори и тя да е празен низ;
+    \item \textbf{Без запазени XML символи в съдържанието} - те се вмъкват чрез предварително дефинирани entities или \textbf{<![CDATA[\dots]]>} секции.
+\end{enumerate}
+
 \subsection{XML пространства от имена}
+
+Пространствата от имена (namespaces) са абстракна нотация за група от имена.
+Едно име може да принадлежи само на едно пространство от имена.
+Целта е да се осигури уникалност на имената на XML елементите посредством използването на URI (Uniform Resource Identifier).
+За осигуряване на уникалността на префиксите, означаващи пространства от имена се използва само URL (Uniform Resource Locator).
+URL не е нужно да е реален, т.е. можем да си използваме каквито си искаме.
+\bigbreak
+Пространствата от имена за дадена елементна йерархия се задават чрез атрибута xmlns върху корена ѝ, като те важат за всички деца на корена.
+Може да съществува едно пространство от имена, наречено такова по подразбиране, което се дефинириа с xmlns без префикс.
+Тъй като атрибутите са обвързани с елементите, към които са дефинирани, ако елемент е зададен с префикс на дадено пространство от имена, то не е задължително атрибутите му да са зададени чрез него.
+
+\begin{lstlisting}[language=XML, caption=Doom namespace]
+<?xml version="1.0" encoding="utf-8" ?>
+
+<config xmlns="http://config.com" xmlns:doom="http://app.com/myapp">
+    <doom:levels>
+        <doom:level>
+            <doom:npc name="cacodemon" type="regular">
+                <doom:count>54<doom:count>
+                <doom:power>100<doom:power>
+                <doom:health>150<doom:health>
+            <doom:npc>
+            <doom:npc name="mancubus" type="regular">
+                <doom:count>108<doom:count>
+                <doom:power>150<doom:power>
+                <doom:health>90<doom:health>
+            <doom:npc>
+        <doom:level>
+    </doom:levels>
+</config>
+\end{lstlisting}
+
 
 \section{XML валидация чрез Document Type Defintions (DTD)}
 
