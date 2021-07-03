@@ -208,10 +208,48 @@ DTD се съхраняват във външни файлове, в самия 
 \section{XML валидация чрез XML Schema}
 
 \subsection{Спецификации}
+
+XML Schema е XML документ, описващ структурата на друг XML документ.
+Тя може да се счита за наследник на DTD, предоставящ много по-богати възможности за по-прецизна спецификация на XML структура.
+
 \subsection{Типове данни}
+
+Има две основни групи от типове данни в XML Schema - вградени и дефинирани от потребители.
+Вградените са:
+\begin{itemize}
+    \item примитивни - string, boolean, float, double, ID и др.
+    \item производни - language, IDREF и др.
+\end{itemize}
+
+Потребителските типове данни се дефинират чрез промяна на съществуващи типове данни чрез определянето на 1 или повече фасети.
+
 \subsection{Фасети}
+
+Фасет е определящ аспект на пространството от стойности за даден тип:
+\begin{itemize}
+    \item \textbf{Фундаментални фасети (дефинират типа)} - equal, order, bounds, cardinality, numeric;
+    \item \textbf{Ограничаващи фасети (ограничават стойностите на типа)} - length, pattern, precision, encoding;
+\end{itemize}
+
 \subsection{Структури}
+
+
+\begin{lstlisting}[language=XML, caption=XSD elements]
+<!-- Type definitions -> <simpleType>, <complexType> -->
+<!-- Attribute declarations -> <attribute> -->
+<!-- Element declarations -> <element> -->
+<!-- Attribute group definitions -> <attributeGroup> -->
+<!-- Notation declarations -> <notation> -->
+\end{lstlisting}
+
 \subsection{Сравнение с DTD}
+
+\begin{itemize}
+    \item DTD и XML Schema (или XML Schema Defintion (XSD)) задават правила за структуриране на XML документи;
+    \item DTD използва по-стегнат и кратък синтаксис от XSD;
+    \item XSD се дефинира на чист XML;
+    \item XSD предоставя по-богат набор от възможности за по-строго дефиниране на XML схемата;
+\end{itemize}
 
 \section{Алокиране, манипулиране и представяне на XML съдържание}
 
