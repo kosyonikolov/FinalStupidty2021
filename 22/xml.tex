@@ -145,8 +145,65 @@ URL не е нужно да е реален, т.е. можем да си изп�
 \section{XML валидация чрез Document Type Defintions (DTD)}
 
 \subsection{Цели на валидирането}
+
+Целите на валидацията на XML документите са:
+\begin{itemize}
+    \item Осигуряване на начин за проверка за коректност на документната структура или съдържание чрез DTD или XML Schema.
+    \item Многократно използване на едно описание на документната структура за много XML документи (инстанции на даден документен тип).
+    \item Описание на правилата за структуриране на документа, изграждащите го елементи, възможните типове и атрибути и стойностите им по подразбиране.
+\end{itemize}
+
+
 \subsection{DTD структура}
+
+DTD се съхраняват във външни файлове, в самия XML файл или и в двата файла. Състоят се от:
+\begin{itemize}
+    \item Document Type Definition (DOCTYPE), който информира parser-а, че с документа има асоциирано DTD. Задължително се поставя в началото на документа;
+    \item Тяло - съдържа декларациите на елементи, атрибути, entities и нотации;
+    \item Затваряне на декларацията на DTD с ];
+\end{itemize}
+
 \subsection{Синтаксис}
+
+\begin{lstlisting}[language=XML, caption=Newspaper DTD]
+
+<!-- Document type <!DOCTYPE {name} [...] -->
+<!-- Character type <![CDATA [...]]> -->
+<!-- Entities <!ENTITY ...> -->
+<!-- Notation <!NOTATION {data_type} (PUBLIC|SYSTEM) (PublicID|SystemID)> -->
+<!-- Element <!ELEMENT {name} {EMPTY|ANY|type|(child_1, ...))}> -->
+<!-- Attribute <!ATTLIST {element_name} {attr_name} {type} {value}> -->
+<!-- An attribute type could be 
+    - string - CDATA,
+    - enumeration - (red|blue|...) 
+    - unique id - ID 
+    - entity - ENTITY
+    ...-->
+<!-- An attribute value could be:
+    - a default value -> <!ATTRLIST elem name CDATA "blabla">
+    - required - #REQUIRED -> <!ATTRLIST elem name CDATA #REQUIRED>
+    - optional but with no default value - #IMPLIED -> <!ATTRLIST elem name CDATA #IMPLIED>
+    - use only this value - #FIXED -> <!ATTRLIST elem name CDATA #FIXED "constant-value"> -->
+<!-- Conditional section <![INCLUDE [...]]>, <![IGNORE [...]]> -->
+
+<!DOCTYPE NEWSPAPER [
+    <!ELEMENT newspaper (article+)>
+    <!ELEMENT article (headline, body, notes)>
+    <!ELEMENT headline (#PCDATA)>
+    <!ELEMENT body (#PCDATA)>
+    <!ELEMENT notes (#PCDATA)>
+
+    <!ATTLIST article author CDATA #REQUIRED>
+    <!ATTLIST article editor CDATA #IMPLIED>
+    <!ATTLIST article date CDATA #IMPLIED>
+
+    <!ENTITY newspaper "Vervet Logic Times">
+    <!ENTITY publisher "Vervet Logic Press">
+    <!ENTITY copyright "Copyright 1998 Vervet Logic Press">
+
+    <!NOTATION jpg PUBLIC "JPG 1.0">
+]>
+\end{lstlisting}
 
 \section{XML валидация чрез XML Schema}
 
