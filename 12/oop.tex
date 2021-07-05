@@ -12,11 +12,38 @@
 \usepackage{indentfirst}
 \usepackage{array}
 \usepackage{listings}
+\usepackage{listings}
+\usepackage{xcolor}
 
 \usepackage{amsmath}
 \DeclareMathOperator{\cotg}{cotg}
 \DeclareMathOperator{\LCS}{LCS}
 \DeclareMathOperator{\longer}{longer}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+\lstset{style=mystyle}
 
 \title{Тема 12\\Обектно ориентирано програмиране (на базата на C++ или Java): Основни
 принципи. Класове и обекти. Конструктори и деструктори. Оператори.
@@ -50,51 +77,61 @@
 \end{itemize}
 
 \subsection{Полиморфизъм}
-Буквален превод - \textit{много форми}. В случая означава, че може да съществуват методи с едни и същи имена, но различен интерфейс (различен тип и/или брой входни данни; методи не могат да се различават само по типа, който връщат).
+Буквален превод - \textit{много форми}.
+В случая означава, че може да съществуват методи с едни и същи имена, но различен интерфейс.
+Съществува два вида полиморфизъм - динамичен (overriding) и статичен (overloading).
+При динамичния клас наследник пренаписва как функционира метод на свой родителски клас без да променя сигнатурата му.
+При статичния един клас може да дефинира метод няколко пъти, но с различен тип и/или брой входни параметри.
+При полиморфизма методите не могат да се различават само по типа, който връщат.
 
 \section{Класове}
 \subsection{Дефиниция}
-Класовете в обектно ориентираните езици представляват шаблон, по който се генерират обекти. В тях са имплементирани методи, които определят какво е поведението му по време на живота му в програмата. 
+Класовете в обектно ориентираните езици представляват шаблон (рецепта), по който се генерират инстанции на класовете (ястия).
+Инстанциите наричаме обекти.
+Всеки клас дефинира член-функции (методи) и член-данни (полета).
+Полетата са променливи, които са асоциирани с конкретен обект на класа (освен когато са static).
+Методите определят какво е поведението на обектите на класа по време на живота им в процеса.
 
 
 \subsection{Дефиниране на класове}
 \begin{lstlisting}[language=C++, caption=Example skeletal definition of a class]
-    class X
+class X
+{
+private:
+    int a; //a member of the class
+    void aPrivateMethod();
+    void inlineMethod() {//logic of the inline method}
+
+protected:
+    void aProtectedMethod(); //visible for X and any derived class of X
+
+public:
+    X() 
     {
-        private:
-            int a; //a member of the class
-            void aPrivateMethod();
-            void inlineMethod() {//logic of the inline method}
-
-        protected:
-            void aProtectedMethod(); //visible for X and any derived class of X
-
-        public:
-        X() 
-        {
-            //example constructor
-        }
-
-        void aPublicMethod();
-    
-        // Other logic of the class...
-    };
-
-    void X::aPrivateMethod()
-    {
-        //Logic of the private method
+        //example constructor
     }
 
-    void X::aPublicMethod()
-    {
-        //Logic of the public method
-    }
-    
+    void aPublicMethod();
+
+    // Other logic of the class...
+};
+
+void X::aPrivateMethod()
+{
+    //Logic of the private method
+}
+
+void X::aPublicMethod()
+{
+    //Logic of the public method
+}  
 \end{lstlisting}
 
 
 \subsection{Област на класове}
-TODO
+Класовете могат да бъдат декларирани глобално на нивото на някое пространство от имена (namespace в C++) или локално в някоя функция.
+Областта на глобално деклариран клас е достъпна от декларирането на класа до края на изпълнение на процеса.
+Областта на локално деклариран клас е достъпна само от декларирането му във функцията до напускането на функцията, като обектите на такъв клас са видими само във функцията.
 
 \subsection{Обекти}
 Обектите са инстанции (екземпляри) на класове.
@@ -104,12 +141,13 @@ TODO
 
 \section{Конструктори}
 \subsection{Дефиниция}
-Конструкторите са специални методи, които се извикват единствено при създаване на обект.
+Конструкторите са специални методи, които се извикват единствено при създаване на обект, като те ги създават.
 
 \subsection{Дефиниране на конструктори}
-Дефинициите на конструктори са от вида \textbf{<class name>(<parameter list>) : <field>(value), <field>(value), \dots}.
+Дефинициите на конструктори са от вида \texttt{<class name>(<parameter list>) : <field1>(value1), <field2>(value2), \dots}.
+\bigbreak
 Съответно може да има само дефиниция, при която веднага следва блок с кода на конструктора,
-или декларация + дефиниция. Ако програмиста избере да използва синтаксиса \textbf{<field>(value)}, дефиницията на тези полета е с по-висок приоритет и се изпълнява преди изпълняването на кода в тялото на конструктора 
+или декларация + дефиниция. Ако програмиста избере да използва синтаксиса \texttt{<field>(value)}, дефиницията на тези полета е с по-висок приоритет и се изпълнява преди изпълняването на кода в тялото на конструктора 
 
 \subsection{Видове конструктори}
 \subsubsection{По подразбиране}
@@ -135,27 +173,29 @@ X x; // default constructor called
 в тялото на конструктора. Може да има произволен брой параметризирани конструктори. При наличието на разписан конструктор в дефиницията на класа, конструктора по подразбиране бива предефиниран и повече не може да се използва. Ако все пак искаме да може да генерираме обекти използвайки конструктора по подразбиране, трябва специфично да разпишем и конструктора по подразбиране, дори и тялото му да е празно.
 
 \subsection{Копиращ конструктор (copy constructor)}
-Това е специален параметризиран конструктор, който като единствен параметър получава псевдоним (\textbf{X\&}) на обект от същия клас.
+Това е специален параметризиран конструктор, който като единствен параметър получава псевдоним (\texttt{X\&}) на обект от същия клас.
 Работата му е да клонира подадения обект. Компилаторът създава копиращ конструктор по подразбиране. При наличието на динамично заделяне на памет за член данни на клас този конструктор трябва да бъде предефиниран ръчно от програмиста.
 
 \begin{lstlisting}[language=C++, caption=Copy constructor]
-    class X
+class X
+{
+    X(const X& x)
     {
-        X(const X& x)
-        {
-            //Logic of the constructor
-        }
-    
-        // Other logic of the class...
-    };
-    
-    X x; // default constructor called
-    \end{lstlisting}
-    
+        //Logic of the constructor
+    }
+
+    // Other logic of the class...
+};
+
+X dog;
+X cat = X(dog); // Copy constructor call
+\end{lstlisting}
+
 
 % This was written by Kosyo and sounds too modern to be a part of this exam
 \subsection{Преместващ конструктор (move constructor)}
-Този приема единствен параметър от тип \textbf{T\&} и работата му е да \textit{премести} съдържанието на подадения обект 
+
+Този приема единствен параметър от тип \texttt{T\&} и работата му е да \textit{премести} съдържанието на подадения обект 
 в новосъздаващия се. Обектът-параметър остава \textit{празен} и най-вероятно не трябва да се използва.
 Компилатора създава такъв конструктор по подразбиране.
 
@@ -165,11 +205,11 @@ X x; // default constructor called
 \subsection{Указатели към обекти}
 Подобно на атомарните обекти можем да правим указатели към обекти. 
 \begin{lstlisting}[language=C++, caption=Example creation of pointers]
-    class X {\\Relevant logic}
+class X {\\Relevant logic}
 
-    X x;
-    X * prt = &x
-    prt -> class_method_name // this is how you call a method of the class through the pointer
+X x;
+X* prt = &x;
+prt->class_method_name; // this is how you call a method of the class through the pointer.
 \end{lstlisting}
 
 
@@ -177,14 +217,24 @@ X x; // default constructor called
 Обектите могат да се групират в масиви като нормални атомарни типове. Единственото условие е класът да има конструктор по подразбиране. Този конструктор ще се извика, когато масива бъде дефиниран.
 
 \begin{lstlisting}[language=C++, caption=Example creation of an array of objects]
-    class X {\\Relevant logic}
+class X {\\Relevant logic}
 
-    X array[10] // In this moment the default constructor is called for the 10 elements created.
+X array[10]; // In this moment the default constructor is called for the 10 elements created.
 \end{lstlisting}
 
 
 \subsection{Динамични обекти}
 Отново обектите се държат като нормални атомарни типове. Може да заделямe памет за тях използвайки оператора \textit{new} и в последствие освобождаването на тази памет с \textit{delete}.
+
+\begin{lstlisting}[language=C++, caption=Example creation of dynamic objects]
+class X {\\Relevant logic}
+
+X* rex = new X();
+X** array = new X*[10];
+
+delete [] array;
+delete rex;
+\end{lstlisting}
 
 
 \section{Деструктори}
@@ -192,18 +242,17 @@ X x; // default constructor called
 Деструкторите са специални методи, които се извикват при унищожаване на обекти. При създаването си памет е заделена за всички член данни на обекта и при извикването на деструктора тази памет бива освободена. Съществува само един деструктор за всеки клас. Ако няма специфично дефиниран в кода на класа деструктор се използва деструктор по подразбиране. 
 
 \begin{lstlisting}[language=C++, caption=Example destructor]
-    class X
-    {
-        //Other logic of the class ...
+class X
+{
+    //Other logic of the class ...
 
-        //Destructor
-        ~X()
-        {
-            //Code of the destructor
-            //Empty by default
-        }
-    };
-    
+    //Destructor
+    ~X()
+    {
+        //Code of the destructor
+        //Empty by default
+    }
+};
 \end{lstlisting}
     
 
@@ -214,28 +263,29 @@ X x; // default constructor called
 
 Деструктора по подразбиране може да се справи с освобождаването на паметта заета от статични данни, дори и на обекти от други класове, извиквайки техните деструктори. Класовете, които са наследници на друг клас, също могат сами да се погрижат за почистването на данните си, извиквайки деструктора на базовия клас, след като изпълнят инструкциите зададени в своя деструктор.
 
-При наличието на заделена динамична памет, трябва да има специфично зададен деструктор. В противен случай заделената памет няма да бъде освободена
+При наличието на заделена динамична памет, трябва да има специфично зададен деструктор, затриващ я. В противен случай заделената памет няма да бъде освободена.
 
 \begin{lstlisting}[language=C++, caption=Example custom destructor]
-    class X
+class X
+{
+private:
+    int * someArray;
+
+public:
+    X() 
     {
-        int * someArray;
+        someArray = new int[10]; // example of dynamically generated memory
+    }
 
-        X() 
-        {
-            someArray = new int[10]; // example of dynamically generated memory
-        }
+    //Other logic of the class ...
 
-        //Other logic of the class ...
-
-        //Destructor
-        ~X()
-        {
-            //Code of the destructor
-            delete someArray;
-        }
-    };
-    
+    //Destructor
+    ~X()
+    {
+        //Code of the destructor
+        delete someArray;
+    }
+};
 \end{lstlisting}
 
 
@@ -244,31 +294,58 @@ X x; // default constructor called
 Операторите са конструкции в програмните езици, които напрактика се държат като функции, но имат различен синтаксис. 
 
 \begin{lstlisting}[language=C++, caption=Example use of operators]
-    int a, b;
-    int c = a + b;
+int a, b;
+int c = a + b;
 \end{lstlisting}
 
 \begin{lstlisting}[language=C++, caption=Equivalent use of operators]
-    int a, b;
-    int c = a.operator+(b);
+int a, b;
+int c = a.operator+(b); // doesn't work but expresses the basic idea...
 \end{lstlisting}
 
 Двете дефиниции по-горе са еквивалентни, но първата е лесна за четене от човек.
 
 
 \subsection{Предефиниране на оператори}
-Операторите могат да се справят добре, когато са приложени върху атомарните типове предоставени от програмния език, но не могат да се използват в комбинация с класове. В такива случаи кода на класовете трябва да предефинират операторите, които ще бъдат използвани в комбинация с този тип обекти. Нищо не спира предефинираните оператори да се държат по произволен начин, но е предпочитано да се държат като стандартните, за да има някакъв смисъл.
+Операторите могат да се справят добре, когато са приложени върху атомарните типове предоставени от програмния език, но не могат да се използват в комбинация с класове. В такива случаи класовете трябва да предефинират операторите, които ще бъдат използвани в комбинация с този тип обекти. Нищо не спира предефинираните оператори да се държат по произволен начин, но е предпочитано да се държат като стандартните, за да има някакъв смисъл.
 
 \begin{lstlisting}[language=C++, caption=Example overriding of an operator]
-    class X
-    {
-        //Other logic of the class ...
+class X
+{
+private:
+    int a;
+public:
+    // Other logic of the class...
 
-        X::operator+(cosnt X& x) const {
-            //Relevant logic
-        }
-    };
-    
+    X operator+(const X& other) const {
+        X x;
+        x.a = this->a + other.a;
+        return x;
+    }
+};
+\end{lstlisting}
+
+При предефиниране бинарните оператори трябва да са членове на класа на левия си аргумент или да са свободни функции.
+Следователно не всички оператори могат да се предефинират като член функции на класа си.
+Такива са например \texttt{<<} и \texttt{>>} bitshift операторите използвани за IO.
+Те трябва да се предефинират, използвайки притялески функции, които са вид свободни функции, които имат достъп до всички член данни и методи на класовете, чиито приятели са.
+Пример за това е:
+
+\begin{lstlisting}[language=C++, caption=Example overriding of an operator]
+class X
+{
+    int a;
+public:
+    // Other logic of the class
+
+    friend ostream& operator<<(ostream& os, const X& x);
+};
+
+ostream& operator<<(ostream& os, const X& x)
+{
+    os << x.a;
+    return os;
+}
 \end{lstlisting}
 
 
@@ -277,36 +354,37 @@ X x; // default constructor called
 Наследяване е механизъм, чрез който производния клас бива базиран върху логиката на друг базов/прототипен клас. Производния клас наследява, разширява и предефинира интерфейса на базовия клас. 
 
 \begin{lstlisting}[language=C++, caption=Example inheritence]
-    class X
-    {
-        public:
-        void publicMethod();
-        // Logic of the base class
-    };
+class X
+{
+public:
+    void publicMethod();
+    // Logic of the base class
+};
 
-    class Y : (public|protected|private) X
-    {
-        // Logic of the derived class
-    };
+class Y: (public|protected|private) X
+{
+    // Logic of the derived class
+};
 
-    Y y;
+Y y;
 
-    y.publicMethod; // Derived class using method of base class
-    
+y.publicMethod(); // Derived class using method of base class
+
 \end{lstlisting}
 
-Някой програмни езици (ex. C++) позволяват множествено наследяване, където един клас А, може да има два родителски класа B и C. Това се дефинира като \textbf{ class A : public B, public C}. В този случай при създаването на нов обект от класа A първо се извиква конструктора на базовия клас B, после конструктора на базовия клас C и накрая се изпълнява конструктора на А.
+Някой програмни езици (ex. C++) позволяват множествено наследяване, където един клас А, може да има два родителски класа B и C. Това се дефинира като \texttt{ class A: public B, public C}. В този случай при създаването на нов обект от класа A първо се извиква конструктора на базовия клас B, после конструктора на базовия клас C и накрая се изпълнява конструктора на А.
+При множествено унаследяване може да настъпи проблема на диаманта, когато поне два родителски класа дефинират един и същи метод.
 
 Приятелски методи и класове на производния клас не виждат private елементите на базовия клас.
 
 \subsection{Наследяване и достъп до наследените компоненти}
 При наследяване производния клас има достъп до public и protectеd методите и полетата на базовия клас. Всички данни на базовия клас, които са private, остават скрити от производния клас. 
 
-В C++ в зависимост от типа на наследяването тези наследени методи и данни се третират по различен начин. Public наследяването е най-често използвания вид наследяване. При него public методите и променливи на базовия клас стават част от публичната част на интерфейса на производния глас, а protected нещата стават protected методи и променливи на производния клас.
+В C++ в зависимост от типа на наследяването тези наследени методи и данни се третират по различен начин. Public наследяването е най-често използвания вид наследяване. При него public методите и променливи на базовия клас стават част от публичната част на интерфейса на производния клас, а protected нещата стават protected методи и променливи на производния клас.
 
 При protected наследяването public интерфейса и protected методите и полета стават на базовия клас стават protected елементи на производния клас. В този случай производния клас не се вижда като подвид на базовия клас (не е възможно да има преобразуване от производния към базовия клас). Методите на базовия клас могат да се използват само от вътре в производния клас.
 
-Ако не се отбележи какво е наследяването стандартно е private. В този случай и public и private елементите на базовия клас се превръщат в private елементи на производния клас. Като се изключи факта, че производния клас има достъп до protected елементите, няма разлика между private наследяване и влагане (превръщане на базовия клас в private член данна на производния клас).
+\textbf{Ако не се отбележи какво е наследяването стандартно е private.} В този случай и public и private елементите на базовия клас се превръщат в private елементи на производния клас. Като се изключи факта, че производния клас има достъп до protected елементите, няма разлика между private наследяване и влагане (превръщане на базовия клас в private член данна на производния клас).
 
 
 \end{document}
