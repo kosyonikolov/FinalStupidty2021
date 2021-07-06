@@ -179,8 +179,8 @@ $I - \frac{\epsilon}{2}$ не е горна граница на малките �
 \textbf{Доказателство ($\Longleftarrow$):}
 Нека $f$ e ограничена функция в $[a,b]$ за която е изпълнено,че $\forall\epsilon > 0$ съществуват голяма и малка сума на Дарбу $\overline{S}$ и $\underline{s}$ такива, че $\overline{S} - \underline{s} < \epsilon$.
 Ще докажем, че $f$ e интегруема по Риман в $[a,b]$. Нека приемем, че $f$ не е интегруема по Риман, следователно не е интегруема по Дарбу - т.е $\underline{I} < \overline{I}$.
-Нека $\epsilon = \frac{\underline{I} + \overline{I}}{2}$, тогава $\exists\tau : \overline{S}(f,[a,b],\tau) - \underline{s}(f,[a,b],\tau) < \epsilon$.
-Понеже $\underline{s}(f,[a,b],\tau) \leq \underline{I} < \overline{I} \leq \overline{S}(f,[a,b],\tau) \Longrightarrow \epsilon > \overline{S}(f,[a,b],\tau) - \underline{s}(f,[a,b],\tau) \leq \overline{I} - \underline{I} = 2\epsilon$.
+Нека $\epsilon = \frac{\overline{I} - \underline{I}}{2}$, тогава $\exists\tau : \overline{S}(f,[a,b],\tau) - \underline{s}(f,[a,b],\tau) < \epsilon$.
+Понеже $\underline{s}(f,[a,b],\tau) \leq \underline{I} < \overline{I} \leq \overline{S}(f,[a,b],\tau) \Longrightarrow \epsilon > \overline{S}(f,[a,b],\tau) - \underline{s}(f,[a,b],\tau) \geq \overline{I} - \underline{I} = 2\epsilon$.
 Следователно е в сила, че $\epsilon > 2\epsilon \Leftrightarrow \epsilon < 0$.
 Противоречие с допускането че $\epsilon>0 \Longrightarrow \underline{I}=\overline{I}$, от което следва интегруемост на $f$ по Дарбу, а и съответно по Риман, в интервала $[a,b]$.
 
