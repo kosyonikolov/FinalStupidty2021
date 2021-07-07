@@ -1,0 +1,4 @@
+SELECT ME.NAME, M.YEAR, COUNT(*) AS CNT
+FROM movieexec ME 
+JOIN movie M ON ME.cert = M.producerc 
+GROUP BY ME.CERT, ME.NAME, M.YEAR;
