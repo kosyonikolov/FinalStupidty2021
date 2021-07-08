@@ -123,7 +123,7 @@ $A, B, C \subseteq \Omega$.
 където числата $x_1,\dots,x_n$ са възможните стойности на сл. величина, а числата 
 $p_i=P(\{\xi = x_i\}), 0 < p_i < 1, i=1,\dots,n,\dots$ са вероятностите, с които $\xi$ приема тези стойнсти. 
 
-Събитията $\{\xi = x_n\}$ образуват пълна група от несъвместими събития, то $\sum_{i \in \#values(\xi)} p_i = 1$.
+Събитията $\{\xi = x_n\}$ образуват пълна група от несъвместими събития, то $\sum_{i = 1}^{cardinality(\xi)} p_i = 1$, където $cardinality$ връща броя на стойностите на $\xi$.
 
 \subsection{Теглова функция}
 Алтернативен начин да се зададе разпределението на дискретна случайна величина. Представлява формула, която връща
@@ -150,7 +150,7 @@ $p_X(x_k) = P(\{X=k\}) = p_k$
 
 \textbf{Дисперсия} на дискретна случайна величина представлява мярка за разсейване около средната ѝ стойност. Намира се
 по формулата $D\xi = E[\left(\xi - E\xi\right)^2] = \sum_i (x_i - E\xi)^2 p_i = E\xi^2 - (E\xi)^2$. Дисперсията винаги е
-положително число.
+неотрицателно число.
 
 \subsubsection{Свойства на дисперсията}
 \begin{itemize}
@@ -158,7 +158,7 @@ $p_X(x_k) = P(\{X=k\}) = p_k$
     \item ако $\xi = c = const$, то $D\xi = 0$
     \item ако $\xi, \eta$ - сл. величини, то  $D(\xi + \eta) = D\xi + D\eta + 2cov(\xi, \eta)$, 
 
-    където $cov(\xi, \eta) = E\left( \xi*\eta \right) - E\xi * E\eta$ - ковариация на $\xi$ и $\eta$.
+    където $cov(\xi, \eta) = E\left( \xi \eta \right) - E\xi E\eta$ - ковариация на $\xi$ и $\eta$.
 \end{itemize}
 
 \begin{Th}
@@ -192,13 +192,12 @@ $\phi_\xi(t) = \sum_i t^{x_i}p_i$(степенен ред).
 случайната величина. Ако диференцираме още веднъж, втората производна в 1-цата дава възможност да се намери и 
 дисперсията.
 \begin{itemize}
-    \item $\phi_\xi'(t) = \sum_{i} x_it^{x_{i-1}}p_i$\\
-    $\implies  \phi_\xi'(1) = \sum_{i} x_ip_i = E\xi = m_1$
-
-    \item $\phi_\xi''(t) = \sum_{i} x_i(x_{i-1})t^{x_{i-2}}p_i$
+    \item 
+    $\phi_\xi'(t) = \sum_{i} x_it^{x_{i}-1}p_i \implies \phi_\xi'(1) = \sum_{i} x_ip_i = E\xi = m_1$
     
-    $\implies \phi_\xi''(1)=\sum_{i} x_i^2p_i - \sum_{i} x_ip_i$
-    $= m_2 - m_1  = m_2 - \phi_\xi'(1)$
+    \item 
+    $\phi_\xi''(t) = \sum_{i} x_i(x_{i}-1)t^{x_{i}-2}p_i \implies \phi_\xi''(1)=\sum_{i} x_i^2p_i - \sum_{i} x_ip_i
+    = m_2 - m_1  = m_2 - \phi_\xi'(1)$
 \end{itemize}
 
 Математическото очакване намираме директно от $\phi_\xi'(1)$, а дисперсията можем да изведем по следния начин:
@@ -231,7 +230,7 @@ $= \phi_\xi''(1) + \phi_\xi'(1) - (\phi_\xi'(1))^2$
     \hline
 \end{tabular}
 
-Ако $\xi$ и $\eta$ са независими, то $P(\{\xi=x_i,\eta=y_j\}) = P(\{\xi=x_i\})*P(\{\eta=y_j\}) = p_i*q_j$
+Ако $\xi$ и $\eta$ са независими, то $P(\{\xi=x_i,\eta=y_j\}) = P(\{\xi=x_i\}) P(\{\eta=y_j\}) = p_i q_j$
 
 \section{Дискретни разпределения}
 \subsection{Равномерно разпределение}
@@ -378,7 +377,7 @@ $ = \frac{b^2 + a^2 -2ab -2a + 2b + 1 - 1}{12} = \frac{n^2 - 1}{12}$
     \hline
     $S_n$ & 0 & 1 & $\dots$ & k & $\dots$ & n \\
     \hline
-    $P$ & $q^n$ & $n*p*q^{n-1}$ & $\dots$ & $C_n^k * p^k * q^{n-k}$ & $\dots$ & $p^n$ \\
+    $P$ & $q^n$ & $n p q^{n-1}$ & $\dots$ & $C_n^k p^k q^{n-k}$ & $\dots$ & $p^n$ \\
     \hline
 \end{tabular}
 
@@ -391,7 +390,7 @@ $ = \frac{b^2 + a^2 -2ab -2a + 2b + 1 - 1}{12} = \frac{n^2 - 1}{12}$
     $=E(t^{\xi_1}) * \dots * E(t^{\xi_n}) = (tp + q)^n$ 
 \end{itemize}
     
-Последното равенсто излиза от теоремата за независимите са некорелирани в дефиницията за ковариация тя е нула и 
+Последното равенство излиза от теоремата за независимите са и некорелирани в дефиницията за ковариация тя е нула и 
 прехвърляме събираемото с произведението от другата страна.
 
 $E(\xi*\eta) = E\xi + E\eta$
@@ -423,7 +422,7 @@ $E(\xi*\eta) = E\xi + E\eta$
     \hline
     $\tau$ & 1 & 2 & $\dots$ & n & $\dots$ \\
     \hline
-    $P$ & $p$ & $pq$ & $\dots$ & $p * q^{n-1}$ & $\dots$ \\
+    $P$ & $p$ & $pq$ & $\dots$ & $p q^{n-1}$ & $\dots$ \\
     \hline
 \end{tabular}
 
@@ -434,11 +433,11 @@ $E(\xi*\eta) = E\xi + E\eta$
     $= 1 - q + 2q - 2q^2 + 3q^2 -3q^3 + \dots = 1 + q + q^2 + \dots = \frac{1}{1-q} = \frac{1}{p}$
     \item дисперсия : $D\tau = \frac{1-p}{p^2}$ ще я намерим с помощта на пораждащата функция
     \item пораждаща функция : $\phi_\tau(t) = E(t^\tau) = \sum_{i=1}^\infty t^i p q^{i - 1}$
-    $ = tp \sum_{i=0}^\infty (tq)^i = tp*\frac{1}{1-qt} = \frac{pt}{1-qt}$
+    $ = tp \sum_{i=0}^\infty (tq)^i = tp \frac{1}{1-qt} = \frac{pt}{1-qt}$
     \item намиране на дисперсията : 
     $D\tau = E\tau^2 - (E\tau)^2 = E\tau^2 - E\tau + E\tau + (E\tau)^2 $
 
-    $= m_2 - m_1 + m_1 - (m_1)^2 = (m_2 - m_1) + m_1 - (m_1)^2 = \phi_\tau''(1) + \phi_\tau'(1) - (\phi_\tau(1))^2;$
+    $= m_2 - m_1 + m_1 - (m_1)^2 = (m_2 - m_1) + m_1 - (m_1)^2 = \phi_\tau''(1) + \phi_\tau'(1) - (\phi_\tau'(1))^2;$
     
     \vspace{10pt}
     $\phi_\tau'(t) = \frac{p}{(1-qt)^2}; \phi_\tau'(1) = \frac{p}{(1-q)^2} = \frac{1}{p} = E\tau$
@@ -456,7 +455,7 @@ $E(\xi*\eta) = E\xi + E\eta$
 \subsubsection{Дефиниция}
 Нека имаме схема на Бернули, в която броят на опитите $n \rightarrow \infty$ и вероятността за успех е 
 $p \rightarrow 0$. Това е т.нар. схема на Поасон и ако $\pi$ е дискретна случайна величина с разпределение на 
-Поасон с параметър $\lambda = n*p = const$ бележим $\pi \sim Po(\lambda)$
+Поасон с параметър $\lambda = n p = const$ бележим $\pi \sim Po(\lambda)$
 
 Законът на разпределение е
 
@@ -470,7 +469,7 @@ $p \rightarrow 0$. Това е т.нар. схема на Поасон и ако
 \end{tabular}
 
 \subsubsection{Числови характеристики} 
-Тъй като имаме, че $\lambda = n*p$ можем при пресмятанията да използваме очакването и дисперсията на биномното 
+Тъй като имаме, че $\lambda = n p$ можем при пресмятанията да използваме очакването и дисперсията на биномното 
 разпределение. 
 \begin{itemize}
     \item мат очакване : $\lim_{n \rightarrow \infty} ES_n = \lim_{n \rightarrow \infty, p \rightarrow 0} np = \lambda$
@@ -481,22 +480,22 @@ $p \rightarrow 0$. Това е т.нар. схема на Поасон и ако
 \subsubsection{Числови характеристики по втори начин}
 \begin{itemize}
     \item пораждаща функция : $\phi_\pi(t) = E(t^\pi) = \sum_{k \geq 0} t^{k}p_k$
-    $= \sum_{k \geq 0} t^{k} * \frac{e^{-\lambda}\lambda^k}{k!} $
+    $= \sum_{k \geq 0} t^{k} \frac{e^{-\lambda}\lambda^k}{k!} $
 
     $= e^{-\lambda} \sum_{k \geq 0} \frac{(\lambda t)^k}{k!}$
 
-    $= e^{-\lambda} * e^{\lambda t} = e^{\lambda t - \lambda}$
+    $= e^{-\lambda} e^{\lambda t} = e^{\lambda t - \lambda}$
     \item мат очакване : $E(\pi) = \lambda$
     
-    $\phi_\pi'(t) = e^{\lambda t - \lambda} * \lambda$ 
+    $\phi_\pi'(t) = e^{\lambda t - \lambda} \lambda$ 
     
-    $E(\pi) = m_1 = \phi_\pi'(1) = e^0 * \lambda = \lambda$
+    $E(\pi) = m_1 = \phi_\pi'(1) = e^0 \lambda = \lambda$
     
     \item дисперсия $D(\pi) = \lambda$
     
-    $\phi_\pi''(t) = e^{\lambda t - \lambda} * \lambda^2$ 
+    $\phi_\pi''(t) = e^{\lambda t - \lambda} \lambda^2$ 
     
-    $\phi_\pi''(1) = e^0 * \lambda^2$
+    $\phi_\pi''(1) = e^0 \lambda^2$
 
     $D(\pi) = E(\pi^2) - (E(\pi))^2 = m_2 - (m_1)^2 = m_2 - m_1 + m_1 - (m_1)^2 = (m_2 - m_1) + m_1 - (m_1)^2$
 
@@ -521,12 +520,14 @@ $p \rightarrow 0$. Това е т.нар. схема на Поасон и ако
 
 събитие А = {грешка при свързване}, 
 
+дискретна случайна величина X, която брои грешките при свързване при провеждане на 300 разговора.
+
 Ако решаваме със схема на Бернули с n = 300, p = 0,01 , k = 3 (брой настъпвания на събитието)
 
-$P(\#A = 3) = C_{300}^3 * (0,01) ^ 3 * (0,99)^{297}$ , което е доста тежка сметка
+$P(X = 3) = C_{300}^3 (0,01) ^ 3 (0,99)^{297}$ , което е доста тежка сметка
 
 При решаване със схема на Поасон с параметър $\lambda = np = 3$ имаме
 
-$P(\#A = 3) = \frac{3^3 * e^{-3}}{3!}$, като при пресмятането може да ползваме таблици за апроксимиране на e.
+$P(X = 3) = \frac{3^3 e^{-3}}{3!}$, като при пресмятането може да ползваме таблици за апроксимиране на e.
 \end{justify}
 \end{document}
