@@ -55,3 +55,4 @@ GITHUB_API_TOKEN=api-token ./hack/release.sh tag=vx.x.x
 - [Table of consulations](https://docs.google.com/spreadsheets/d/1sbUp2tPAHLIrNS0jF4AVaVNHpwEvqoeAMP6iBrmKSYI/edit?fbclid=IwAR0KNEdX0bZ-u7CafCRClicDFjl4y_36uygYeCe5FKHsx-Fgw689PQqoZ1E#gid=0)
 - [Mega drive](https://mega.nz/folder/HQUn3ARC#QhNhjfoBBu-u4m2tSfvs9w)
 - [Databases reference book](https://people.inf.elte.hu/miiqaai/elektroModulatorDva.pdf)
+- [Skelet-approved OS doc](https://skelet.ludost.net/OS/misc/DI_SI/)
