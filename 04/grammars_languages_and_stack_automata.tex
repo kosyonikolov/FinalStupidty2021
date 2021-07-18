@@ -7,6 +7,8 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{enumitem, hyperref}
+\usepackage[table]{xcolor}
+\usepackage{indentfirst}
 
 \usepackage{amsmath}
 \usepackage{mathtools}
@@ -31,28 +33,27 @@
 
 \tableofcontents
 \pagebreak
-\begin{flushleft}
 
 \section{Контекстно-свободни граматики и езици}
 \subsection{Дадености}
 
-\textit{\textbf{Деф}} - Контекстно-свободна граматика (КСГ) наричаме четворката $G = (V, \Sigma, R, S)$, където $V$ е азбука, $\Sigma$ - множество на терминалите (осн. азбука), $\Sigma \subseteq V$, $V \setminus \Sigma$ - азбука на нетерминалите, $R \subseteq (V \setminus \Sigma) \times V^*$ - множество от правила, $S$ - нетерминал, наречен начален символ.
+\noindent\textit{\textbf{Деф}} - Контекстно-свободна граматика (КСГ) наричаме четворката $G = (V, \Sigma, R, S)$, където $V$ е азбука, $\Sigma$ - множество на терминалите (осн. азбука), $\Sigma \subseteq V$, $V \setminus \Sigma$ - азбука на нетерминалите, $R \subseteq (V \setminus \Sigma) \times V^*$ - множество от правила, $S$ - нетерминал, наречен начален символ.
 
-\textit{\textbf{Деф}} - Ако $(A, v) \in R$ ще го бележим $A \to_G v$, за $A \in V \setminus \Sigma, v \in V^*$ в КСГ $G=(V, \Sigma, R, S)$.
+\noindent\textit{\textbf{Деф}} - Ако $(A, v) \in R$ ще го бележим $A \to_G v$, за $A \in V \setminus \Sigma, v \in V^*$ в КСГ $G=(V, \Sigma, R, S)$.
 
-\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Казваме, че $u = xAy$ се преработва за една стъпка в $v = xv'y$ с помощта на $G$, ако $\exists x, y \in V^*$ и $\exists A \in V \setminus \Sigma: A \to_G v'$ е правило в $R$. Бележим като $u \Rightarrow_G v$.
+\noindent\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Казваме, че $u = xAy$ се преработва за една стъпка в $v = xv'y$ с помощта на $G$, ако $\exists x, y \in V^*$ и $\exists A \in V \setminus \Sigma: A \to_G v'$ е правило в $R$. Бележим като $u \Rightarrow_G v$.
 
-\textit{\textbf{Деф}} - $\Rightarrow_G^*$ е рефлексивно и транзитивно затваряне на $\Rightarrow_G$.
+\noindent\textit{\textbf{Деф}} - $\Rightarrow_G^*$ е рефлексивно и транзитивно затваряне на $\Rightarrow_G$.
 
-\textit{\textbf{Деф}} - $L(G) = \{w | w \in \Sigma^*$ и $ S \Rightarrow_G^* w\}$ за КСГ $G = (V, \Sigma, R, S)$ наричаме език породен от $G$.
+\noindent\textit{\textbf{Деф}} - $L(G) = \{w | w \in \Sigma^*$ и $ S \Rightarrow_G^* w\}$ за КСГ $G = (V, \Sigma, R, S)$ наричаме език породен от $G$.
 
-\textit{\textbf{Деф}} - Един език $L$ се нарича контекстно-свободен език (КСЕ) $\iff \exists$ КСГ $G$: $L(G) = L$.
+\noindent\textit{\textbf{Деф}} - Един език $L$ се нарича контекстно-свободен език (КСЕ) $\iff \exists$ КСГ $G$: $L(G) = L$.
 
-\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Тогава ако $w_0 \Rightarrow_G w_1 \Rightarrow_G \dots \Rightarrow_G w_n$, то ще го наричаме извод с дължина $n$ на $w_n$ от $w_0$ в $G$.
+\noindent\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Тогава ако $w_0 \Rightarrow_G w_1 \Rightarrow_G \dots \Rightarrow_G w_n$, то ще го наричаме извод с дължина $n$ на $w_n$ от $w_0$ в $G$.
 
-\textit{\textbf{Твърдение}} - Всеки регулярен език е КСЕ. 
+\noindent\textit{\textbf{Твърдение}} - Всеки регулярен език е КСЕ. 
 
-\textit{Примери:\\
+\noindent\textit{Примери:
 \begin{enumerate}
     \item Нека $G = (V, \Sigma, R, S)$, $V \setminus \Sigma = \{S, P, N, A, V\}$, $\Sigma = \{a, b, c, d, e\}$, $R = \{P \to_G N, P \to_G AP, S \to_G PVP, V \to_G b, A \to_G d, A \to_G e, N \to_G a, N \to_G c\}$ $\implies$ $S \Rightarrow_G PVP \Rightarrow_G PbP \Rightarrow_G APbAP \Rightarrow_G dNbeN \Rightarrow_G dabec$.
     \item Нека $G = (V, \Sigma, R, S)$, $V = \{S\} \cup \Sigma$, $\Sigma = \{a, b\}$, $R = \{S \to_G aSb, S \to_G \varepsilon\}$ $\implies$ $s \Rightarrow_G aSb \Rightarrow_G a^2Sb^2 \Rightarrow_G a^2b^2$ $\implies$ $L(G) = \{a^nb^n | n \in \mathbb{N}\}$, т.е. не е регулярен.
@@ -76,7 +77,7 @@
 
 \subsection{Граматични дървета}
 
-\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Граматично дърво $D$ с корен $A$ над $G$ дефинираме индуктивно по следния начин:
+\noindent\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Граматично дърво $D$ с корен $A$ над $G$ дефинираме индуктивно по следния начин:
 \begin{enumerate}
     \item Ако $A = a, a \in \Sigma$, то $D$ има единствено листо $a$ и поражда $a$.
     \item Ако $\exists$ правило $A \to_G \varepsilon, A \in V \setminus \Sigma$, то $D$ има единствено листо $\varepsilon$ и поражда $\varepsilon$.
@@ -96,7 +97,7 @@
 \end{tikzpicture}
 \end{center}
 
-\textit{Пример:\\
+\noindent\textit{Пример:
 Нека $G = (V, \Sigma, R, S)$, $\Sigma = \{(, )\}$, $V = {S} \cup \Sigma$, $R = \{S \to_G SS, S \to_G (S), S \to_G \varepsilon\}$. \\
 $D_1$ : $S \Rightarrow_G SS \Rightarrow_G (S)S \Rightarrow_G ((S))S \Rightarrow_G (())S \Rightarrow_G (())(S) \Rightarrow_G (())()$ \\
 $D_2$ : $S \Rightarrow_G SS \Rightarrow_G S(S) \Rightarrow_G S() \Rightarrow_G (S)() \Rightarrow_G ((S))() \Rightarrow_G (())()$.
@@ -182,7 +183,7 @@ $D_2$ : $S \Rightarrow_G SS \Rightarrow_G S(S) \Rightarrow_G S() \Rightarrow_G (
 \end{tikzpicture}
 \end{center}
 
-\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ и изводите $D$ и $D'$ са такива, че:
+\noindent\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ и изводите $D$ и $D'$ са такива, че:
 \begin{itemize}
     \item $D$: $x_1 \Rightarrow_G x_2 \Rightarrow_G \dots \Rightarrow_G x_n$
     \item $D'$: $x'_1 \Rightarrow_G x'_2 \Rightarrow_G \dots \Rightarrow_G x'_n$
@@ -198,7 +199,7 @@ $D_2$ : $S \Rightarrow_G SS \Rightarrow_G S(S) \Rightarrow_G S() \Rightarrow_G (
 където $A, B \in V \setminus \Sigma$ и $u, y, v, z, w \in V^*$. \\
 Означаваме с $D \prec D'$, като $(D, D')$ наричаме предшестване.
 
-\textit{Пример:\\
+\noindent\textit{Пример:
 \begin{itemize}
     \item $D_1$: $S \Rightarrow_G SS \Rightarrow_G (S)S \Rightarrow_G ((S))S \Rightarrow_G (())S \Rightarrow_G (())(S) \Rightarrow_G (())()$,
     \item $D_2$: $S \Rightarrow_G SS \Rightarrow_G (S)S \Rightarrow_G ((S))S \Rightarrow_G ((S))(S) \Rightarrow_G (())(S) \Rightarrow_G (())()$,
@@ -208,16 +209,16 @@ $D_2$ : $S \Rightarrow_G SS \Rightarrow_G S(S) \Rightarrow_G S() \Rightarrow_G (
 $\implies D_1 \prec D_2 \prec D_4$, като $D_3$ не предхожда и не е предхождано от нито едно от другите пораждания.
 }
 
-\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Тогава чрез:
+\noindent\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Тогава чрез:
 \begin{itemize}
     \item $S \xRightarrow[]{L}_G^* w$ ще означаваме пораждането с най-голям приоритет отляво,
     \item $S \xRightarrow[]{R}_G^* w$ ще означаваме пораждането с най-голям приоритет отдясно,
 \end{itemize} 
 където $w \in L(G)$.
 
-\textit{\textbf{Деф}} - Казваме, че изводите $D$ и $D'$ са подобни $\iff$ $(D, D')$ принадлежи на рефлексивното, симетрично и транзитивно затваряне на $\prec$.
+\noindent\textit{\textbf{Деф}} - Казваме, че изводите $D$ и $D'$ са подобни $\iff$ $(D, D')$ принадлежи на рефлексивното, симетрично и транзитивно затваряне на $\prec$.
 
-\textit{\textbf{Твърдение}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Тогава следните твърдения са еквивалентни:
+\noindent\textit{\textbf{Твърдение}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Тогава следните твърдения са еквивалентни:
 \begin{enumerate}
     \item $A \Rightarrow_G^* w$,
     \item $\exists$ граматично дърво с корен $A$, пораждащо $w$,
@@ -228,15 +229,15 @@ $\implies D_1 \prec D_2 \prec D_4$, като $D_3$ не предхожда и н
 
 \subsection{Нормална форма на Чомски}
 
-\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Казваме, че $G$ е в нормална форма на Чомски $\iff$ $R \subseteq (V \setminus \Sigma) \times V^2$, т.е. всяко правило е от вида $A \to_G B_1B_2$, където $A \in V \setminus \Sigma$, а $B_1, B_2 \in V$.
+\noindent\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. Казваме, че $G$ е в нормална форма на Чомски $\iff$ $R \subseteq (V \setminus \Sigma) \times V^2$, т.е. всяко правило е от вида $A \to_G B_1B_2$, където $A \in V \setminus \Sigma$, а $B_1, B_2 \in V$.
 
-\textit{\textbf{Твърдение}} - Нека $G$ е произволна КСГ. Тогава $\exists$ КСГ в нормална форма на Чомски $G'$, такава че $L(G') = L(G) \setminus (\Sigma \cup \{\varepsilon\})$.
+\noindent\textit{\textbf{Твърдение}} - Нека $G$ е произволна КСГ. Тогава $\exists$ КСГ в нормална форма на Чомски $G'$, такава че $L(G') = L(G) \setminus (\Sigma \cup \{\varepsilon\})$.
 
 \section{Стекови автомати}
 
 \subsection{Дадености}
 
-\textit{\textbf{Деф}} - Стеков автомат (СА) се нарича шесторката $M = (K, \Sigma, \Gamma, \Delta, s, F)$, където:
+\noindent\textit{\textbf{Деф}} - Стеков автомат (СА) се нарича шесторката $M = (K, \Sigma, \Gamma, \Delta, s, F)$, където:
 \begin{itemize}
     \item $K$ - азбука на състоянията
     \item $\Sigma$ - основна (входна) азбука
@@ -246,25 +247,25 @@ $\implies D_1 \prec D_2 \prec D_4$, като $D_3$ не предхожда и н
     \item $F$ - множество на заключителните състояния, $F \subseteq K$
 \end{itemize}
 
-\textit{\textbf{Деф}} - Конфигурация се нарича всеки елемент на $K \times \Sigma^* \times \Gamma^*$, т.е. конфигурация е някое $(q, w, \alpha)$, където $q \in K$, $w \in \Sigma^*$, $\alpha \in \Gamma^*$.
+\noindent\textit{\textbf{Деф}} - Конфигурация се нарича всеки елемент на $K \times \Sigma^* \times \Gamma^*$, т.е. конфигурация е някое $(q, w, \alpha)$, където $q \in K$, $w \in \Sigma^*$, $\alpha \in \Gamma^*$.
 
-\textit{\textbf{Деф}} - Казваме, че конфигурацията $(q, w, \alpha)$ се преработва за една стъпка в конфигурацията $(p, w', \zeta)$ $\iff$ $\exists u \in \Sigma \cup \{\varepsilon\}: w=uw'$ и $\exists$ преход $((q, u, \beta), (p, \gamma))$, 
+\noindent\textit{\textbf{Деф}} - Казваме, че конфигурацията $(q, w, \alpha)$ се преработва за една стъпка в конфигурацията $(p, w', \zeta)$ $\iff$ $\exists u \in \Sigma \cup \{\varepsilon\}: w=uw'$ и $\exists$ преход $((q, u, \beta), (p, \gamma))$, 
 такъв че $\alpha = \beta\phi$ и $\zeta = \gamma\phi$, за $\phi \in \Gamma^*$. Означаваме го $(q, w, \alpha) \vdash_M (p, w', \zeta)$. $\vdash_M^*$ е рефлексивното и транзитивно затваряне на $\vdash_M$.
 
-\textit{Примери:\\
+\noindent\textit{Примери:\\
 $((q, u, \varepsilon), (p, a))$ - push, \\
 $((q, u, a), (p, \varepsilon))$ - pop.
 }
 
-\textit{\textbf{Деф}} - Казваме, че $w \in \Sigma^*$ се приема (разпознава) от СА $M = (K, \Sigma, \Gamma, \Delta, s, F)$ $\iff$ $(s, w, \varepsilon) \vdash_M^* (f, \varepsilon, \varepsilon)$, за $w \in \Sigma^*, f \in F$.
+\noindent\textit{\textbf{Деф}} - Казваме, че $w \in \Sigma^*$ се приема (разпознава) от СА $M = (K, \Sigma, \Gamma, \Delta, s, F)$ $\iff$ $(s, w, \varepsilon) \vdash_M^* (f, \varepsilon, \varepsilon)$, за $w \in \Sigma^*, f \in F$.
 
-\textit{\textbf{Деф}} - Нека $M = (K, \Sigma, \Gamma, \Delta, s, F)$ е СА. Тогава $L(M) = \{w | w \in \Sigma^*$ и $ (s, w, \varepsilon) \vdash_M^* (f, \varepsilon, \varepsilon), f \in F\}$ е езикът разпознаван от $M$.
+\noindent\textit{\textbf{Деф}} - Нека $M = (K, \Sigma, \Gamma, \Delta, s, F)$ е СА. Тогава $L(M) = \{w | w \in \Sigma^*$ и $ (s, w, \varepsilon) \vdash_M^* (f, \varepsilon, \varepsilon), f \in F\}$ е езикът разпознаван от $M$.
 
-\textit{\textbf{Деф}} - Един СА $M = (K, \Sigma, \Gamma, \Delta, s, F)$ се нарича прост ако за всяко правило за преход $((q, u, \beta), (p, \zeta)) \in \Delta$ такова, че $q \neq s$, е изпълнено, че $\beta \in \Gamma$ и $|\zeta| \leq 2$.
+\noindent\textit{\textbf{Деф}} - Един СА $M = (K, \Sigma, \Gamma, \Delta, s, F)$ се нарича прост ако за всяко правило за преход $((q, u, \beta), (p, \zeta)) \in \Delta$ такова, че $q \neq s$, е изпълнено, че $\beta \in \Gamma$ и $|\zeta| \leq 2$.
 
-\textit{\textbf{Деф}} - Два стекови автомата $M_1$ и $M_2$ са еквивалентни $\iff L(M_1) = L(M_2)$.
+\noindent\textit{\textbf{Деф}} - Два стекови автомата $M_1$ и $M_2$ са еквивалентни $\iff L(M_1) = L(M_2)$.
 
-\textit{Пример: Нека $M = (K, \Sigma, \Gamma, \Delta, s, F)$, където $K = \{s, q, f\}$, $\Gamma = \{a, b, c\}$, $\Sigma = \{a, b\}$, $F = \{f\}$, $\Delta = \{$$((s, \varepsilon, \varepsilon), (q, c))$, $((q, a, c), (q, ac))$, $((q, a, a), (q, aa))$, $((q, a, b), (q, \varepsilon))$, $((q, b, c), (q, bc))$, $((q, b, b), (q, bb))$, $((q, b, a), (q, \varepsilon))$, $((q, \varepsilon, c), (f, \varepsilon))$$\}$.} \\
+\noindent\textit{Пример: Нека $M = (K, \Sigma, \Gamma, \Delta, s, F)$, където $K = \{s, q, f\}$, $\Gamma = \{a, b, c\}$, $\Sigma = \{a, b\}$, $F = \{f\}$, $\Delta = \{$$((s, \varepsilon, \varepsilon), (q, c))$, $((q, a, c), (q, ac))$, $((q, a, a), (q, aa))$, $((q, a, b), (q, \varepsilon))$, $((q, b, c), (q, bc))$, $((q, b, b), (q, bb))$, $((q, b, a), (q, \varepsilon))$, $((q, \varepsilon, c), (f, \varepsilon))$$\}$.} \\
 
 Нека се опитаме да разпознаем $w = baaaabbb \implies$
 
@@ -287,10 +288,9 @@ $((q, u, a), (p, \varepsilon))$ - pop.
 
 \subsection{Връзка между стековите автомати и КСГ}
 
-\textit{\textbf{Thm}} - Един език $L$ е КСЕ $\iff$ $L$ се разпознава от стеков автомат.
+\noindent\textit{\textbf{Thm}} - Един език $L$ е КСЕ $\iff$ $L$ се разпознава от стеков автомат.
 
-\textit{\textbf{Половин доказателство:}} \\
-
+\noindent\textit{\textbf{Половин доказателство:}}
 Ще докажем, че щом $L$ е КСЕ, то $L$ се разпознава от някой стеков автомат. За целта нека $G = (V, \Sigma, R, S)$ е КСГ, такава че $L = L(G)$. Ще построим автомат $M = (K, \Sigma, \Gamma, \Delta, s, F)$, където $K = \{s, q\}$, $\Gamma = V$, $F = \{q\}$ и $\Delta = \{((s, \varepsilon, \varepsilon), (q, S))\} \cup \{((q, \varepsilon, A), (q, \gamma)) | A \to_G \gamma \in R\} \cup \{((q, a, a), (q, \varepsilon)) | a \in \Sigma\}$.
 
 Преходите ще разделим на три типа:
@@ -300,7 +300,7 @@ $((q, u, a), (p, \varepsilon))$ - pop.
     \item $((q, a, a), (q, \varepsilon))$, за всяко $a \in \Sigma$
 \end{enumerate}
 
-\textit{Пример - Нека $G = (V, \Sigma, R, S)$, $V = \{S\} \cup \Sigma$, $\Sigma = \{a, b, c\}$, $R = \{S \to_G c, S \to_G aSa, S \to_G bSb\}$.} \\
+\noindent\textit{Пример - Нека $G = (V, \Sigma, R, S)$, $V = \{S\} \cup \Sigma$, $\Sigma = \{a, b, c\}$, $R = \{S \to_G c, S \to_G aSa, S \to_G bSb\}$.} \\
 \textit{Очевидно $L(G) = \{wcw^R | w \in \{a, b\}^*\}$}. \\
 \textit{Построяваме автомат $M = (K, \Sigma, \Gamma, \Delta, s, \{q\})$, където $K = \{s, q\}$, $\Gamma = V$, $\Delta = \{$$((s, \varepsilon, \varepsilon), (q, S))$, $((q, \varepsilon, S), (q, aSa))$, $((q, \varepsilon, S), (q, bSb))$, $((q, \varepsilon, S), (q, c))$, $((q, a, a), (q, \varepsilon))$, $((q, b, b), (q, \varepsilon))$, $((q, c, c), (q, \varepsilon))$$\}$.}
 \textit{Ще разпознаем думата $bacab$.}
@@ -321,46 +321,60 @@ q & $\varepsilon$ & $\varepsilon$ & 6 \\
 \hline
 \end{tabular}
 
-\textit{\textbf{Лема 1}} - Нека $w \in \Sigma^*$ и $\alpha \in ((V \setminus \Sigma) \times V^*) \cup \{\varepsilon\}$.
+\noindent\textit{\textbf{Лема 1}} - Нека $w \in \Sigma^*$ и $\alpha \in (V \setminus \Sigma) V^* \cup \{\varepsilon\}$.
+С други думи, $\alpha$ или започва с нетерминал, или е празна дума.
 Тогава $S \xRightarrow[]{L}_G^* w\alpha$ $\iff$ $(q, w, S) \vdash_M^* (q, \varepsilon, \alpha)$
 
 Приемаме, че \textit{\textbf{Лема 1}} е доказана и тогава за някоя дума $w \in L(G)$ имаме, че тя се състои само от терминали, т.е. единствената възможна стойност на $\alpha$ в този случай е $\varepsilon \implies$ \\
 $w \in L(G) \iff S \xRightarrow[]{L}_G^* w \iff (s, w, \varepsilon) \vdash_M (q, w, S) \vdash_M^* (q, \varepsilon, \varepsilon)$ \\
 $\implies$ доказахме, че $L(G) = L(M)$.
 
-\textit{\textbf{Доказателство на Лема 1:}} \\
-
-($\implies$) \\
-Нека $S \xRightarrow[]{L}_G^* w\alpha$, където $w \in \Sigma^*$ и $\alpha \in ((V \setminus \Sigma) \times V^*) \cup \{\varepsilon\}$. \\
+\noindent\textit{\textbf{Доказателство на Лема 1 ($\implies$):}} 
+Нека $S \xRightarrow[]{L}_G^* w\alpha$, където $w \in \Sigma^*$ и $\alpha \in (V \setminus \Sigma) V^* \cup \{\varepsilon\}$. \\
 Ще докажем чрез индукция относно \textbf{дължината на извода}, че $(q, w, S) \vdash_M^* (q, \varepsilon, \alpha)$
 
-\textbf{База} - Ако $n = 0$, то $w=\varepsilon$, $\alpha = S$ и очевидно, че $(q, \varepsilon, S) \vdash_M^* (q, \varepsilon, S)$.
+\noindent\textbf{База} - Ако $n = 0$, то $w=\varepsilon$, $\alpha = S$ и очевидно, че $(q, \varepsilon, S) \vdash_M^* (q, \varepsilon, S)$.
 
-\textbf{ИП} - Допускаме, че лемата е вярна за някое $n \geq 0$.
+\noindent\textbf{ИП} - Допускаме, че лемата е вярна за някое $n \geq 0$.
 
-\textbf{Стъпка} - Ще я докажем за някое $n + 1$. Тогава: \\
+\noindent\textbf{Стъпка} - Ще я докажем за някое $n + 1$. Тогава:
 
-$S = u_0 \xRightarrow[]{L}_G u_1 \xRightarrow[]{L}_G \dots \xRightarrow[]{L}_G u_n \xRightarrow[]{L}_G u_{n+1} = w\alpha$. \\
-От ИП имаме, че $u_n = xA\beta$, където $x \in \Sigma^*, A \in V \setminus \Sigma, \beta \in V^*$ и $A \to_G \gamma \in R$, защото извършваните преходи са с \textbf{най-ляв приоритет}. \\
-Тогава $w\alpha = x\gamma\beta$ и от ИП $(q, x, S) \vdash_M^* (q, \varepsilon, A\beta)$. \\
-Разглеждаме последователно за $w = xy$, където $x, y \in \Sigma^*$, $y\alpha = \gamma\beta$, т.е. $y$ е начало на $\gamma$: \\
+$S = u_0 \xRightarrow[]{L}_G u_1 \xRightarrow[]{L}_G \dots \xRightarrow[]{L}_G u_n \xRightarrow[]{L}_G u_{n+1} = w\alpha$.
 
-$(q, xy, S) \overset{[1]}{\vdash_M^*} (q, y, A\beta) \overset{[2]}{\vdash_M} (q, y, \gamma\beta) \overset{[3]}{\vdash_M^*} (q, \varepsilon, \alpha)
-\implies$ доказахме твърдението.
+Нека разгледаме думата $u_n$. Знаем, че $u_n \xRightarrow[]{L}_G u_{n+1}$, следователно в $u_n$ има поне един нетерминал.
+От друга страна, това е извод с \textbf{приоритет от ляво}, следователно трябва да се интересуваме единствено от най-левия нетерминал.
+Можем да запишем $u_n = xA\beta$, където $x \in \Sigma^*$, $A$ е нетерминал и $\beta \in V^*$.
+Понеже $A$ е най-левият нетерминал, то има правило $A \to_G \gamma$, което се ползва, за да се получи $u_{n+1} = w \alpha$. 
+Излиза, че $x \gamma \beta = w \alpha$.
 
-\textbf{Обосновка} - [1] - от ИП, [2] - правило от тип 2, [3] - правило от тип 3. 
+Понеже $x$ се състои само от терминали, а $A\beta$ почва с нетерминал и изводът е с дължина $n$, 
+то от ИП получаме $(q, x, S) \vdash_M^* (q, \varepsilon, A\beta)$. От $x \gamma \beta = w \alpha$ излиза, че $x$ е представка на $w \Rightarrow$
+$w = xy, y \in \Sigma^*$. Получаваме следната връзка между различните представяния на $w \alpha$:
+\begin{center}
+\begin{tabular}{ |c c c|}
+    \hline
+    \cellcolor[HTML]{00FF00} $w$ & \cellcolor[HTML]{00FF00}  & \cellcolor[HTML]{FF0000} $\alpha$ \\ 
+    \hline
+    \cellcolor[HTML]{00FF00} $x$ & \cellcolor[HTML]{00FF00} $y$ & \cellcolor[HTML]{FF0000} $\alpha$ \\  
+    \hline
+    \cellcolor[HTML]{FFFF00} $x$ & \cellcolor[HTML]{00FFFF} $\gamma$ & \cellcolor[HTML]{00FFFF} $\beta$   \\ 
+    \hline
+\end{tabular}
+\end{center}
 
-($\impliedby$) \\
-Нека $(q, w, S) \vdash_M^* (q, \varepsilon, \alpha)$, където $w \in \Sigma^*$ и $\alpha \in ((V \setminus \Sigma) \times V^*) \cup \{\varepsilon\}$. \\
+Следователно, $y\alpha = \gamma \beta$. Добавяме $y$ като наставка в твърдението за автомата, получено от ИП:
+$(q, xy, S) \overset{[1]}{\vdash_M^*} (q, y, A\beta) \overset{[2]}{\vdash_M} (q, y, \gamma\beta) = (q, y, y \alpha) \overset{[3]}{\vdash_M^*} (q, \varepsilon, \alpha)
+\implies$ доказахме твърдението. \textbf{Обосновка} - [1] - от ИП, [2] - правило от тип 2, [3] - правило от тип 3. 
+
+\noindent\textbf{Доказателство ($\impliedby$): } 
+Нека $(q, w, S) \vdash_M^* (q, \varepsilon, \alpha)$, където $w \in \Sigma^*$ и $\alpha \in (V \setminus \Sigma)V^* \cup \{\varepsilon\}$.
 Ще докажем чрез индукция относно \textbf{броя на преходите от тип \ref{transition_type:two}} в изчислението на автомата $M$, че $S \xRightarrow[]{L}_G^* w\alpha$.
 
-\textbf{База} - Ако $n = 0$, то $w = \varepsilon, \alpha = S$, то очевидно $S \xRightarrow[]{L}_G^* S$.
+\noindent\textbf{База} - Ако $n = 0$, то $w = \varepsilon, \alpha = S$, то очевидно $S \xRightarrow[]{L}_G^* S$.
 
-\textbf{ИП} - Допускаме, че лемата е вярна за някое $n \geq 0$.
+\noindent\textbf{ИП} - Допускаме, че лемата е вярна за някое $n \geq 0$.
 
-\textbf{Стъпка} - Ще я докажем за някое $n + 1$. Тогава: \\
-
-Предполагаме, че $(q, w, S) \vdash_M^* (q, \varepsilon, \alpha)$ е изпълнено чрез $n+1$ преходи от тип 2 и разглеждаме последния такъв преход:
+\noindent\textbf{Стъпка} - Ще я докажем за някое $n + 1$. Нека предположим, че $(q, w, S) \vdash_M^* (q, \varepsilon, \alpha)$ е изпълнено чрез $n+1$ преходи от тип 2 и разглеждаме последния такъв преход:
 
 $(q, w, S) \vdash_M^* (q, y, A\beta) \vdash_M (q, y, \gamma\beta) \vdash_M^* (q, \varepsilon, \alpha)$,
 
@@ -374,24 +388,23 @@ $\square$
 
 \subsection{Свойства на затвореност}
 
-\textit{\textbf{Твърдение}} - Множеството на КСЕ е затворено относно операциите обединение, конкатенация и звезда на Клини.
+\noindent\textit{\textbf{Твърдение}} - Множеството на КСЕ е затворено относно операциите обединение, конкатенация и звезда на Клини.
 
-\textit{\textbf{Твърдение}} - Множеството на КСЕ \textbf{НЕ} е затворено относно операциите сечение и допълнение.
+\noindent\textit{\textbf{Твърдение}} - Множеството на КСЕ \textbf{НЕ} е затворено относно операциите сечение и допълнение.
 
 \subsection{Лема за покачването за КСЕ}
 
-\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$. Тогава дефинираме: 
+\noindent\textit{\textbf{Деф}} - Нека $G = (V, \Sigma, R, S)$. Тогава дефинираме: 
+\[\Phi(G) = \mmax(\{|\alpha| \hspace{2mm} | \hspace{2mm} A \to_G \alpha \in R, A \in V \setminus \Sigma, \alpha \in V^*\}) \]
 
-$\Phi(G) = \mmax(\{|\alpha| \hspace{2mm} | \hspace{2mm} A \to_G \alpha \in R, A \in V \setminus \Sigma, \alpha \in V^*\})$.
+\noindent\textit{\textbf{Забележка}} - Може да разглеждаме $\Phi(G)$ като разклоненост (branching factor) на всички граматични дървета от $G$.
 
-\textit{\textbf{Забележка}} - Може да разглеждаме $\Phi(G)$ като разклоненост (branching factor) на всички граматични дървета от $G$.
+\noindent\textit{\textbf{Лема 2}} - За всяка КСГ $G = (V, \Sigma, R, S)$ и за всяко граматично дърво $D$ пораждащо думи от $L(G)$ дължината на извода на $D$ не надвищава $\Phi(G)^h$, където $h$ е височината на $D$.
 
-\textit{\textbf{Лема 2}} - За всяка КСГ $G = (V, \Sigma, R, S)$ и за всяко граматично дърво $D$ пораждащо думи от $L(G)$ дължината на извода на $D$ не надвищава $\Phi(G)^h$, където $h$ е височината на $D$.
-
-\textit{\textbf{Thm (лема за разрастването за КСЕ)}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. 
+\noindent\textit{\textbf{Thm (лема за разрастването за КСЕ)}} - Нека $G = (V, \Sigma, R, S)$ е КСГ. 
 Тогава $\forall w \in L(G): |w| > \Phi(G)^{|V \setminus \Sigma|}$  $\exists$ думи $u, v, x, y, z \in \Sigma^*$ : $w=uvxyz$, $vy \neq \varepsilon$ и $\forall n \in \mathbb{N}$ е изпълнено, че $uv^nxy^nz \in L(G)$.
 
-\textit{\textbf{Доказателство:}}
+\noindent\textit{\textbf{Доказателство:}}
 
 Нека $T$ е граматичното дърво с \textbf{най-малък брой листа}, което поражда думата $w = uvxyz$, 
 където $w \in L(G)$ и $|w| > \Phi(G)^{|V \setminus \Sigma|}$. 
@@ -467,5 +480,4 @@ $\square$
 \end{enumerate}
 
 
-\end{flushleft}
 \end{document}
