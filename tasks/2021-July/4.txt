@@ -1,0 +1,4 @@
+а) - between
+в) - right join (вместо A left join B, имаше B right join A)
+
+условие: като излезе...
