@@ -27,8 +27,8 @@
 
 \renewcommand\qedsymbol{$\blacksquare$}
 
-\title{Държавен, юли 2021}
-\date{July 15 2021}
+\title{Държавен СИ, юли 2021}
+\date{13 юли 2021}
 
 \begin{document}
 
@@ -37,25 +37,27 @@
 \section{Задача 7}
 Да се реши определеният интеграл.
 
-$\int_{-\pi/2}^{\pi/2} e^{|x|}(sinx + cosx) dx$
+\begin{gather*}
+    \int_{-\pi/2}^{\pi/2} e^{|x|}(sinx + cosx) \; dx
+\end{gather*}
 
 \vspace{10pt}
 
 \textbf{Решение}: 
 
-Ясно е, че $e^{|x|} \geq 0$ за всяко реално $x$. Тогава имаме, че
-\begin{math}
+Ясно е, че $e^{|x|} > 0$ за всяко реално $x$. Тогава имаме, че
+\begin{gather*}
     e^{|x|} = 
     \begin{cases}
         e^x, x \geq 0 \\
         e^{-x}, x < 0
     \end{cases}
-\end{math}
+\end{gather*}
 
 \begin{gather*} 
     \int_{-\pi/2}^{\pi/2} e^{|x|}(sinx + cosx) dx \\
-    = \int_{-\pi/2}^{0} e^{-x}(sinx + cosx) dx + \int_{0}^{\pi/2} e^{x}(sinx + cosx) dx \\
-    = I_1 + I_2 + C
+    = \int_{-\pi/2}^{0} e^{-x}(sinx + cosx) \; dx + \int_{0}^{\pi/2} e^{x}(sinx + cosx) \; dx \\
+    = I_1 + I_2
 \end{gather*}
 
 \begin{gather*}
@@ -67,7 +69,6 @@ $\int_{-\pi/2}^{\pi/2} e^{|x|}(sinx + cosx) dx$
     = - 1
 \end{gather*}
 
-
 \begin{gather*}
     I_2 = \int_{0}^{\pi/2} e^{x}(sinx + cosx) \; dx \\
     = \int_{0}^{\pi/2} e^{x}sinx \; dx + \int_{0}^{\pi/2} e^{x}cosx \; dx \\
@@ -78,7 +79,7 @@ $\int_{-\pi/2}^{\pi/2} e^{|x|}(sinx + cosx) dx$
 \end{gather*}
 
 \begin{gather*}
-    \Longrightarrow  I_1 + I_2 + C = -1 + e^{\pi/2} + C
+    \Longrightarrow  I_1 + I_2 = -1 + e^{\pi/2}
 \end{gather*}
 
 \end{document}
